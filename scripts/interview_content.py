@@ -33,10 +33,10 @@ THEME_CODES = {
 
 # 20 görüşme: her Dreyfus seviyesinde 4 katılımcı (2 teknik + 2 pedagojik) — tez n=20
 K_TO_PARTICIPANT_ID: Dict[int, int] = {
-    1: 13, 2: 14, 3: 19, 4: 26,       # Acemi (2T+2P)
-    5: 7, 6: 20, 7: 8, 8: 4,           # K5–K7 ileri başlangıç; K8 yetkin (tez 4.5.1)
-    9: 51, 10: 68, 11: 17, 12: 15,     # İleri başlangıç + yetkin (2T+2P)
-    13: 1, 14: 5, 15: 27, 16: 6,       # Usta (2T+2P) — K14 tez
+    1: 29, 2: 14, 3: 19, 4: 13,       # Acemi (2T+2P)
+    5: 7, 6: 8, 7: 23, 8: 4,           # İleri başlangıç + K8 yetkin (tez alıntıları)
+    9: 20, 10: 24, 11: 34, 12: 15,     # Yetkin (2T+2P)
+    13: 1, 14: 5, 15: 10, 16: 3,       # Usta (2T+2P) — K14 tez
     17: 2, 18: 18, 19: 12, 20: 16,    # Uzman (2T+2P) — K17,K20 tez
 }
 
@@ -308,7 +308,7 @@ def build_interview_sections(
 ) -> Tuple[Dict[str, str], Dict[str, Any]]:
     profile = THESIS_K_PROFILES[k_code]
     cp = p.get("competency_profile", {})
-    level = cp.get("technical_level", "competent")
+    level = cp.get("stratum_level") or cp.get("technical_level", "competent")
     dom = cp.get("dominant_domain", "technical")
     adaptive = p.get("adaptive_block", {}).get("tasks", [])
     fixed = p.get("fixed_block", {}).get("tasks", [])

@@ -9,7 +9,7 @@
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı İleri Başlangıç seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Token Teşvik görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 44) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı İleri Başlangıç seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Sertifika NFT görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 44) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. İleri Başlangıç profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -32,7 +32,7 @@ Atanan persona Pedagojik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Tamamlayıcı modda persona benim bilmediğim şeyleri tamamlıyordu; bu sayede eksik yönlerimi keşfettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Token Teşvik oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
+Tamamlayıcı modda persona benim bilmediğim şeyleri tamamlıyordu; bu sayede eksik yönlerimi keşfettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Sertifika NFT oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 

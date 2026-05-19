@@ -2,14 +2,14 @@
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
 **Görüşme kodu:** INT-017 · **Katılımcı:** **K17**
-**Dreyfus:** Uzman · **Alan:** Pedagojik
+**Dreyfus:** Uzman · **Alan:** Teknik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Uzman seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Token Teşvik görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 36) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Uzman seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Sertifika NFT görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 36) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Uzman profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -32,7 +32,7 @@ Persona benim seviyeme uygun derinlikte yanıtlar verebildi; yüzeysel açıklam
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Her iki modda da rahat çalıştım. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Token Teşvik oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
+Her iki modda da rahat çalıştım. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Sertifika NFT oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -59,7 +59,7 @@ Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küç
 Görsel içeriklerin artırılması, etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
 
 ### 6.2 İdeal senaryo
-Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
+Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Teknik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K17 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Uzman, Pedagojik alan. Ortalama NASA-TLX 36; öğrenme kazanımı 18 puan. Tercih: Tamamlayıcı. Kodlar: UZM, BEN, MDF. Örneklem κ = .84.
+K17 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Uzman, Teknik alan. Ortalama NASA-TLX 36; öğrenme kazanımı 18 puan. Tercih: Tamamlayıcı. Kodlar: UZM, BEN, MDF. Örneklem κ = .84.
 
 ---
 

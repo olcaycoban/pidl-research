@@ -2,14 +2,14 @@
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
 **Görüşme kodu:** INT-003 · **Katılımcı:** **K3**
-**Dreyfus:** Acemi · **Alan:** Pedagojik
+**Dreyfus:** Acemi · **Alan:** Teknik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Çoklu İmza görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 47) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Öğrenme Kaydı görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 46) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Acemi profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -32,7 +32,7 @@ Persona bana çok karmaşık kodlar göstermek yerine temel kavramları anlatara
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Öğrenme Kaydı oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -46,7 +46,7 @@ Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda d
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 12 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
+Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 11 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
 Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Tamamlayıcı mod, ardından Tamamlayıcı mod öneririm.
@@ -59,7 +59,7 @@ Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küç
 Görsel içeriklerin artırılması, etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
 
 ### 6.2 İdeal senaryo
-Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
+Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Teknik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K3 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Pedagojik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Tamamlayıcı. Kodlar: UZM, ESL, BDG. Örneklem κ = .84.
+K3 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Teknik alan. Ortalama NASA-TLX 46; öğrenme kazanımı 11 puan. Tercih: Tamamlayıcı. Kodlar: UZM, ESL, BDG. Örneklem κ = .84.
 
 ---
 

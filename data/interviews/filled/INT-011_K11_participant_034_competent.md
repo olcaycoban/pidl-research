@@ -2,14 +2,14 @@
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
 **Görüşme kodu:** INT-011 · **Katılımcı:** **K11**
-**Dreyfus:** Yetkin · **Alan:** Pedagojik
+**Dreyfus:** Yetkin · **Alan:** Teknik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Yetkin seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Token Teşvik görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 42) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Yetkin seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Diploma Doğrulama görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 42) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Yetkin profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -19,7 +19,7 @@ Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyor
 ## BÖLÜM 2 — AI Persona *(4.5.1)*
 
 ### 2.1 Persona deneyimi
-Atanan persona Pedagojik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci adil ve anlaşılır göründü; zorlandığım anlarda persona sabırlı ve yönlendirici kaldı.
+Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci adil ve anlaşılır göründü; zorlandığım anlarda persona sabırlı ve yönlendirici kaldı.
 
 ### 2.2 İletişim kalitesi
 İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; persona farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; özet sunum seçeneği işime yarardı. Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı.
@@ -32,7 +32,7 @@ Atanan persona Pedagojik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Token Teşvik oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Diploma Doğrulama oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -59,7 +59,7 @@ Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küç
 Görsel içeriklerin artırılması, etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
 
 ### 6.2 İdeal senaryo
-Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
+Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Teknik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K11 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Yetkin, Pedagojik alan. Ortalama NASA-TLX 42; öğrenme kazanımı 14 puan. Tercih: Tamamlayıcı. Kodlar: BDG, TAM, MDF. Örneklem κ = .84.
+K11 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Yetkin, Teknik alan. Ortalama NASA-TLX 42; öğrenme kazanımı 14 puan. Tercih: Tamamlayıcı. Kodlar: BDG, TAM, MDF. Örneklem κ = .84.
 
 ---
 

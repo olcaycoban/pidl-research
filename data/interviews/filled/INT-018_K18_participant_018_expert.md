@@ -46,7 +46,7 @@ Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda d
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 18 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
+Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 17 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
 Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Tamamlayıcı mod, ardından Tamamlayıcı mod öneririm.
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K18 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Uzman, Teknik alan. Ortalama NASA-TLX 37; öğrenme kazanımı 18 puan. Tercih: Tamamlayıcı. Kodlar: ADP, KUL. Örneklem κ = .84.
+K18 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Uzman, Teknik alan. Ortalama NASA-TLX 37; öğrenme kazanımı 17 puan. Tercih: Tamamlayıcı. Kodlar: ADP, KUL. Örneklem κ = .84.
 
 ---
 

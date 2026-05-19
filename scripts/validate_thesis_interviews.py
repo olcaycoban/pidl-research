@@ -42,8 +42,9 @@ def main() -> None:
             errors.append(f"K{k}: tez alıntısı eksik — {REQUIRED_QUOTES[k][:40]}...")
 
         p = json.loads(list(SYNTHETIC.glob(f"participant_{pid:03d}_*.json"))[0].read_text())
-        dom = p["competency_profile"]["dominant_domain"]
-        lv = p["competency_profile"]["technical_level"]
+        cp = p["competency_profile"]
+        dom = cp["dominant_domain"]
+        lv = cp.get("stratum_level") or cp["technical_level"]
         if dom == "technical":
             tech += 1
         else:

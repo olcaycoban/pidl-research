@@ -9,7 +9,7 @@
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Usta seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Öğrenme Kaydı görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 39) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Usta seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Çoklu İmza görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 39) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Usta profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -32,7 +32,7 @@ Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Öğrenme Kaydı oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 

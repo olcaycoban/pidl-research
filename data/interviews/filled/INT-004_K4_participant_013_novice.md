@@ -1,15 +1,15 @@
 # Form 4 — Yarı Yapılandırılmış Görüşme (DOLDURULMUŞ)
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
-**Görüşme kodu:** INT-001 · **Katılımcı:** **K1**
-**Dreyfus:** Acemi · **Alan:** Teknik
+**Görüşme kodu:** INT-004 · **Katılımcı:** **K4**
+**Dreyfus:** Acemi · **Alan:** Pedagojik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platform sade ve anlaşılırdı; görevler ve testler birbirini takip ediyordu, kaybolmadım. Özellikle Diploma Doğrulama görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 48) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Sertifika NFT görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 47) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Acemi profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -19,7 +19,7 @@ Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyor
 ## BÖLÜM 2 — AI Persona *(4.5.1)*
 
 ### 2.1 Persona deneyimi
-Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci adil ve anlaşılır göründü; zorlandığım anlarda persona sabırlı ve yönlendirici kaldı.
+Atanan persona Pedagojik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci adil ve anlaşılır göründü; zorlandığım anlarda persona sabırlı ve yönlendirici kaldı.
 
 ### 2.2 İletişim kalitesi
 İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; persona farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; özet sunum seçeneği işime yarardı. Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı.
@@ -29,10 +29,10 @@ Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu
 ## BÖLÜM 3 — Adaptif Mod
 
 ### 3.1 Adaptif geçiş
-Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
+Hangi görevde hangi moda geçtiğimi tam takip etmedim; süreç tutarlı ilerledi. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Diploma Doğrulama oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Sertifika NFT oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -56,10 +56,10 @@ Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küç
 ## BÖLÜM 6 — Geliştirme *(4.5.4)*
 
 ### 6.1 İyileştirme
-Daha fazla örnek senaryo ve hazır kod şablonu eklenebilir. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
+Görsel içeriklerin artırılması, etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
 
 ### 6.2 İdeal senaryo
-Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Teknik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
+Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
 
 ---
 
@@ -71,13 +71,13 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K1 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Teknik alan. Ortalama NASA-TLX 48; öğrenme kazanımı 12 puan. Tercih: Tamamlayıcı. Kodlar: IYI, KUL. Örneklem κ = .84.
+K4 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Pedagojik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Tamamlayıcı. Kodlar: ADP, KUL. Örneklem κ = .84.
 
 ---
 
 ## Tematik kodlama (12 alt tema, 4 ana tema)
 
-| Kod | Tema | K1 |
+| Kod | Tema | K4 |
 |-----|------|:--:|
 | UZM | 4.5.1 Personanın uzmanlık algısı | — |
 | ILE | 4.5.1 İletişim stili | — |
@@ -88,11 +88,11 @@ K1 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Ac
 | BDG | 4.5.3 Bilgi değişimi | — |
 | ZOR | 4.5.3 Zorlayıcı noktalar | — |
 | KUL | 4.5.4 Kullanılabilirlik | ✓ |
-| ADP | 4.5.4 Adaptif mod algısı | — |
-| IYI | 4.5.4 İyileştirme önerisi | ✓ |
+| ADP | 4.5.4 Adaptif mod algısı | ✓ |
+| IYI | 4.5.4 İyileştirme önerisi | — |
 | BAS | Zaman / bilişsel baskı | — |
 
-**Aktif:** IYI, KUL
+**Aktif:** ADP, KUL
 
 ---
 

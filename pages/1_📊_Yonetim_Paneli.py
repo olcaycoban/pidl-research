@@ -442,8 +442,8 @@ with tab1:
                 "Yaş": p.age,
                 "Cinsiyet": p.gender,
                 "Eğitim": p.education,
-                "Teknik": p.technical_score,
-                "Pedagojik": p.pedagogical_score,
+                "Teknik (CAQ/60)": p.technical_score,
+                "Pedagojik (CAQ/60)": p.pedagogical_score,
                 "Seviye": p.competency_level.value if hasattr(p.competency_level, 'value') else str(p.competency_level),
                 "Tamamlandı": "✅" if p.completed else "⏳",
                 "Süre (dk)": p.total_duration_minutes or 0
