@@ -1002,6 +1002,125 @@ if len(data["codes"]) > 0:
 else:
     st.warning("⚠️ Henüz analiz edilebilecek kod bulunmuyor. Katılımcılar görevleri tamamladıkça bu bölüm dolacaktır.")
 
+# 9. YARI YAPILANDIRILMIŞ GÖRÜŞMELER (Tez 4.5 — K1–K20)
+st.markdown("---")
+st.markdown("## 🎙️ Yarı Yapılandırılmış Görüşmeler (Tez 4.5)")
+
+try:
+    from src.interview_loader import (
+        load_coding_matrix,
+        load_interview_index,
+        load_transcript,
+    )
+
+    _iv_idx = load_interview_index()
+    _iv_matrix = load_coding_matrix()
+
+    if not _iv_idx or _iv_matrix.empty:
+        st.warning(
+            "Görüşme verisi bulunamadı. Yerelde: "
+            "`python3 scripts/generate_interview_forms.py`"
+        )
+    else:
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Görüşme sayısı", _iv_idx.get("n_interviews", 20))
+        c2.metric("Cohen's κ", f"{_iv_idx.get('cohens_kappa', 0.84):.2f}")
+        c3.metric("Ort. süre (dk)", _iv_idx.get("duration_minutes", {}).get("mean", 42))
+        c4.metric("Ana tema", "4")
+
+        st.caption(
+            "Örnekleme: Her Dreyfus seviyesinden 2 katılımcı; teknik ve pedagojik alanlardan eşit temsil. "
+            "Anonim kodlar **K1–K20** (tez `Tez_Toplu` Bölüm 4.5)."
+        )
+
+        iv_tab1, iv_tab2, iv_tab3, iv_tab4 = st.tabs([
+            "📋 Özet ve Kodlama",
+            "🔗 Joint Display (Tablo 4.11)",
+            "📄 Transkriptler",
+            "📊 Tema Frekansları",
+        ])
+
+        with iv_tab1:
+            st.markdown("### Kodlama matrisi")
+            show_cols = [
+                c for c in _iv_matrix.columns
+                if c in (
+                    "interview_code", "k_code", "participant_id", "level",
+                    "dominant_domain", "duration_minutes", "avg_cognitive_load",
+                    "preferred_mod", "themes_active",
+                )
+            ]
+            st.dataframe(_iv_matrix[show_cols], use_container_width=True, hide_index=True)
+
+            theme_cols = [c for c in _iv_matrix.columns if len(c) == 3 and c.isupper()]
+            if theme_cols:
+                st.markdown("### Tema özeti (aktif kod sayısı)")
+                freq = _iv_matrix[theme_cols].sum().sort_values(ascending=False)
+                st.dataframe(
+                    freq.reset_index().rename(columns={"index": "Kod", 0: "n"}),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+        with iv_tab2:
+            st.markdown("### Nicel–nitel birleşik tablo (Tablo 4.11)")
+            jd = _iv_idx.get("joint_display", [])
+            if jd:
+                st.dataframe(pd.DataFrame(jd), use_container_width=True, hide_index=True)
+            st.markdown(
+                """
+**Tez özeti:** Tamamlayıcı mod öğrenme kazanımını artırırken katılımcılar daha fazla
+zorlandıklarını; Benzer mod bilişsel yükü düşürürken akıcılık algısını artırdıklarını
+belirtmiştir. Adaptif mekanizma nicel olarak üstün; farkındalık katılımcıya göre değişken (K4, K18).
+                """
+            )
+
+        with iv_tab3:
+            interviews = _iv_idx.get("interviews", [])
+            k_options = [row["k_code"] for row in interviews] if interviews else [
+                f"K{i}" for i in range(1, 21)
+            ]
+            sel_k = st.selectbox("Katılımcı kodu", k_options, key="interview_select_k")
+            text = load_transcript(sel_k)
+            if text:
+                meta_row = next(
+                    (r for r in interviews if r.get("k_code") == sel_k), {}
+                )
+                st.info(
+                    f"**{sel_k}** · participant_id={meta_row.get('participant_id', '—')} · "
+                    f"{meta_row.get('duration_minutes', '—')} dk · "
+                    f"seviye: {meta_row.get('level', '—')}"
+                )
+                st.markdown(text)
+            else:
+                st.error(f"{sel_k} transkripti bulunamadı.")
+
+            st.download_button(
+                "📥 Seçili transkripti indir (.md)",
+                data=text or "",
+                file_name=f"{sel_k}_gorusme.md",
+                mime="text/markdown",
+                key="dl_interview_md",
+            )
+
+        with iv_tab4:
+            theme_cols = [c for c in _iv_matrix.columns if len(c) == 3 and c.isupper()]
+            if theme_cols:
+                freq_df = _iv_matrix[theme_cols].sum().reset_index()
+                freq_df.columns = ["Kod", "Frekans"]
+                fig_iv = px.bar(
+                    freq_df.sort_values("Frekans", ascending=True),
+                    x="Frekans",
+                    y="Kod",
+                    orientation="h",
+                    title="Tematik kod frekansları (n=20 görüşme)",
+                )
+                fig_iv.update_layout(height=420)
+                st.plotly_chart(fig_iv, use_container_width=True)
+
+except Exception as ex:
+    st.error(f"Görüşme modülü yüklenemedi: {ex}")
+
 # Footer
 st.markdown("---")
 st.markdown("**PITL Araştırma Sistemi** | Persona In The Loop - Admin Panel")

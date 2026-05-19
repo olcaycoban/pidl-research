@@ -1,0 +1,17 @@
+{
+  "source": "s/Tez_Toplu (1).pdf — Bölüm 4.5",
+  "n_interviews": 20,
+  "sampling": "Her Dreyfus seviyesinden ikişer; teknik ve pedagojik alanlardan eşit temsil",
+  "duration_minutes": { "mean": 42, "min": 28, "max": 61 },
+  "cohens_kappa": 0.84,
+  "method": "Braun & Clarke (2006) tematik analiz",
+  "main_themes": [
+    "4.5.1 Persona deneyimi",
+    "4.5.2 Mod algısı",
+    "4.5.3 Öğrenme süreci",
+    "4.5.4 Sistem değerlendirmesi"
+  ],
+  "sub_themes_count": 12,
+  "participant_code_prefix": "K",
+  "joint_display_table": "Tablo 4.11"
+}
