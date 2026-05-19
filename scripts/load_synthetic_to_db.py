@@ -167,24 +167,21 @@ def load_participant(session, p: dict[str, Any]) -> None:
             )
         )
 
-        # NASA-TLX (tez 3.3.2: 0-100, toplam = 6 boyut ortalaması)
+        # NASA-TLX (tez 3.3.2: 0-100; total_cognitive_load 1-puan hassasiyetinde)
         tlx_total = int(round(float(t["cognitive_load"])))
-        # 6 boyutu toplam etrafında dağıt
-        mental = int(t["nasa_tlx"].get("mental_demand", tlx_total // 10)) * 10
-        # 5-step grid; clamp
-        def _q(v: int) -> int:
-            v = max(0, min(100, v))
-            return int(round(v / 5.0)) * 5
+        def _clamp(v: int) -> int:
+            return max(0, min(100, int(v)))
 
-        physical = _q(max(0, tlx_total - 20))
-        temporal = _q(tlx_total)
-        performance = _q(100 - post_score)  # Ters kodlu
-        effort = _q(tlx_total + 5)
-        frustration = _q(max(0, tlx_total - 10))
+        mental = _clamp(t["nasa_tlx"].get("mental_demand", tlx_total))
+        physical = _clamp(max(0, tlx_total - 20))
+        temporal = _clamp(tlx_total)
+        performance = _clamp(100 - post_score)  # Ters kodlu
+        effort = _clamp(tlx_total + 5)
+        frustration = _clamp(max(0, tlx_total - 10))
         session.add(
             NASATLXResponse(
                 task_session_id=ts.id,
-                mental_demand=_q(mental if mental else tlx_total),
+                mental_demand=mental,
                 physical_demand=physical,
                 temporal_demand=temporal,
                 performance=performance,

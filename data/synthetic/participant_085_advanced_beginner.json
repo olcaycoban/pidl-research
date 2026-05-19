@@ -1,12 +1,12 @@
 {
   "participant_id": 85,
-  "uuid": "a3a73026-5b40-2888-4955-16b4591db0c1",
+  "uuid": "7621b6ec-7340-d5fc-e0b1-703af25fb6c7",
   "created_at": "2026-04-10T00:00:00",
   "demographics": {
-    "age": 32,
-    "gender": "Erkek",
-    "education": "Lisans",
-    "work_field": "Blokzincir Geliştirme"
+    "age": 44,
+    "gender": "Kadın",
+    "education": "Yüksek Lisans",
+    "work_field": "Veri Bilimi"
   },
   "competency_profile": {
     "technical_level": "advanced_beginner",
@@ -20,48 +20,48 @@
         "task_number": 1,
         "task_name": "Diploma Doğrulama",
         "block": "adaptive",
-        "assigned_ai_type": "Similar",
-        "duration_minutes": 12.5,
+        "assigned_ai_type": "Complementary",
+        "duration_minutes": 17.3,
         "pre_test": {
-          "score": 63
+          "score": 27
         },
         "post_test": {
-          "score": 72,
-          "learning_gain": 8.58
+          "score": 45,
+          "learning_gain": 18.0
         },
         "nasa_tlx": {
-          "mental_demand": 30,
-          "total_cognitive_load": 35
+          "mental_demand": 49,
+          "total_cognitive_load": 55
         },
         "generated_code": {
-          "total_score": 72
+          "total_score": 58
         },
-        "learning_gain": 9.0,
-        "code_quality": 72.44,
-        "cognitive_load": 35
+        "learning_gain": 18.0,
+        "code_quality": 58.0,
+        "cognitive_load": 55
       },
       {
         "task_number": 2,
         "task_name": "Sertifika NFT",
         "block": "adaptive",
         "assigned_ai_type": "Similar",
-        "duration_minutes": 15.5,
+        "duration_minutes": 16.2,
         "pre_test": {
-          "score": 58
+          "score": 85
         },
         "post_test": {
-          "score": 67,
-          "learning_gain": 8.96
+          "score": 95,
+          "learning_gain": 10.0
         },
         "nasa_tlx": {
-          "mental_demand": 30,
+          "mental_demand": 31,
           "total_cognitive_load": 35
         },
         "generated_code": {
-          "total_score": 65
+          "total_score": 61
         },
-        "learning_gain": 9.0,
-        "code_quality": 65.45,
+        "learning_gain": 10.0,
+        "code_quality": 61.0,
         "cognitive_load": 35
       },
       {
@@ -69,102 +69,102 @@
         "task_name": "Öğrenme Kaydı",
         "block": "adaptive",
         "assigned_ai_type": "Complementary",
-        "duration_minutes": 14.7,
+        "duration_minutes": 15.5,
         "pre_test": {
-          "score": 45
+          "score": 23
         },
         "post_test": {
-          "score": 64,
-          "learning_gain": 18.8
+          "score": 40,
+          "learning_gain": 17.0
         },
         "nasa_tlx": {
-          "mental_demand": 45,
-          "total_cognitive_load": 50
+          "mental_demand": 50,
+          "total_cognitive_load": 56
         },
         "generated_code": {
-          "total_score": 64
+          "total_score": 59
         },
-        "learning_gain": 19.0,
-        "code_quality": 64.41,
-        "cognitive_load": 50
+        "learning_gain": 17.0,
+        "code_quality": 59.0,
+        "cognitive_load": 56
       },
       {
         "task_number": 4,
         "task_name": "Çoklu İmza",
         "block": "adaptive",
         "assigned_ai_type": "Complementary",
-        "duration_minutes": 12.7,
+        "duration_minutes": 12.4,
         "pre_test": {
-          "score": 25
+          "score": 34
         },
         "post_test": {
-          "score": 44,
-          "learning_gain": 19.41
+          "score": 53,
+          "learning_gain": 19.0
         },
         "nasa_tlx": {
-          "mental_demand": 45,
-          "total_cognitive_load": 50
+          "mental_demand": 49,
+          "total_cognitive_load": 55
         },
         "generated_code": {
-          "total_score": 62
+          "total_score": 67
         },
         "learning_gain": 19.0,
-        "code_quality": 62.05,
-        "cognitive_load": 50
+        "code_quality": 67.0,
+        "cognitive_load": 55
       },
       {
         "task_number": 5,
         "task_name": "DAO Oylama",
         "block": "adaptive",
         "assigned_ai_type": "Similar",
-        "duration_minutes": 13.6,
+        "duration_minutes": 14.5,
         "pre_test": {
-          "score": 43
+          "score": 44
         },
         "post_test": {
           "score": 52,
-          "learning_gain": 9.0
+          "learning_gain": 8.0
         },
         "nasa_tlx": {
           "mental_demand": 30,
-          "total_cognitive_load": 35
+          "total_cognitive_load": 34
         },
         "generated_code": {
-          "total_score": 68
+          "total_score": 62
         },
-        "learning_gain": 9.0,
-        "code_quality": 68.31,
-        "cognitive_load": 35
+        "learning_gain": 8.0,
+        "code_quality": 62.0,
+        "cognitive_load": 34
       },
       {
         "task_number": 6,
         "task_name": "Token Teşvik",
         "block": "adaptive",
-        "assigned_ai_type": "Complementary",
-        "duration_minutes": 20.9,
+        "assigned_ai_type": "Similar",
+        "duration_minutes": 11.9,
         "pre_test": {
-          "score": 47
+          "score": 65
         },
         "post_test": {
-          "score": 67,
-          "learning_gain": 19.75
+          "score": 74,
+          "learning_gain": 9.0
         },
         "nasa_tlx": {
-          "mental_demand": 45,
-          "total_cognitive_load": 55
+          "mental_demand": 32,
+          "total_cognitive_load": 36
         },
         "generated_code": {
-          "total_score": 67
+          "total_score": 62
         },
-        "learning_gain": 20.0,
-        "code_quality": 67.42,
-        "cognitive_load": 55
+        "learning_gain": 9.0,
+        "code_quality": 62.0,
+        "cognitive_load": 36
       }
     ],
-    "avg_learning_gain": 14.17,
-    "avg_code_quality": 66.68,
-    "avg_nasa_tlx": 43.33,
-    "avg_duration": 14.98
+    "avg_learning_gain": 13.5,
+    "avg_code_quality": 61.5,
+    "avg_nasa_tlx": 45.17,
+    "avg_duration": 14.63
   },
   "fixed_block": {
     "tasks": [
@@ -173,198 +173,198 @@
         "task_name": "Diploma Doğrulama",
         "block": "fixed",
         "assigned_ai_type": "Similar",
-        "duration_minutes": 15.1,
+        "duration_minutes": 13.2,
         "pre_test": {
-          "score": 78
+          "score": 61
         },
         "post_test": {
-          "score": 86,
-          "learning_gain": 7.56
+          "score": 67,
+          "learning_gain": 6.0
         },
         "nasa_tlx": {
-          "mental_demand": 30,
-          "total_cognitive_load": 30
+          "mental_demand": 31,
+          "total_cognitive_load": 34
         },
         "generated_code": {
-          "total_score": 71
+          "total_score": 65
         },
-        "learning_gain": 8.0,
-        "code_quality": 71.37,
-        "cognitive_load": 30
+        "learning_gain": 6.0,
+        "code_quality": 65.0,
+        "cognitive_load": 34
       },
       {
         "task_number": 2,
         "task_name": "Sertifika NFT",
         "block": "fixed",
         "assigned_ai_type": "Complementary",
-        "duration_minutes": 14.8,
+        "duration_minutes": 19.4,
         "pre_test": {
-          "score": 58
+          "score": 53
         },
         "post_test": {
-          "score": 76,
-          "learning_gain": 17.65
+          "score": 69,
+          "learning_gain": 16.0
         },
         "nasa_tlx": {
-          "mental_demand": 50,
-          "total_cognitive_load": 55
+          "mental_demand": 47,
+          "total_cognitive_load": 52
         },
         "generated_code": {
-          "total_score": 65
+          "total_score": 52
         },
-        "learning_gain": 18.0,
-        "code_quality": 65.01,
-        "cognitive_load": 55
+        "learning_gain": 16.0,
+        "code_quality": 52.0,
+        "cognitive_load": 52
       },
       {
         "task_number": 3,
         "task_name": "Öğrenme Kaydı",
         "block": "fixed",
         "assigned_ai_type": "Similar",
-        "duration_minutes": 13.8,
+        "duration_minutes": 15.8,
         "pre_test": {
-          "score": 62
+          "score": 65
         },
         "post_test": {
-          "score": 69,
-          "learning_gain": 7.17
+          "score": 71,
+          "learning_gain": 6.0
         },
         "nasa_tlx": {
-          "mental_demand": 35,
-          "total_cognitive_load": 40
+          "mental_demand": 29,
+          "total_cognitive_load": 32
         },
         "generated_code": {
-          "total_score": 72
+          "total_score": 62
         },
-        "learning_gain": 7.0,
-        "code_quality": 72.18,
-        "cognitive_load": 40
+        "learning_gain": 6.0,
+        "code_quality": 62.0,
+        "cognitive_load": 32
       },
       {
         "task_number": 4,
         "task_name": "Çoklu İmza",
         "block": "fixed",
         "assigned_ai_type": "Complementary",
-        "duration_minutes": 14.8,
+        "duration_minutes": 15.0,
         "pre_test": {
-          "score": 11
+          "score": 51
         },
         "post_test": {
-          "score": 28,
-          "learning_gain": 16.98
+          "score": 67,
+          "learning_gain": 16.0
         },
         "nasa_tlx": {
-          "mental_demand": 50,
-          "total_cognitive_load": 55
+          "mental_demand": 48,
+          "total_cognitive_load": 53
         },
         "generated_code": {
-          "total_score": 63
+          "total_score": 56
         },
-        "learning_gain": 17.0,
-        "code_quality": 63.04,
-        "cognitive_load": 55
+        "learning_gain": 16.0,
+        "code_quality": 56.0,
+        "cognitive_load": 53
       },
       {
         "task_number": 5,
         "task_name": "DAO Oylama",
         "block": "fixed",
         "assigned_ai_type": "Similar",
-        "duration_minutes": 13.9,
+        "duration_minutes": 13.0,
         "pre_test": {
-          "score": 57
+          "score": 41
         },
         "post_test": {
-          "score": 65,
-          "learning_gain": 7.76
+          "score": 49,
+          "learning_gain": 8.0
         },
         "nasa_tlx": {
-          "mental_demand": 30,
-          "total_cognitive_load": 35
+          "mental_demand": 29,
+          "total_cognitive_load": 33
         },
         "generated_code": {
-          "total_score": 71
+          "total_score": 59
         },
         "learning_gain": 8.0,
-        "code_quality": 71.24,
-        "cognitive_load": 35
+        "code_quality": 59.0,
+        "cognitive_load": 33
       },
       {
         "task_number": 6,
         "task_name": "Token Teşvik",
         "block": "fixed",
         "assigned_ai_type": "Complementary",
-        "duration_minutes": 14.2,
+        "duration_minutes": 12.9,
         "pre_test": {
-          "score": 22
+          "score": 59
         },
         "post_test": {
-          "score": 41,
-          "learning_gain": 18.77
+          "score": 79,
+          "learning_gain": 20.0
         },
         "nasa_tlx": {
           "mental_demand": 50,
           "total_cognitive_load": 55
         },
         "generated_code": {
-          "total_score": 54
+          "total_score": 61
         },
-        "learning_gain": 19.0,
-        "code_quality": 54.49,
+        "learning_gain": 20.0,
+        "code_quality": 61.0,
         "cognitive_load": 55
       }
     ],
-    "avg_learning_gain": 12.83,
-    "avg_code_quality": 66.22,
-    "avg_nasa_tlx": 45.0,
-    "avg_duration": 14.43
+    "avg_learning_gain": 12.0,
+    "avg_code_quality": 59.17,
+    "avg_nasa_tlx": 43.17,
+    "avg_duration": 14.88
   },
   "tasks": [
     {
       "task_number": 1,
       "task_name": "Diploma Doğrulama",
       "block": "adaptive",
-      "assigned_ai_type": "Similar",
-      "duration_minutes": 12.5,
+      "assigned_ai_type": "Complementary",
+      "duration_minutes": 17.3,
       "pre_test": {
-        "score": 63
+        "score": 27
       },
       "post_test": {
-        "score": 72,
-        "learning_gain": 8.58
+        "score": 45,
+        "learning_gain": 18.0
       },
       "nasa_tlx": {
-        "mental_demand": 30,
-        "total_cognitive_load": 35
+        "mental_demand": 49,
+        "total_cognitive_load": 55
       },
       "generated_code": {
-        "total_score": 72
+        "total_score": 58
       },
-      "learning_gain": 9.0,
-      "code_quality": 72.44,
-      "cognitive_load": 35
+      "learning_gain": 18.0,
+      "code_quality": 58.0,
+      "cognitive_load": 55
     },
     {
       "task_number": 2,
       "task_name": "Sertifika NFT",
       "block": "adaptive",
       "assigned_ai_type": "Similar",
-      "duration_minutes": 15.5,
+      "duration_minutes": 16.2,
       "pre_test": {
-        "score": 58
+        "score": 85
       },
       "post_test": {
-        "score": 67,
-        "learning_gain": 8.96
+        "score": 95,
+        "learning_gain": 10.0
       },
       "nasa_tlx": {
-        "mental_demand": 30,
+        "mental_demand": 31,
         "total_cognitive_load": 35
       },
       "generated_code": {
-        "total_score": 65
+        "total_score": 61
       },
-      "learning_gain": 9.0,
-      "code_quality": 65.45,
+      "learning_gain": 10.0,
+      "code_quality": 61.0,
       "cognitive_load": 35
     },
     {
@@ -372,239 +372,239 @@
       "task_name": "Öğrenme Kaydı",
       "block": "adaptive",
       "assigned_ai_type": "Complementary",
-      "duration_minutes": 14.7,
+      "duration_minutes": 15.5,
       "pre_test": {
-        "score": 45
+        "score": 23
       },
       "post_test": {
-        "score": 64,
-        "learning_gain": 18.8
+        "score": 40,
+        "learning_gain": 17.0
       },
       "nasa_tlx": {
-        "mental_demand": 45,
-        "total_cognitive_load": 50
+        "mental_demand": 50,
+        "total_cognitive_load": 56
       },
       "generated_code": {
-        "total_score": 64
+        "total_score": 59
       },
-      "learning_gain": 19.0,
-      "code_quality": 64.41,
-      "cognitive_load": 50
+      "learning_gain": 17.0,
+      "code_quality": 59.0,
+      "cognitive_load": 56
     },
     {
       "task_number": 4,
       "task_name": "Çoklu İmza",
       "block": "adaptive",
       "assigned_ai_type": "Complementary",
-      "duration_minutes": 12.7,
+      "duration_minutes": 12.4,
       "pre_test": {
-        "score": 25
+        "score": 34
       },
       "post_test": {
-        "score": 44,
-        "learning_gain": 19.41
+        "score": 53,
+        "learning_gain": 19.0
       },
       "nasa_tlx": {
-        "mental_demand": 45,
-        "total_cognitive_load": 50
+        "mental_demand": 49,
+        "total_cognitive_load": 55
       },
       "generated_code": {
-        "total_score": 62
+        "total_score": 67
       },
       "learning_gain": 19.0,
-      "code_quality": 62.05,
-      "cognitive_load": 50
+      "code_quality": 67.0,
+      "cognitive_load": 55
     },
     {
       "task_number": 5,
       "task_name": "DAO Oylama",
       "block": "adaptive",
       "assigned_ai_type": "Similar",
-      "duration_minutes": 13.6,
+      "duration_minutes": 14.5,
       "pre_test": {
-        "score": 43
+        "score": 44
       },
       "post_test": {
         "score": 52,
-        "learning_gain": 9.0
+        "learning_gain": 8.0
       },
       "nasa_tlx": {
         "mental_demand": 30,
-        "total_cognitive_load": 35
+        "total_cognitive_load": 34
       },
       "generated_code": {
-        "total_score": 68
+        "total_score": 62
       },
-      "learning_gain": 9.0,
-      "code_quality": 68.31,
-      "cognitive_load": 35
+      "learning_gain": 8.0,
+      "code_quality": 62.0,
+      "cognitive_load": 34
     },
     {
       "task_number": 6,
       "task_name": "Token Teşvik",
       "block": "adaptive",
-      "assigned_ai_type": "Complementary",
-      "duration_minutes": 20.9,
+      "assigned_ai_type": "Similar",
+      "duration_minutes": 11.9,
       "pre_test": {
-        "score": 47
+        "score": 65
       },
       "post_test": {
-        "score": 67,
-        "learning_gain": 19.75
+        "score": 74,
+        "learning_gain": 9.0
       },
       "nasa_tlx": {
-        "mental_demand": 45,
-        "total_cognitive_load": 55
+        "mental_demand": 32,
+        "total_cognitive_load": 36
       },
       "generated_code": {
-        "total_score": 67
+        "total_score": 62
       },
-      "learning_gain": 20.0,
-      "code_quality": 67.42,
-      "cognitive_load": 55
+      "learning_gain": 9.0,
+      "code_quality": 62.0,
+      "cognitive_load": 36
     },
     {
       "task_number": 1,
       "task_name": "Diploma Doğrulama",
       "block": "fixed",
       "assigned_ai_type": "Similar",
-      "duration_minutes": 15.1,
+      "duration_minutes": 13.2,
       "pre_test": {
-        "score": 78
+        "score": 61
       },
       "post_test": {
-        "score": 86,
-        "learning_gain": 7.56
+        "score": 67,
+        "learning_gain": 6.0
       },
       "nasa_tlx": {
-        "mental_demand": 30,
-        "total_cognitive_load": 30
+        "mental_demand": 31,
+        "total_cognitive_load": 34
       },
       "generated_code": {
-        "total_score": 71
+        "total_score": 65
       },
-      "learning_gain": 8.0,
-      "code_quality": 71.37,
-      "cognitive_load": 30
+      "learning_gain": 6.0,
+      "code_quality": 65.0,
+      "cognitive_load": 34
     },
     {
       "task_number": 2,
       "task_name": "Sertifika NFT",
       "block": "fixed",
       "assigned_ai_type": "Complementary",
-      "duration_minutes": 14.8,
+      "duration_minutes": 19.4,
       "pre_test": {
-        "score": 58
+        "score": 53
       },
       "post_test": {
-        "score": 76,
-        "learning_gain": 17.65
+        "score": 69,
+        "learning_gain": 16.0
       },
       "nasa_tlx": {
-        "mental_demand": 50,
-        "total_cognitive_load": 55
+        "mental_demand": 47,
+        "total_cognitive_load": 52
       },
       "generated_code": {
-        "total_score": 65
+        "total_score": 52
       },
-      "learning_gain": 18.0,
-      "code_quality": 65.01,
-      "cognitive_load": 55
+      "learning_gain": 16.0,
+      "code_quality": 52.0,
+      "cognitive_load": 52
     },
     {
       "task_number": 3,
       "task_name": "Öğrenme Kaydı",
       "block": "fixed",
       "assigned_ai_type": "Similar",
-      "duration_minutes": 13.8,
+      "duration_minutes": 15.8,
       "pre_test": {
-        "score": 62
+        "score": 65
       },
       "post_test": {
-        "score": 69,
-        "learning_gain": 7.17
+        "score": 71,
+        "learning_gain": 6.0
       },
       "nasa_tlx": {
-        "mental_demand": 35,
-        "total_cognitive_load": 40
+        "mental_demand": 29,
+        "total_cognitive_load": 32
       },
       "generated_code": {
-        "total_score": 72
+        "total_score": 62
       },
-      "learning_gain": 7.0,
-      "code_quality": 72.18,
-      "cognitive_load": 40
+      "learning_gain": 6.0,
+      "code_quality": 62.0,
+      "cognitive_load": 32
     },
     {
       "task_number": 4,
       "task_name": "Çoklu İmza",
       "block": "fixed",
       "assigned_ai_type": "Complementary",
-      "duration_minutes": 14.8,
+      "duration_minutes": 15.0,
       "pre_test": {
-        "score": 11
+        "score": 51
       },
       "post_test": {
-        "score": 28,
-        "learning_gain": 16.98
+        "score": 67,
+        "learning_gain": 16.0
       },
       "nasa_tlx": {
-        "mental_demand": 50,
-        "total_cognitive_load": 55
+        "mental_demand": 48,
+        "total_cognitive_load": 53
       },
       "generated_code": {
-        "total_score": 63
+        "total_score": 56
       },
-      "learning_gain": 17.0,
-      "code_quality": 63.04,
-      "cognitive_load": 55
+      "learning_gain": 16.0,
+      "code_quality": 56.0,
+      "cognitive_load": 53
     },
     {
       "task_number": 5,
       "task_name": "DAO Oylama",
       "block": "fixed",
       "assigned_ai_type": "Similar",
-      "duration_minutes": 13.9,
+      "duration_minutes": 13.0,
       "pre_test": {
-        "score": 57
+        "score": 41
       },
       "post_test": {
-        "score": 65,
-        "learning_gain": 7.76
+        "score": 49,
+        "learning_gain": 8.0
       },
       "nasa_tlx": {
-        "mental_demand": 30,
-        "total_cognitive_load": 35
+        "mental_demand": 29,
+        "total_cognitive_load": 33
       },
       "generated_code": {
-        "total_score": 71
+        "total_score": 59
       },
       "learning_gain": 8.0,
-      "code_quality": 71.24,
-      "cognitive_load": 35
+      "code_quality": 59.0,
+      "cognitive_load": 33
     },
     {
       "task_number": 6,
       "task_name": "Token Teşvik",
       "block": "fixed",
       "assigned_ai_type": "Complementary",
-      "duration_minutes": 14.2,
+      "duration_minutes": 12.9,
       "pre_test": {
-        "score": 22
+        "score": 59
       },
       "post_test": {
-        "score": 41,
-        "learning_gain": 18.77
+        "score": 79,
+        "learning_gain": 20.0
       },
       "nasa_tlx": {
         "mental_demand": 50,
         "total_cognitive_load": 55
       },
       "generated_code": {
-        "total_score": 54
+        "total_score": 61
       },
-      "learning_gain": 19.0,
-      "code_quality": 54.49,
+      "learning_gain": 20.0,
+      "code_quality": 61.0,
       "cognitive_load": 55
     }
   ],

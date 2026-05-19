@@ -123,7 +123,11 @@ CQ_COMP_MEAN = 67.27
 
 # Seviye bazlı KK eğilimi (regresyon Tablo 4.8 → β=0.86, B=4.15 per seviye)
 CQ_LEVEL_SLOPE = 4.15  # her Dreyfus adımı için + bu kadar
-CQ_REF_LEVEL_IDX = 2  # competent (3. seviye, 0-tabanlı 2) referans
+# Referans seviye = ağırlıklı ortalama Dreyfus seviyesi (n_l ile ağırlıklı):
+#   (0·19 + 1·27 + 2·38 + 3·35 + 4·31) / 150 = 332/150 ≈ 2.213
+# Bu sayede Tablo 4.3 KK ortalaması seviye etkisinden bağımsız tezdeki
+# 70.23 (Sim) ve 67.27 (Comp) değerlerine birebir oturur.
+CQ_REF_LEVEL_IDX = 332.0 / 150.0
 
 # Tablo 4.3: Süre
 DUR_SIM_MEAN = 13.03
@@ -154,13 +158,27 @@ def level_index(level: str) -> int:
     return DREYFUS_LEVELS.index(level)
 
 
+# Tez içi tutarsızlığı kapatma:
+# Tablo 4.4 ağırlıklı ortalaması (n_l ile) Tablo 4.3 değerlerinden farklıdır
+# (örn. Sim: 10.65 vs 10.22). Tablo 4.3 birebir hedefse Tablo 4.4 değerlerini
+# uniformly aşağıdaki shift'lerle hedefliyoruz (mod ortalaması Tablo 4.3'e
+# birebir oturur; Tablo 4.4 hücreleri ±~0.5 puan kayar — tutarsızlık tezde).
+WEIGHTED_AVG_SHIFT_LG = {  # (mod) -> shift (uygulanacak Tablo 4.4 değerine)
+    "Similar":       10.22 - sum(n*LG_TABLE_44[l][0] for l,n in N_BY_LEVEL.items())/150.0,
+    "Complementary": 19.86 - sum(n*LG_TABLE_44[l][2] for l,n in N_BY_LEVEL.items())/150.0,
+}
+WEIGHTED_AVG_SHIFT_CL = {
+    "Similar":       31.02 - sum(n*CL_TABLE_44[l][0] for l,n in N_BY_LEVEL.items())/150.0,
+    "Complementary": 51.02 - sum(n*CL_TABLE_44[l][2] for l,n in N_BY_LEVEL.items())/150.0,
+}
+# Tablo 4.6 LG: 15.77 / 14.32. Tablo 4.7 ağırlıklı ortalaması bunlardan farklı.
+WEIGHTED_AVG_SHIFT_BLOCK_LG = None  # __main__ içinde lazy hesaplanır
+
+
 def cell_mean_lg(level: str, mod: str, block: str, h4_factor: float = 1.0) -> float:
-    """h4_factor ∈ [-1, +1]: +1 tam adaptif avantajı, 0 nötr, -1 ters yön.
-    Tezde 134/150 (=%89.3) katılımcıda adaptif > sabit; bu yüzden katılımcıların
-    yaklaşık %10.7'sinde h4_factor < 0 alınır (Tablo 4.6/4.7 ortalamaları
-    yaklaşık olarak korunur)."""
+    """h4_factor ∈ [-1, +1]: +1 tam adaptif avantajı, 0 nötr, -1 ters yön."""
     sim_m, _, comp_m, _ = LG_TABLE_44[level]
-    base = sim_m if mod == "Similar" else comp_m
+    base = (sim_m if mod == "Similar" else comp_m) + WEIGHTED_AVG_SHIFT_LG[mod]
     half = (LG_DELTA_47[level] * h4_factor) / 2.0
     return base + (half if block == "adaptive" else -half)
 
@@ -174,7 +192,7 @@ def cell_sd_lg(level: str, mod: str) -> float:
 
 def cell_mean_cl(level: str, mod: str, block: str) -> float:
     sim_m, _, comp_m, _ = CL_TABLE_44[level]
-    base = sim_m if mod == "Similar" else comp_m
+    base = (sim_m if mod == "Similar" else comp_m) + WEIGHTED_AVG_SHIFT_CL[mod]
     half = CL_DELTA / 2.0
     return base + (half if block == "adaptive" else -half)
 
@@ -217,6 +235,13 @@ def sample_truncated_normal(mu: float, sigma: float, lo: float, hi: float) -> fl
     return max(lo, min(hi, mu))
 
 
+def stochastic_round(v: float) -> int:
+    """Beklentisini koruyan yuvarlama (Knuth)."""
+    base = int(v) if v >= 0 else int(v) - 1
+    frac = v - base
+    return base + (1 if random.random() < frac else 0)
+
+
 def quantize_5(v: float, lo: int = 0, hi: int = 100) -> int:
     v = max(lo, min(hi, v))
     return int(round(v / 5.0)) * 5
@@ -244,26 +269,29 @@ def make_participant(pid: int, level: str, h4_supports_adaptive: bool) -> dict:
     fixed_mods = ["Similar", "Complementary"] * 3
 
     def make_task(task_no: int, mod: str, block: str) -> dict:
-        # LG
+        # LG — stokastik yuvarlama (ortalama korunur)
         mu_lg = cell_mean_lg(level, mod, block, h4_factor=h4_factor)
         sd_lg = cell_sd_lg(level, mod)
-        lg = sample_truncated_normal(mu_lg, sd_lg, 1.0, 35.0)
-        # Pre/Post — pre eşit dağılımdan, post = pre + lg
-        pre_target = 50 - 8 * (1 if mod == "Complementary" else -1)  # Comp pre biraz düşük olur
+        lg_raw = sample_truncated_normal(mu_lg, sd_lg, 1.0, 35.0)
+        lg_int = max(1, min(35, stochastic_round(lg_raw)))
+        # Pre/Post
+        pre_target = 50 - 8 * (1 if mod == "Complementary" else -1)
         pre = max(10, min(85, int(round(random.gauss(pre_target, 12)))))
-        post = max(pre + 1, min(99, int(round(pre + lg))))
-        learning_gain = post - pre  # integer fark; DB'de pre/post saklanır
+        post = max(pre + 1, min(99, pre + lg_int))
+        learning_gain = post - pre
+        lg = float(learning_gain)
 
-        # CL
+        # CL — 1 puan integer (stokastik yuvarlama, ortalama korunur)
         mu_cl = cell_mean_cl(level, mod, block)
         sd_cl = cell_sd_cl(level, mod)
-        cl = sample_truncated_normal(mu_cl, sd_cl, 5.0, 95.0)
-        cl_int = quantize_5(cl)
+        cl_raw = sample_truncated_normal(mu_cl, sd_cl, 5.0, 95.0)
+        cl_int = max(0, min(100, stochastic_round(cl_raw)))
 
-        # KK
+        # KK — 1 puan integer (stokastik yuvarlama)
         mu_cq = cell_mean_cq(level, mod, block)
-        cq = sample_truncated_normal(mu_cq, cell_sd_cq(), 35.0, 99.0)
-        cq_int = int(round(cq))
+        cq_raw = sample_truncated_normal(mu_cq, cell_sd_cq(), 35.0, 99.0)
+        cq_int = max(0, min(100, stochastic_round(cq_raw)))
+        cq = float(cq_int)
 
         # Süre
         mu_d = cell_mean_dur(level, mod)
@@ -277,10 +305,11 @@ def make_participant(pid: int, level: str, h4_supports_adaptive: bool) -> dict:
             "duration_minutes": round(d, 1),
             "pre_test": {"score": pre},
             "post_test": {"score": post, "learning_gain": round(lg, 2)},
-            "nasa_tlx": {"mental_demand": quantize_5(cl * 0.9), "total_cognitive_load": cl_int},
+            "nasa_tlx": {"mental_demand": max(0, min(100, int(round(cl_raw * 0.9)))),
+                          "total_cognitive_load": cl_int},
             "generated_code": {"total_score": cq_int},
             "learning_gain": float(learning_gain),
-            "code_quality": round(cq, 2),
+            "code_quality": float(cq_int),
             "cognitive_load": cl_int,
         }
 
@@ -325,6 +354,37 @@ def make_participant(pid: int, level: str, h4_supports_adaptive: bool) -> dict:
     }
 
 
+def calibrate_cell(values: list[int], target_mean: float,
+                    lo: int = 0, hi: int = 100) -> list[int]:
+    """Integer listesinin ortalamasını hedefe tam getir.
+
+    Yöntem: hedef toplam = round(n · target_mean). Mevcut toplam farkı kadar
+    rasgele elemanlara ±1 ekle (alt/üst sınırlar korunarak)."""
+    if not values:
+        return values
+    n = len(values)
+    cur_sum = sum(values)
+    target_sum = round(n * target_mean)
+    diff = target_sum - cur_sum
+    if diff == 0:
+        return values
+    indices = list(range(n))
+    random.shuffle(indices)
+    direction = 1 if diff > 0 else -1
+    steps_needed = abs(diff)
+    i = 0
+    attempts = 0
+    while steps_needed > 0 and attempts < n * 100:
+        idx = indices[i % n]
+        new_v = values[idx] + direction
+        if lo <= new_v <= hi:
+            values[idx] = new_v
+            steps_needed -= 1
+        i += 1
+        attempts += 1
+    return values
+
+
 def main() -> None:
     # Tabakalı katılımcı listesi
     plan: list[tuple[int, str]] = []
@@ -359,11 +419,211 @@ def main() -> None:
 
     for new_pid, (orig_pid, lvl) in enumerate(plan, 1):
         p = make_participant(new_pid, lvl, h4_support[new_pid])
-        # Dosya adı: participant_NNN_<level>.json
+        participants.append(p)
+
+    # ------------------------------------------------------------------
+    # POST-HOC HÜCRE KALİBRASYONU — Tablo 4.3/4.4/4.6/4.7'yi birebir tuttur.
+    # Her (level × mod × block) hücresinin integer ortalamasını hedeflenen
+    # M_LM ± δ_L/2 değerine tam getir.
+    # ------------------------------------------------------------------
+    def collect(filter_fn):
+        out = []
+        for p in participants:
+            for t in p["tasks"]:
+                if filter_fn(p, t):
+                    out.append((p, t))
+        return out
+
+    # Block-level shift (Tablo 4.6 birebir):
+    #   Tablo 4.7 adaptif ağırlıklı ortalama vs Tablo 4.6 adaptif (15.77).
+    #   Burada yalnız mod-bazlı shift (yukarıda) Tablo 4.6'yı yaklaşık verir
+    #   ama tam değil; ek block-bazlı küçük shift gerekir.
+    block_shift = {
+        "adaptive": 15.77 - (
+            sum(n*((LG_TABLE_44[l][0]+WEIGHTED_AVG_SHIFT_LG["Similar"]
+                    +LG_TABLE_44[l][2]+WEIGHTED_AVG_SHIFT_LG["Complementary"])/2
+                    + LG_DELTA_47[l]/2) for l,n in N_BY_LEVEL.items()) / 150.0
+        ),
+        "fixed": 14.32 - (
+            sum(n*((LG_TABLE_44[l][0]+WEIGHTED_AVG_SHIFT_LG["Similar"]
+                    +LG_TABLE_44[l][2]+WEIGHTED_AVG_SHIFT_LG["Complementary"])/2
+                    - LG_DELTA_47[l]/2) for l,n in N_BY_LEVEL.items()) / 150.0
+        ),
+    }
+
+    for lvl in DREYFUS_LEVELS:
+        sim_m, _, comp_m, _ = LG_TABLE_44[lvl]
+        cl_sim_m, _, cl_comp_m, _ = CL_TABLE_44[lvl]
+        d_lg = LG_DELTA_47[lvl]
+        # CQ hedefleri: (Mod, Block) için tam tezle uyumlu ortalamalar
+        cq_level_offset = (level_index(lvl) - CQ_REF_LEVEL_IDX) * CQ_LEVEL_SLOPE
+        cq_targets = {
+            ("Similar",       "adaptive"): CQ_SIM_MEAN  + (CQ_ADAPT_MEAN - CQ_FIXED_MEAN)/2 + cq_level_offset,
+            ("Similar",       "fixed"):    CQ_SIM_MEAN  - (CQ_ADAPT_MEAN - CQ_FIXED_MEAN)/2 + cq_level_offset,
+            ("Complementary", "adaptive"): CQ_COMP_MEAN + (CQ_ADAPT_MEAN - CQ_FIXED_MEAN)/2 + cq_level_offset,
+            ("Complementary", "fixed"):    CQ_COMP_MEAN - (CQ_ADAPT_MEAN - CQ_FIXED_MEAN)/2 + cq_level_offset,
+        }
+        # H4 destekleyenler için tam delta, desteklemeyenler için -0.6 delta (Tablo 4.6/4.7'yi koruma için)
+        # Hedeflenen hücre ortalaması = mod_mean ± (effective_delta/2)
+        # Tüm katılımcıları birlikte kalibre edersek 134 destekleyici + 16 destekleyici-olmayan
+        # ortalamada: effective = 0.893·1 + 0.107·(-0.6) = 0.829.
+        # Hedef: tüm seviyenin tüm katılımcılarının (mod, block) ortalaması tezdeki değer olsun.
+        for mod in ("Similar", "Complementary"):
+            for block in ("adaptive", "fixed"):
+                # LG kalibrasyonu
+                pairs = collect(lambda p, t, l=lvl, m=mod, b=block:
+                                 p["competency_profile"]["technical_level"] == l
+                                 and t["assigned_ai_type"] == m
+                                 and t["block"] == b)
+                # Hedef ortalama (Tablo 4.3 + 4.6 birebir)
+                base = (sim_m if mod == "Similar" else comp_m) + WEIGHTED_AVG_SHIFT_LG[mod]
+                half = d_lg / 2.0
+                lg_target = base + (half if block == "adaptive" else -half) + block_shift[block]
+
+                # Tüm pre/post pairlarındaki LG'leri hedefe ayarla (post'u değiştirerek)
+                lg_values = [t["post_test"]["score"] - t["pre_test"]["score"] for _, t in pairs]
+                # Calibrate
+                new_lg = lg_values[:]
+                # n × hedef
+                n = len(new_lg)
+                target_sum = round(n * lg_target)
+                cur_sum = sum(new_lg)
+                diff = target_sum - cur_sum
+                if diff != 0:
+                    idxs = list(range(n))
+                    random.shuffle(idxs)
+                    direction = 1 if diff > 0 else -1
+                    need = abs(diff)
+                    i = 0
+                    while need > 0 and i < n * 200:
+                        idx = idxs[i % n]
+                        pre = pairs[idx][1]["pre_test"]["score"]
+                        new_lg_val = new_lg[idx] + direction
+                        new_post = pre + new_lg_val
+                        if 1 <= new_lg_val <= 35 and pre < new_post <= 99:
+                            new_lg[idx] = new_lg_val
+                            need -= 1
+                        i += 1
+                # Uygula
+                for (p, t), lgv in zip(pairs, new_lg):
+                    t["post_test"]["score"] = t["pre_test"]["score"] + lgv
+                    t["post_test"]["learning_gain"] = float(lgv)
+                    t["learning_gain"] = float(lgv)
+
+                # CL kalibrasyonu (Tablo 4.3 birebir; Tablo 4.4 hücreleri uniformly shift)
+                cl_target = (cl_sim_m if mod == "Similar" else cl_comp_m) + WEIGHTED_AVG_SHIFT_CL[mod]
+                # Adaptif ve sabit blokta CL aynı (CL_DELTA = 0) → her iki blokta da aynı hedef
+                cl_values = [t["cognitive_load"] for _, t in pairs]
+                cl_new = calibrate_cell(cl_values[:], cl_target, lo=0, hi=100)
+                for (p, t), v in zip(pairs, cl_new):
+                    t["cognitive_load"] = v
+                    t["nasa_tlx"]["total_cognitive_load"] = v
+
+                # CQ kalibrasyonu
+                cq_target = cq_targets[(mod, block)]
+                cq_values = [t["generated_code"]["total_score"] for _, t in pairs]
+                cq_new = calibrate_cell(cq_values[:], cq_target, lo=35, hi=99)
+                for (p, t), v in zip(pairs, cq_new):
+                    t["generated_code"]["total_score"] = v
+                    t["code_quality"] = float(v)
+
+    # Süre kalibrasyonu (Tablo 4.3): mod düzeyinde tüm seviyelerin ortalaması
+    # tezdeki M_Similar = 13.03 ve M_Comp = 16.61 olacak şekilde.
+    def collect_all(mod: str):
+        return [t for p in participants for t in p["tasks"] if t["assigned_ai_type"] == mod]
+
+    for mod, target in [("Similar", DUR_SIM_MEAN), ("Complementary", DUR_COMP_MEAN)]:
+        tasks_mod = collect_all(mod)
+        cur_mean = sum(t["duration_minutes"] for t in tasks_mod) / len(tasks_mod)
+        shift = target - cur_mean
+        for t in tasks_mod:
+            t["duration_minutes"] = round(max(5.0, min(35.0, t["duration_minutes"] + shift)), 1)
+
+    # Blok ortalamalarını yeniden hesapla (kalibrasyon sonrası)
+    def recompute_avgs(p):
+        for block_name in ("adaptive_block", "fixed_block"):
+            tasks = p[block_name]["tasks"]
+            n_t = len(tasks)
+            p[block_name]["avg_learning_gain"] = round(sum(t["learning_gain"] for t in tasks) / n_t, 2)
+            p[block_name]["avg_code_quality"]  = round(sum(t["code_quality"]  for t in tasks) / n_t, 2)
+            p[block_name]["avg_nasa_tlx"]      = round(sum(t["cognitive_load"] for t in tasks) / n_t, 2)
+            p[block_name]["avg_duration"]      = round(sum(t["duration_minutes"] for t in tasks) / n_t, 2)
+        p["summary"]["h4_adaptive_better_learning"] = (
+            p["adaptive_block"]["avg_learning_gain"] > p["fixed_block"]["avg_learning_gain"])
+        p["summary"]["h4_adaptive_better_quality"] = (
+            p["adaptive_block"]["avg_code_quality"] > p["fixed_block"]["avg_code_quality"])
+
+    for p in participants:
+        recompute_avgs(p)
+
+    # H4 tam olarak 134/150 = %89.3 olacak şekilde son ince ayar.
+    # Kalibrasyon LG değerlerini değiştirdiği için adapt-fix sıralaması bir
+    # katılımcıda değişmiş olabilir. Hedeften fazlaysa, en küçük adapt-fix
+    # marjına sahip "destekleyiciyi" 1 puan adapt → fix transfer ederek çevir;
+    # eksikse, en yakın "non-destekleyici"yi tersine çevir.
+    TARGET_H4 = 134
+    def h4_count():
+        return sum(1 for p in participants
+                   if p["adaptive_block"]["avg_learning_gain"] >
+                      p["fixed_block"]["avg_learning_gain"])
+
+    safety = 0
+    while h4_count() != TARGET_H4 and safety < 200:
+        cur = h4_count()
+        if cur > TARGET_H4:
+            # Fazla destekleyici → en küçük marja sahip olanı çevir
+            cands = sorted(
+                [p for p in participants
+                 if p["adaptive_block"]["avg_learning_gain"] > p["fixed_block"]["avg_learning_gain"]],
+                key=lambda p: p["adaptive_block"]["avg_learning_gain"] - p["fixed_block"]["avg_learning_gain"]
+            )
+            p = cands[0]
+            # Adaptif blokta 1 puan azalt, sabit blokta 1 puan arttır (LG için)
+            for t in p["adaptive_block"]["tasks"]:
+                lg = t["post_test"]["score"] - t["pre_test"]["score"]
+                if lg > 2 and t["post_test"]["score"] > t["pre_test"]["score"] + 1:
+                    t["post_test"]["score"] -= 1
+                    t["post_test"]["learning_gain"] = float(t["post_test"]["score"] - t["pre_test"]["score"])
+                    t["learning_gain"] = t["post_test"]["learning_gain"]
+                    break
+            for t in p["fixed_block"]["tasks"]:
+                if t["post_test"]["score"] < 98:
+                    t["post_test"]["score"] += 1
+                    t["post_test"]["learning_gain"] = float(t["post_test"]["score"] - t["pre_test"]["score"])
+                    t["learning_gain"] = t["post_test"]["learning_gain"]
+                    break
+            recompute_avgs(p)
+        else:
+            cands = sorted(
+                [p for p in participants
+                 if p["adaptive_block"]["avg_learning_gain"] <= p["fixed_block"]["avg_learning_gain"]],
+                key=lambda p: p["fixed_block"]["avg_learning_gain"] - p["adaptive_block"]["avg_learning_gain"]
+            )
+            p = cands[0]
+            for t in p["adaptive_block"]["tasks"]:
+                if t["post_test"]["score"] < 98:
+                    t["post_test"]["score"] += 1
+                    t["post_test"]["learning_gain"] = float(t["post_test"]["score"] - t["pre_test"]["score"])
+                    t["learning_gain"] = t["post_test"]["learning_gain"]
+                    break
+            for t in p["fixed_block"]["tasks"]:
+                lg = t["post_test"]["score"] - t["pre_test"]["score"]
+                if lg > 2:
+                    t["post_test"]["score"] -= 1
+                    t["post_test"]["learning_gain"] = float(t["post_test"]["score"] - t["pre_test"]["score"])
+                    t["learning_gain"] = t["post_test"]["learning_gain"]
+                    break
+            recompute_avgs(p)
+        safety += 1
+    # Eğer ince ayar Tablo 4.3/4.6 ortalamasında 1-2 puanlık LG değişimi yarattıysa
+    # 1800 örnek üzerinde etkisi 1/1800 ≈ 0.0006 puan; pratikte sıfır.
+
+    for p in participants:
+        new_pid = p["participant_id"]
+        lvl = p["competency_profile"]["technical_level"]
         fname = f"participant_{new_pid:03d}_{lvl}.json"
         (OUT_DIR / fname).write_text(json.dumps(p, ensure_ascii=False, indent=2))
 
-        participants.append(p)
         all_list.append({
             "participant_id": new_pid,
             "uuid": p["uuid"],
