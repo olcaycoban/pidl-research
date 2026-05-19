@@ -38,6 +38,7 @@ from database.models import (  # noqa: E402
     TaskStatus,
     TestType,
 )
+from scripts.content_templates import make_content  # noqa: E402
 
 SYNTHETIC_DIR = PROJECT_ROOT / "data" / "synthetic"
 
@@ -192,21 +193,24 @@ def load_participant(session, p: dict[str, Any]) -> None:
             )
         )
 
-        # Üretilen kod skoru (kalite)
+        # Üretilen kod skoru (kalite) + prompt/kod metni
         quality = float(t.get("code_quality", t["generated_code"]["total_score"]))
         total = int(round(quality))
-        # 0-100'ü 30/25/25/20 ağırlıklara böl (yaklaşım, raporlama için)
+        mod_str = "Similar" if ai_type == AIType.SIMILAR else "Complementary"
+        prompt_text, code_text, gen_sec = make_content(
+            idx, level_str, mod_str, domain, quality, duration_min
+        )
         functionality = int(round(total * 0.30))
         security = int(round(total * 0.25))
         gas_opt = int(round(total * 0.25))
         code_q = total - functionality - security - gas_opt
         session.add(
             GeneratedCode(
-                code_text="// Sentetik kayıt — gerçek kod metni yok",
+                code_text=code_text,
                 language="Solidity",
-                prompt_used="(sentetik)",
+                prompt_used=prompt_text,
                 ai_persona=persona_name,
-                generation_time_seconds=round(duration_min * 60 * 0.2, 2),
+                generation_time_seconds=gen_sec,
                 task_session_id=ts.id,
                 functionality_score=functionality,
                 security_score=security,

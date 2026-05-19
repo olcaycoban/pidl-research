@@ -601,40 +601,54 @@ if len(data["codes"]) > 0:
     # Content Analyzer'ı başlat
     analyzer = ContentAnalyzer()
 
-    # Tüm kodları analiz et (HIZLI MOD: Sadece persona başına 1 örnek)
+    analyze_all = st.checkbox(
+        "Tüm 1800 kodu analiz et (yavaş, ~30–60 sn)",
+        value=False,
+        help="İşaretlenmezse persona başına 1 örnek analiz edilir (hızlı mod).",
+    )
+
     all_analyses = []
     analyzed_personas = set()
+    spinner_msg = (
+        "Tüm kodlar analiz ediliyor..."
+        if analyze_all
+        else "Kod örnekleri analiz ediliyor (persona başına 1 örnek)..."
+    )
 
-    with st.spinner("Kod örnekleri analiz ediliyor (persona başına 1 örnek)..."):
+    with st.spinner(spinner_msg):
         for code_obj in data["codes"]:
-            # Her persona'dan sadece 1 örnek al (hız için)
-            if code_obj.ai_persona in analyzed_personas:
+            if not analyze_all and code_obj.ai_persona in analyzed_personas:
                 continue
 
-            if code_obj.code_text and code_obj.prompt_used:
-                try:
-                    analysis = analyzer.full_analysis(
-                        prompt=code_obj.prompt_used,
-                        code=code_obj.code_text
-                    )
+            if not code_obj.code_text or not code_obj.prompt_used:
+                continue
+            if code_obj.prompt_used.strip() == "(sentetik)":
+                continue
+            if "Sentetik kayıt" in (code_obj.code_text or ""):
+                continue
 
-                    all_analyses.append({
-                        "code_id": code_obj.id,
-                        "task_session_id": code_obj.task_session_id,
-                        "ai_persona": code_obj.ai_persona,
-                        "generation_time": code_obj.generation_time_seconds,
-                        "created_at": code_obj.created_at,
-                        "analysis": analysis
-                    })
+            try:
+                analysis = analyzer.full_analysis(
+                    prompt=code_obj.prompt_used,
+                    code=code_obj.code_text,
+                )
 
-                    analyzed_personas.add(code_obj.ai_persona)
+                all_analyses.append({
+                    "code_id": code_obj.id,
+                    "task_session_id": code_obj.task_session_id,
+                    "ai_persona": code_obj.ai_persona,
+                    "generation_time": code_obj.generation_time_seconds,
+                    "created_at": code_obj.created_at,
+                    "analysis": analysis,
+                })
 
-                    # Tüm 10 persona analiz edildiyse dur
-                    if len(analyzed_personas) >= 10:
-                        break
+                analyzed_personas.add(code_obj.ai_persona)
 
-                except Exception as e:
-                    st.warning(f"Kod ID {code_obj.id} analiz edilemedi: {str(e)}")
+                if not analyze_all and len(analyzed_personas) >= 10:
+                    break
+
+            except Exception as e:
+                st.warning(f"Kod ID {code_obj.id} analiz edilemedi: {str(e)}")
 
     if len(all_analyses) == 0:
         st.warning("⚠️ Analiz yapılabilecek geçerli kod bulunamadı. Kodların hem prompt hem de kod metni içermesi gerekir.")
@@ -943,5 +957,4 @@ else:
 
 # Footer
 st.markdown("---")
-st.markdown("**Son Güncelleme:** " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 st.markdown("**PITL Araştırma Sistemi** | Persona In The Loop - Admin Panel")
