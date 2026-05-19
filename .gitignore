@@ -46,7 +46,8 @@ env/
 *.db
 *.sqlite
 *.sqlite3
-database/research_data.db
+# database/research_data.db'yi tez sentetik verisiyle seed olarak tracked tutuyoruz
+!database/research_data.db
 
 # Logs
 *.log
