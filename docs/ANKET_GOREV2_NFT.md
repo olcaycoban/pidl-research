@@ -3,7 +3,7 @@
 
 ---
 
-## ÖN-TEST (Görev başlamadan önce)
+## ÖN-TEST (Görev başlamadan önce) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
@@ -36,11 +36,29 @@
 
 ---
 
-**Ön-Test Skoru:** _____ / 3
+**S4.** ERC-721 standardı neyi tanımlar?
+
+- [ ] A) Benzersiz (non-fungible) token standardını
+- [ ] B) Fungible token standardını
+- [ ] C) Stablecoin standardını
+- [ ] D) Bilmiyorum
 
 ---
 
-## SON-TEST (Görev tamamlandıktan sonra)
+**S5.** `_mint()` fonksiyonu ne yapar?
+
+- [ ] A) Yeni NFT oluşturur ve bir adrese atar
+- [ ] B) Token yakar
+- [ ] C) Token transfer eder
+- [ ] D) Bilmiyorum
+
+---
+
+**Ön-Test Skoru:** _____ / 5
+
+---
+
+## SON-TEST (Görev tamamlandıktan sonra) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
@@ -82,9 +100,9 @@
 
 ---
 
-**S5.** Eğitim kurumları için on-chain ile off-chain metadata arasındaki temel fark nedir?
+**S5.** On-chain metadata off-chain'e göre eğitimde neden tercih edilir?
 
-- [ ] A) On-chain kalıcı, off-chain daha ucuz ve esnek
+- [ ] A) On-chain kalıcı ve manipülasyona kapalı
 - [ ] B) On-chain daha ucuz
 - [ ] C) Aralarında teknik fark yok
 - [ ] D) Bilmiyorum
@@ -99,10 +117,10 @@
 
 ## Cevap Anahtarı
 
-| Soru | Doğru Cevap |
-|------|------------|
-| S1 | B |
-| S2 | B |
-| S3 | A |
-| S4 | A |
-| S5 | A |
+| | Ön-Test | Son-Test |
+|-|---------|---------|
+| S1 | B | B |
+| S2 | B | B |
+| S3 | A | A |
+| S4 | A | A |
+| S5 | A | A |

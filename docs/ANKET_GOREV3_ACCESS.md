@@ -3,7 +3,7 @@
 
 ---
 
-## ÖN-TEST (Görev başlamadan önce)
+## ÖN-TEST (Görev başlamadan önce) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
@@ -36,11 +36,29 @@
 
 ---
 
-**Ön-Test Skoru:** _____ / 3
+**S4.** `msg.value` neyi ifade eder?
+
+- [ ] A) İşlemle gönderilen ETH miktarı
+- [ ] B) Mesaj uzunluğu
+- [ ] C) Gas ücreti
+- [ ] D) Bilmiyorum
 
 ---
 
-## SON-TEST (Görev tamamlandıktan sonra)
+**S5.** `require()` koşulu başarısız olursa ne olur?
+
+- [ ] A) İşlem geri alınır (revert)
+- [ ] B) Hata kaydedilir ve devam edilir
+- [ ] C) İşlem yavaşlar
+- [ ] D) Bilmiyorum
+
+---
+
+**Ön-Test Skoru:** _____ / 5
+
+---
+
+## SON-TEST (Görev tamamlandıktan sonra) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
@@ -73,7 +91,7 @@
 
 ---
 
-**S4.** `block.timestamp` ile süre kontrolü yapmak güvenli midir?
+**S4.** `block.timestamp` ile süre kontrolü ne kadar güvenlidir?
 
 - [ ] A) Tamamen güvenli
 - [ ] B) Manipüle edilebilir (±15 saniye)
@@ -99,10 +117,10 @@
 
 ## Cevap Anahtarı
 
-| Soru | Doğru Cevap |
-|------|------------|
-| S1 | B |
-| S2 | A |
-| S3 | A |
-| S4 | B |
-| S5 | A |
+| | Ön-Test | Son-Test |
+|-|---------|---------|
+| S1 | B | B |
+| S2 | A | A |
+| S3 | A | A |
+| S4 | A | B |
+| S5 | A | A |

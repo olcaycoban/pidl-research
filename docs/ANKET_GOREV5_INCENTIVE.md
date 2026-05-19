@@ -3,7 +3,7 @@
 
 ---
 
-## ÖN-TEST (Görev başlamadan önce)
+## ÖN-TEST (Görev başlamadan önce) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
@@ -36,11 +36,29 @@
 
 ---
 
-**Ön-Test Skoru:** _____ / 3
+**S4.** Staking mekanizması ne sağlar?
+
+- [ ] A) Token kilitleyerek sisteme bağlılık ve oy ağırlığı kazandırır
+- [ ] B) Token çoğaltır
+- [ ] C) Gas ücretini azaltır
+- [ ] D) Bilmiyorum
 
 ---
 
-## SON-TEST (Görev tamamlandıktan sonra)
+**S5.** Solidity'de `event` yapısı ne işe yarar?
+
+- [ ] A) Zincir dışı sistemlere bildirim gönderir
+- [ ] B) Başka bir fonksiyon çağırır
+- [ ] C) Gas tasarrufu sağlar
+- [ ] D) Bilmiyorum
+
+---
+
+**Ön-Test Skoru:** _____ / 5
+
+---
+
+## SON-TEST (Görev tamamlandıktan sonra) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
@@ -99,10 +117,10 @@
 
 ## Cevap Anahtarı
 
-| Soru | Doğru Cevap |
-|------|------------|
-| S1 | C |
-| S2 | C |
-| S3 | A |
-| S4 | C |
-| S5 | A |
+| | Ön-Test | Son-Test |
+|-|---------|---------|
+| S1 | C | C |
+| S2 | C | C |
+| S3 | A | A |
+| S4 | A | C |
+| S5 | A | A |

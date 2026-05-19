@@ -36,22 +36,34 @@ class Task4Loan(BaseTask):
         return [
             {"id": "q1", "question": "DeFi lending protokollerinin eğitimdeki potansiyeli nedir?", "type": "multiple_choice",
              "options": ["Öğrenciye erişim kolaylığı", "Şeffaf kredi sistemi", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q2", "question": "Collateral (teminat) olmadan kredi vermenin riskleri?", "type": "multiple_choice",
+            {"id": "q2", "question": "Collateral (teminat) olmadan kredi vermenin riskleri nelerdir?", "type": "multiple_choice",
              "options": ["Geri ödememe riski", "Sybil attack riski", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
             {"id": "q3", "question": "Havuz bazlı kredi sisteminin temel avantajı nedir?", "type": "multiple_choice",
              "options": ["Riski çok sayıda yatırımcıya dağıtır", "Her krediyi merkezi onaylar", "Faizi sıfıra indirir", "Bilmiyorum"],
-             "correct_answer": "Riski çok sayıda yatırımcıya dağıtır"}
+             "correct_answer": "Riski çok sayıda yatırımcıya dağıtır"},
+            {"id": "q4", "question": "DeFi'de `collateral ratio` neden önemlidir?", "type": "multiple_choice",
+             "options": ["Borcun teminat değerini aşmaması için", "Gas maliyetini düşürmek için", "İşlemi hızlandırmak için", "Bilmiyorum"],
+             "correct_answer": "Borcun teminat değerini aşmaması için"},
+            {"id": "q5", "question": "Solidity 0.8+ sürümünde sayısal taşma (overflow) neden sorun değildir?", "type": "multiple_choice",
+             "options": ["Yerleşik overflow koruması mevcuttur", "Büyük sayılar desteklenmez", "Floating point kullanılır", "Bilmiyorum"],
+             "correct_answer": "Yerleşik overflow koruması mevcuttur"},
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q1", "question": "What is the potential of DeFi lending protocols in education?", "type": "multiple_choice",
              "options": ["Easier access for students", "Transparent credit system", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q2", "question": "Risks of lending without collateral?", "type": "multiple_choice",
+            {"id": "q2", "question": "What are the risks of lending without collateral?", "type": "multiple_choice",
              "options": ["Default risk", "Sybil attack risk", "Both", "I don't know"], "correct_answer": "Both"},
             {"id": "q3", "question": "What is the main advantage of a pool-based lending system?", "type": "multiple_choice",
              "options": ["Distributes risk across many investors", "Requires central approval for every loan", "Reduces interest to zero", "I don't know"],
-             "correct_answer": "Distributes risk across many investors"}
+             "correct_answer": "Distributes risk across many investors"},
+            {"id": "q4", "question": "Why is the collateral ratio important in DeFi?", "type": "multiple_choice",
+             "options": ["To ensure the debt does not exceed collateral value", "To reduce gas cost", "To speed up transactions", "I don't know"],
+             "correct_answer": "To ensure the debt does not exceed collateral value"},
+            {"id": "q5", "question": "Why is numeric overflow not a problem in Solidity 0.8+?", "type": "multiple_choice",
+             "options": ["Built-in overflow protection is included", "Large numbers are not supported", "Floating point is used", "I don't know"],
+             "correct_answer": "Built-in overflow protection is included"},
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -59,26 +71,40 @@ class Task4Loan(BaseTask):
 
     def _get_post_test_questions_tr(self) -> List[Dict[str, Any]]:
         return [
+            {"id": "q1", "question": "DeFi lending protokollerinin eğitimdeki potansiyeli nedir?", "type": "multiple_choice",
+             "options": ["Öğrenciye erişim kolaylığı", "Şeffaf kredi sistemi", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
+            {"id": "q2", "question": "Collateral (teminat) olmadan kredi vermenin riskleri nelerdir?", "type": "multiple_choice",
+             "options": ["Geri ödememe riski", "Sybil attack riski", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
+            {"id": "q3", "question": "Havuz bazlı kredi sisteminin temel avantajı nedir?", "type": "multiple_choice",
+             "options": ["Riski çok sayıda yatırımcıya dağıtır", "Her krediyi merkezi onaylar", "Faizi sıfıra indirir", "Bilmiyorum"],
+             "correct_answer": "Riski çok sayıda yatırımcıya dağıtır"},
             {"id": "q4", "question": "Öğrenci kredilerinde oracle kullanımı ne sağlar?", "type": "multiple_choice",
-             "options": ["Not ortalaması verisi", "Mezuniyet durumu", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q5", "question": "Eğitimde reputation-based lending'in teminat sistemine göre avantajı?", "type": "multiple_choice",
+             "options": ["Not ortalaması verisi", "Mezuniyet durumu", "Her ikisi de", "Bilmiyorum"],
+             "correct_answer": "Her ikisi de"},
+            {"id": "q5", "question": "Eğitimde reputation-based lending'in teminat sistemine göre avantajı nedir?", "type": "multiple_choice",
              "options": ["Teminat olmadan geçmiş performansa göre güvenilirlik değerlendirmesi yapar", "Her öğrenciye eşit kredi verir", "Faizi tamamen kaldırır", "Bilmiyorum"],
-             "correct_answer": "Teminat olmadan geçmiş performansa göre güvenilirlik değerlendirmesi yapar"}
+             "correct_answer": "Teminat olmadan geçmiş performansa göre güvenilirlik değerlendirmesi yapar"},
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
+            {"id": "q1", "question": "What is the potential of DeFi lending protocols in education?", "type": "multiple_choice",
+             "options": ["Easier access for students", "Transparent credit system", "Both", "I don't know"], "correct_answer": "Both"},
+            {"id": "q2", "question": "What are the risks of lending without collateral?", "type": "multiple_choice",
+             "options": ["Default risk", "Sybil attack risk", "Both", "I don't know"], "correct_answer": "Both"},
+            {"id": "q3", "question": "What is the main advantage of a pool-based lending system?", "type": "multiple_choice",
+             "options": ["Distributes risk across many investors", "Requires central approval for every loan", "Reduces interest to zero", "I don't know"],
+             "correct_answer": "Distributes risk across many investors"},
             {"id": "q4", "question": "What does oracle use provide in student loans?", "type": "multiple_choice",
-             "options": ["GPA data", "Graduation status", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q5", "question": "Advantage of reputation-based lending over collateral-based systems in education?", "type": "multiple_choice",
+             "options": ["GPA data", "Graduation status", "Both", "I don't know"],
+             "correct_answer": "Both"},
+            {"id": "q5", "question": "Advantage of reputation-based lending over collateral-based in education?", "type": "multiple_choice",
              "options": ["Assesses trustworthiness based on past performance without collateral", "Gives equal credit to every student", "Eliminates interest entirely", "I don't know"],
-             "correct_answer": "Assesses trustworthiness based on past performance without collateral"}
+             "correct_answer": "Assesses trustworthiness based on past performance without collateral"},
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:
-        pre = self.get_pre_test_questions()
-        post_only = self._get_post_test_questions_en() if self._get_lang() == "en" else self._get_post_test_questions_tr()
-        return pre + post_only
+        return self._get_post_test_questions_en() if self._get_lang() == "en" else self._get_post_test_questions_tr()
 
     def get_evaluation_criteria(self) -> Dict[str, Dict[str, int]]:
         return {

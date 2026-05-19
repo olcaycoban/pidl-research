@@ -3,17 +3,17 @@
 
 ---
 
-## ÖN-TEST (Görev başlamadan önce)
+## ÖN-TEST (Görev başlamadan önce) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
 ---
 
-**S1.** Blockchain'de diploma saklamanın temel avantajı nedir?
+**S1.** Blockchain'de diploma saklamanın avantajı nedir?
 
-- [ ] A) Değiştirilemez kayıt sağlar
-- [ ] B) Daha ucuzdur
-- [ ] C) Daha hızlıdır
+- [ ] A) Değiştirilemez kayıt
+- [ ] B) Daha ucuz
+- [ ] C) Daha hızlı
 - [ ] D) Bilmiyorum
 
 ---
@@ -36,21 +36,39 @@
 
 ---
 
-**Ön-Test Skoru:** _____ / 3
+**S4.** Akıllı sözleşmede `address` tipi ne ifade eder?
+
+- [ ] A) Ethereum cüzdan veya sözleşme adresi
+- [ ] B) IP adresi
+- [ ] C) E-posta adresi
+- [ ] D) Bilmiyorum
 
 ---
 
-## SON-TEST (Görev tamamlandıktan sonra)
+**S5.** `mapping(address => bool)` veri yapısı ne sağlar?
+
+- [ ] A) Her adres için O(1) hızında erişim
+- [ ] B) Tüm adresleri listeler
+- [ ] C) Adresleri doğrular
+- [ ] D) Bilmiyorum
+
+---
+
+**Ön-Test Skoru:** _____ / 5
+
+---
+
+## SON-TEST (Görev tamamlandıktan sonra) — 5 Soru
 
 **Katılımcı No:** __________ | **Tarih:** __________
 
 ---
 
-**S1.** Blockchain'de diploma saklamanın temel avantajı nedir?
+**S1.** Blockchain'de diploma saklamanın avantajı nedir?
 
-- [ ] A) Değiştirilemez kayıt sağlar
-- [ ] B) Daha ucuzdur
-- [ ] C) Daha hızlıdır
+- [ ] A) Değiştirilemez kayıt
+- [ ] B) Daha ucuz
+- [ ] C) Daha hızlı
 - [ ] D) Bilmiyorum
 
 ---
@@ -99,10 +117,10 @@
 
 ## Cevap Anahtarı
 
-| Soru | Doğru Cevap |
-|------|------------|
-| S1 | A |
-| S2 | B |
-| S3 | A |
-| S4 | C |
-| S5 | A |
+| | Ön-Test | Son-Test |
+|-|---------|---------|
+| S1 | A | A |
+| S2 | B | B |
+| S3 | A | A |
+| S4 | A | C |
+| S5 | A | A |
