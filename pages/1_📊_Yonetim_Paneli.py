@@ -1013,6 +1013,17 @@ belirtmiştir. Adaptif mekanizma nicel olarak üstün; farkındalık katılımc�
                 fig_iv.update_layout(height=420)
                 st.plotly_chart(fig_iv, use_container_width=True)
 
+                st.markdown("#### Kod açıklamaları")
+                legend_df = freq_df.sort_values("Frekans", ascending=False).copy()
+                legend_df["Açıklama"] = legend_df["Kod"].map(
+                    lambda c: THEME_LABELS.get(str(c), str(c))
+                )
+                st.dataframe(
+                    legend_df[["Kod", "Frekans", "Açıklama"]],
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
 except Exception as ex:
     st.error(f"Görüşme modülü yüklenemedi: {ex}")
 
