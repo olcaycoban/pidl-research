@@ -1,10 +1,10 @@
 {
   "source": "s/Tez_Toplu (1).pdf — Bölüm 4.5",
   "n_interviews": 20,
-  "sampling": "Her Dreyfus seviyesinden ikişer; teknik ve pedagojik alanlardan eşit temsil",
+  "sampling": "Her Dreyfus seviyesinde 4 görüşme (2 teknik + 2 pedagojik); toplam 10 teknik, 10 pedagojik",
   "duration_minutes": { "mean": 42, "min": 28, "max": 61 },
   "cohens_kappa": 0.84,
-  "method": "Braun & Clarke (2006) tematik analiz",
+  "method": "Braun ve Clarke (2006) tematik analiz",
   "main_themes": [
     "4.5.1 Persona deneyimi",
     "4.5.2 Mod algısı",
@@ -13,5 +13,7 @@
   ],
   "sub_themes_count": 12,
   "participant_code_prefix": "K",
-  "joint_display_table": "Tablo 4.11"
+  "joint_display_table": "Tablo 4.11",
+  "verbatim_quotes_in_transcripts": true,
+  "humanize_typos": false
 }

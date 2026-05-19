@@ -1,18 +1,18 @@
 # Form 4 — Yarı Yapılandırılmış Görüşme (DOLDURULMUŞ)
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
-**Görüşme kodu:** INT-002 · **Katılımcı:** **K2**
-**Dreyfus:** Acemi · **Alan:** Pedagojik
+**Görüşme kodu:** INT-012 · **Katılımcı:** **K12**
+**Dreyfus:** Yetkin · **Alan:** Pedagojik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Çoklu İmza görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 47) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Yetkin seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Çoklu İmza görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 42) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
-Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Acemi profilimle uyumlu bir zorluk düzeyi sunuldu.
+Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Yetkin profilimle uyumlu bir zorluk düzeyi sunuldu.
 
 ---
 
@@ -32,21 +32,21 @@ Atanan persona Pedagojik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Acemi katılımcılar genel olarak Tamamlayıcı modda daha fazla zorlanıyor; ben de bunu hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
 
 ---
 
 ## BÖLÜM 4 — Sabit Mod *(4.5.2)*
 
 ### 4.1 Blok 2
-Acemi katılımcılar genel olarak Tamamlayıcı modda daha fazla zorlanıyor; ben de bunu hissettim. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
 
 ---
 
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Tamamlayıcı modda başta kafam karışmıştı ama sonra parçalar birleşince çok şey öğrendiğimi fark ettim. Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
+Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim. Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
 Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
@@ -71,13 +71,13 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K2 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Pedagojik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Benzer. Kodlar: TAM, MDF, BDG, BAS. Örneklem κ = .84.
+K12 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Yetkin, Pedagojik alan. Ortalama NASA-TLX 42; öğrenme kazanımı 14 puan. Tercih: Benzer. Kodlar: TAM, MDF, BDG. Örneklem κ = .84.
 
 ---
 
 ## Tematik kodlama (12 alt tema, 4 ana tema)
 
-| Kod | Tema | K2 |
+| Kod | Tema | K12 |
 |-----|------|:--:|
 | UZM | 4.5.1 Personanın uzmanlık algısı | — |
 | ILE | 4.5.1 İletişim stili | — |
@@ -90,9 +90,9 @@ K2 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Ac
 | KUL | 4.5.4 Kullanılabilirlik | — |
 | ADP | 4.5.4 Adaptif mod algısı | — |
 | IYI | 4.5.4 İyileştirme önerisi | — |
-| BAS | Zaman / bilişsel baskı | ✓ |
+| BAS | Zaman / bilişsel baskı | — |
 
-**Aktif:** TAM, MDF, BDG, BAS
+**Aktif:** TAM, MDF, BDG
 
 ---
 

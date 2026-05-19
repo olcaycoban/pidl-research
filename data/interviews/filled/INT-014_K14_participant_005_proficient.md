@@ -1,7 +1,7 @@
 # Form 4 — Yarı Yapılandırılmış Görüşme (DOLDURULMUŞ)
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
-**Görüşme kodu:** INT-016 · **Katılımcı:** **K16**
+**Görüşme kodu:** INT-014 · **Katılımcı:** **K14**
 **Dreyfus:** Usta · **Alan:** Teknik
 
 ---
@@ -9,7 +9,7 @@
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformun arayüzünü kullanışlı ve sezgisel buldum. Özellikle Öğrenme Kaydı görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 38) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Usta seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Diploma Doğrulama görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 38) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
 Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Usta profilimle uyumlu bir zorluk düzeyi sunuldu.
@@ -32,21 +32,21 @@ Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Öğrenme Kaydı oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
+Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu ve hızlıca sonuca ulaşabildik. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Diploma Doğrulama oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
 
 ---
 
 ## BÖLÜM 4 — Sabit Mod *(4.5.2)*
 
 ### 4.1 Blok 2
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
+Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu ve hızlıca sonuca ulaşabildik. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
 
 ---
 
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 17 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
+Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 16 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
 Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
@@ -71,28 +71,28 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K16 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Usta, Teknik alan. Ortalama NASA-TLX 38; öğrenme kazanımı 17 puan. Tercih: Benzer. Kodlar: KUL, IYI. Örneklem κ = .84.
+K14 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Usta, Teknik alan. Ortalama NASA-TLX 38; öğrenme kazanımı 16 puan. Tercih: Benzer. Kodlar: BEN, MDF, UZM. Örneklem κ = .84.
 
 ---
 
 ## Tematik kodlama (12 alt tema, 4 ana tema)
 
-| Kod | Tema | K16 |
+| Kod | Tema | K14 |
 |-----|------|:--:|
-| UZM | 4.5.1 Personanın uzmanlık algısı | — |
+| UZM | 4.5.1 Personanın uzmanlık algısı | ✓ |
 | ILE | 4.5.1 İletişim stili | — |
 | ESL | 4.5.1 Eşleştirme süreci | — |
 | TAM | 4.5.2 Tamamlayıcı mod | — |
-| BEN | 4.5.2 Benzer mod | — |
-| MDF | 4.5.2 Modlar arası deneyim farkı | — |
+| BEN | 4.5.2 Benzer mod | ✓ |
+| MDF | 4.5.2 Modlar arası deneyim farkı | ✓ |
 | BDG | 4.5.3 Bilgi değişimi | — |
 | ZOR | 4.5.3 Zorlayıcı noktalar | — |
-| KUL | 4.5.4 Kullanılabilirlik | ✓ |
+| KUL | 4.5.4 Kullanılabilirlik | — |
 | ADP | 4.5.4 Adaptif mod algısı | — |
-| IYI | 4.5.4 İyileştirme önerisi | ✓ |
+| IYI | 4.5.4 İyileştirme önerisi | — |
 | BAS | Zaman / bilişsel baskı | — |
 
-**Aktif:** KUL, IYI
+**Aktif:** BEN, MDF, UZM
 
 ---
 

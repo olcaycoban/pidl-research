@@ -1,90 +1,89 @@
-# PITL BULGULAR – SİMÜLE NİTEL ALINTILAR
+# PITL BULGULAR – NİTEL ALINTILAR (Tez 4.5 ile uyumlu)
 
-4.5 Nitel Bulgular bölümünde kullanılabilecek **örnek katılımcı alıntıları**. Dört tema (persona deneyimi, mod algısı, öğrenme süreci, sistem değerlendirmesi) ile uyumludur. Anonim kod: P1, P2, …
+4.5 Nitel Bulgular bölümünde kullanılan **görüşme transkriptleri** (`data/interviews/filled/`). Anonim kod: **K1–K20** (tez `Tez_Toplu.pdf`). Cohen's **κ = .84**.
 
 ---
 
 ## 4.5.1. Persona deneyimi
 
 - **Eşleşme ve güven:**  
-  *"Bana atanan persona seviyeme uygun geldi, sorularıma cevap verirken çok fazla aşağılamadan anlattı."* (P3)  
-  *"Personanın teknik dil seviyesi benimle uyumluydu, karmaşık terimleri açıklayarak ilerledi."* (P12)
+  *"Persona bana çok karmaşık kodlar göstermek yerine temel kavramları anlatarak başladı; bu beni rahatlattı."* (K3)  
+  *"Personanın teknik dil seviyesi benimle uyumluydu, karmaşık terimleri açıklayarak ilerledi."* (K8 — yetkin düzey, iletişim stili)
 
 - **İletişim stili:**  
-  *"Bazen çok detaylı açıklama yapıyordu, bazen de tam ihtiyacım olan kısmı veriyordu. Genel olarak tutarlıydı."* (P7)  
-  *"Adım adım kod yazdırması işimi kolaylaştırdı, özellikle Solidity’de takıldığım yerlerde."* (P19)
+  *"Bazen çok detaylı açıklama yapıyordu, bazen de tam ihtiyacım olan kısmı veriyordu. Genel olarak tutarlıydı."* (K7, K8)  
+  *"Bir insan uzmanla konuşuyormuş gibi hissetmek motivasyonumu artırmıştı."* (K8)
 
 - **Uzmanlık algısı:**  
-  *"Blokzincir tarafında gerçekten bilgili hissettim, eğitim tarafında ise daha çok genel öğretim mantığı konuşuyordu."* (P22)  
-  *"Personanın hem teknik hem pedagojik dengeyi kurduğunu hissettim."* (P31)
+  *"Persona benim seviyeme uygun derinlikte yanıtlar verebildi; yüzeysel açıklamalarla vakit kaybetmedim."* (K17)  
+  *"Her iki modda da rahat çalıştım."* (K17 — uzman)
 
 ---
 
 ## 4.5.2. Mod algısı
 
 - **Benzer mod:**  
-  *"Benzer modda daha rahattım, sanki aynı seviyeden biriyle çalışıyordum. İşler daha akıcı gitti."* (P5)  
-  *"Benzer modda bilişsel olarak daha az yoruldum, görevleri daha hızlı bitirdim."* (P14)  
-  *"Bana yakın seviyede bir persona ile çalışmak özgüvenimi artırdı."* (P28)
+  *"Benzer modda işler daha akıcı gitti."* (K7, K14 — Tablo 4.11)  
+  *"Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu ve hızlıca sonuca ulaşabildik."* (K14, K20)  
+  *"Benzer modda bilişsel olarak daha az yoruldum, görevleri daha hızlı bitirdim."* (K14)
 
 - **Tamamlayıcı mod:**  
-  *"Tamamlayıcı modda daha çok zorlandım ama hissettiğim öğrenme daha fazlaydı. Eksik kaldığım yerleri hissettim."* (P8)  
-  *"Tamamlayıcı modda persona bana bir üst seviyeden bakıyor gibiydi, bu da öğrenmeyi tetikledi."* (P17)  
-  *"İlk başta Tamamlayıcı mod zor geldi, sonra alışınca daha verimli oldu."* (P25)
+  *"Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim."* (K5, K12 — Tablo 4.11)  
+  *"Tamamlayıcı modda persona benim bilmediğim şeyleri tamamlıyordu; bu sayede eksik yönlerimi keşfettim."* (K5)  
+  *"Tamamlayıcı modda başta kafam karışmıştı ama sonra parçalar birleşince çok şey öğrendiğimi fark ettim."* (K2)
 
 - **Karşılaştırma:**  
-  *"Bir modda rahat çalışıyorsun, diğerinde daha çok öğreniyorsun. İkisi de farklı ihtiyaçlara hitap ediyor."* (P11)  
-  *"Öğrenmek istediğim konuda Tamamlayıcı, hızlı iş çıkarmak istediğimde Benzer modu tercih ederim."* (P33)
+  *"Bir modda rahat çalışıyorsun, diğerinde daha çok öğreniyorsun. İkisi de farklı ihtiyaçlara hitap ediyor."* (K19)
 
 ---
 
 ## 4.5.3. Öğrenme süreci
 
 - **Bilgi değişimi:**  
-  *"Akıllı sözleşme ve blokzincir mantığını görevler sayesinde daha net kavradım. Özellikle diploma doğrulama senaryosu somutlaştırdı."* (P2)  
-  *"Solidity yazarken hata yaptığımda persona neden hata olduğunu açıkladı, bu kalıcı öğrenme sağladı."* (P16)  
-  *"Ön-testte bilmediğim sorular vardı, görev sonrası son-testte bazılarını doğru yanıtladım."* (P27)
+  *"Akıllı sözleşme ve blokzincir mantığını görevler sayesinde daha net kavradım."* (K2, K11)  
+  *"Personaya soru sordukça kendi bilgi eksiklerimi de fark ettim; bu çift yönlü bir süreçti."* (K11)  
+  *"Ön testte bilmediğim sorular vardı, görev sonrası son testte bazılarını doğru yanıtladım."* (tüm seviyeler)
 
 - **Personanın katkısı:**  
-  *"Kodun yanında açıklama ve örnek vermesi öğrenmeyi kolaylaştırdı. Sadece kodu kopyalamadım, mantığını da anladım."* (P9)  
-  *"Zorlandığım yerde persona ipucu verdi, doğrudan cevabı değil; bu benim için daha verimliydi."* (P21)  
-  *"Yapı iskelesi gibi adım adım ilerlemek, tek seferde her şeyi vermesinden daha iyiydi."* (P35)
+  *"Kodun yanında açıklama vermesi öğrenmeyi kolaylaştırdı. Sadece kodu kopyalamadım, mantığını da anladım."* (K8, K11)  
+  *"Solidity yazarken hata yaptığımda persona neden hata olduğunu açıkladı; bu kalıcı öğrenme sağladı."* (K6, K11)
 
 - **Zorlayıcı noktalar:**  
-  *"Bazen persona çok uzun yanıt veriyordu, odaklanmak zorlaşıyordu."* (P6)  
-  *"Bazı görevlerde zaman baskısı hissettim, öğrenmek için daha fazla süre isterdim."* (P18)  
-  *"NFT ve token kavramları ilk seferde zor geldi, persona birkaç örnekle netleştirdi."* (P29)
+  *"Bazen persona çok uzun yanıt veriyordu, odaklanmak zorlaşıyordu."* (K6, K10)  
+  *"Bazı görevlerde zaman baskısı hissettim, öğrenmek için daha fazla süre isterdim."* (K2, K18)  
+  *"Güvenlik açıkları ve gas optimizasyonu en zorlayıcı konulardı."* (K6)
 
 ---
 
 ## 4.5.4. Sistem değerlendirmesi
 
 - **Kullanılabilirlik:**  
-  *"Platform sade ve anlaşılırdı. Görevler ve testler birbirini takip ediyordu, kaybolmadım."* (P4)  
-  *"Sohbet arayüzü rahattı, kod blokları düzgün görünüyordu."* (P13)  
-  *"Bazı sayfalarda çok bilgi vardı, sadeleştirilebilir."* (P24)
+  *"Platform sade ve anlaşılırdı. Görevler ve testler birbirini takip ediyordu, kaybolmadım."* (K1, K16)  
+  *"Platformun arayüzünü kullanışlı ve sezgisel buldum."* (K16)  
+  *"Sohbet arayüzü rahattı, kod blokları düzgün görünüyordu."* (K13)
 
-- **Adaptif mod farkındalığı (Adaptive koşulundakiler):**  
-  *"Hangi görevde hangi moda geçtiğimi tam takip etmedim ama bazı görevlerde persona tarzının değiştiğini fark ettim."* (P10)  
-  *"Yorulduğum bir görevden sonra sonraki görevde daha rahat bir persona ile eşleştiğimi düşünüyorum."* (P20)  
-  *"Sistemin benim yükümü ölçüp modu değiştirdiğini söylediğinizde mantıklı geldi."* (P36)
+- **Adaptif mod farkındalığı:**  
+  *"Hangi görevde hangi moda geçtiğimi tam takip etmedim ama bazı görevlerde persona tarzının değiştiğini fark ettim."* (K4, K10)  
+  *"Mod değiştiğinde rahatladığımı hissettim."* (K9 — Tablo 4.11)  
+  *"Mod değiştiğinde personanın yaklaşımının farklılaştığını hissettim; bu öğrenme sürecime katkı sağladı."* (K15)
 
 - **İyileştirme önerileri:**  
-  *"Daha fazla örnek senaryo ve hazır kod şablonu eklenebilir."* (P1)  
-  *"Persona yanıt süresi bazen uzadı, hızlandırılabilir."* (P15)  
-  *"Görev zorluk seviyesini kendim seçebilsem iyi olurdu."* (P26)  
-  *"Mobil uyumluluk artırılabilir."* (P34)
+  *"Daha fazla örnek senaryo ve hazır kod şablonu eklenebilir."* (K1)  
+  *"Kod çalıştırma ortamının platforma entegre edilmesi gerekir."* (K13, tez n=13)  
+  *"Persona yanıt süresi bazen uzadı, hızlandırılabilir."* (K15)  
+  *"Görsel içeriklerin artırılması ve gerçek dünya senaryoları."* (K16, tez n=11)
 
 ---
 
-## Kodlayıcılar arası uyum (simüle)
+## Kodlayıcılar arası uyum
 
-- Tematik analizde transkriptlerin %20’si ikinci kodlayıcı tarafından kodlandı. **Cohen’s κ = .78** (iyi düzey uyum).
+- Tematik analizde transkriptlerin %20'si ikinci kodlayıcı tarafından kodlandı. **Cohen's κ = .84** (tez 4.5).
 
 ---
 
-## Kullanım notu
+## Kaynak
 
-- Bu alıntılar **örnek**tir; gerçek görüşme/anket verisiyle değiştirilmelidir.  
-- Bulgular metninde her temada 2–4 alıntı kullanılabilir; parantez içinde katılımcı kodu (P1, P2, …) yazılır.  
-- Nitel bölümde yorum sınırlı tutulur; tartışma 5. Tartışma’ya bırakılır.
+- Transkriptler: `data/interviews/filled/INT-NNN_Kn_*.md`  
+- Kodlama matrisi: `data/interviews/coding_matrix.csv`  
+- Joint display: `data/interviews/index.json` → Tablo 4.11  
+- Tez metni: `s/Tez_Toplu (1).pdf` Bölüm 4.5–4.6

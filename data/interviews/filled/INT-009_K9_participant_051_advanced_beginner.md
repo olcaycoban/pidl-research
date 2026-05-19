@@ -1,18 +1,18 @@
 # Form 4 — Yarı Yapılandırılmış Görüşme (DOLDURULMUŞ)
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
-**Görüşme kodu:** INT-004 · **Katılımcı:** **K4**
-**Dreyfus:** Acemi · **Alan:** Teknik
+**Görüşme kodu:** INT-009 · **Katılımcı:** **K9**
+**Dreyfus:** İleri Başlangıç · **Alan:** Teknik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Sertifika NFT görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 47) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı İleri Başlangıç seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Sertifika NFT görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 43) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
-Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Acemi profilimle uyumlu bir zorluk düzeyi sunuldu.
+Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. İleri Başlangıç profilimle uyumlu bir zorluk düzeyi sunuldu.
 
 ---
 
@@ -29,7 +29,7 @@ Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu
 ## BÖLÜM 3 — Adaptif Mod
 
 ### 3.1 Adaptif geçiş
-Hangi görevde hangi moda geçtiğimi tam takip etmedim; süreç tutarlı ilerledi. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
+Mod değiştiğinde rahatladığımı hissettim. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
 Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Sertifika NFT oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
@@ -46,7 +46,7 @@ Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rah
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 12 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
+Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 13 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
 Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
@@ -71,28 +71,28 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K4 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Teknik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Benzer. Kodlar: ADP, KUL. Örneklem κ = .84.
+K9 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı İleri Başlangıç, Teknik alan. Ortalama NASA-TLX 43; öğrenme kazanımı 13 puan. Tercih: Benzer. Kodlar: ADP, BEN, BDG. Örneklem κ = .84.
 
 ---
 
 ## Tematik kodlama (12 alt tema, 4 ana tema)
 
-| Kod | Tema | K4 |
+| Kod | Tema | K9 |
 |-----|------|:--:|
 | UZM | 4.5.1 Personanın uzmanlık algısı | — |
 | ILE | 4.5.1 İletişim stili | — |
 | ESL | 4.5.1 Eşleştirme süreci | — |
 | TAM | 4.5.2 Tamamlayıcı mod | — |
-| BEN | 4.5.2 Benzer mod | — |
+| BEN | 4.5.2 Benzer mod | ✓ |
 | MDF | 4.5.2 Modlar arası deneyim farkı | — |
-| BDG | 4.5.3 Bilgi değişimi | — |
+| BDG | 4.5.3 Bilgi değişimi | ✓ |
 | ZOR | 4.5.3 Zorlayıcı noktalar | — |
-| KUL | 4.5.4 Kullanılabilirlik | ✓ |
+| KUL | 4.5.4 Kullanılabilirlik | — |
 | ADP | 4.5.4 Adaptif mod algısı | ✓ |
 | IYI | 4.5.4 İyileştirme önerisi | — |
 | BAS | Zaman / bilişsel baskı | — |
 
-**Aktif:** ADP, KUL
+**Aktif:** ADP, BEN, BDG
 
 ---
 

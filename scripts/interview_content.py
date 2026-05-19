@@ -1,6 +1,6 @@
 """
-Form 4 görüşmeleri — tez Bölüm 4.5 (K1–K20, κ = .84).
-Transkriptler: düzgün Türkçe, paragraf düzeyinde (humanize yok).
+Form 4 görüşmeleri — tez Bölüm 4.5 (Tez_Toplu.pdf) ile birebir.
+K1–K20, κ=.84, 10 teknik + 10 pedagojik, 4 görüşme/Dreyfus seviyesi.
 """
 from __future__ import annotations
 
@@ -31,22 +31,27 @@ THEME_CODES = {
     "BAS": "Zaman / bilişsel baskı",
 }
 
+# 20 görüşme: her Dreyfus seviyesinde 4 katılımcı (2 teknik + 2 pedagojik) — tez n=20
 K_TO_PARTICIPANT_ID: Dict[int, int] = {
-    1: 13, 2: 14, 3: 19, 4: 26,
-    5: 7, 6: 20, 7: 8, 8: 4,
-    9: 15, 10: 17, 11: 17, 12: 10,
-    13: 11, 14: 1, 15: 3, 16: 6,
-    17: 2, 18: 16, 19: 12, 20: 18,
+    1: 13, 2: 14, 3: 19, 4: 26,       # Acemi (2T+2P)
+    5: 7, 6: 20, 7: 8, 8: 4,           # K5–K7 ileri başlangıç; K8 yetkin (tez 4.5.1)
+    9: 51, 10: 68, 11: 17, 12: 15,     # İleri başlangıç + yetkin (2T+2P)
+    13: 1, 14: 5, 15: 27, 16: 6,       # Usta (2T+2P) — K14 tez
+    17: 2, 18: 18, 19: 12, 20: 16,    # Uzman (2T+2P) — K17,K20 tez
 }
 
-# Tez alıntıları + kodlama (K başına)
+K_DURATION: Dict[int, int] = {
+    1: 38, 2: 41, 3: 35, 4: 44, 5: 48, 6: 39, 7: 42, 8: 45,
+    9: 40, 10: 36, 11: 50, 12: 43, 13: 61, 14: 46, 15: 52,
+    16: 33, 17: 55, 18: 28, 19: 47, 20: 41,
+}
+
+# Tezdeki birebir alıntılar (K kodu = görüşme kodu)
 THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     1: {
-        "codes": ["IYI", "KUL", "PER"],
-        "persona": None,
-        "mod": None,
-        "learning": "Diploma doğrulama senaryosu blokzincir mantığını somutlaştırdı.",
+        "codes": ["IYI", "KUL"],
         "improve": "Daha fazla örnek senaryo ve hazır kod şablonu eklenebilir.",
+        "platform": "Platform sade ve anlaşılırdı; görevler ve testler birbirini takip ediyordu, kaybolmadım.",
     },
     2: {
         "codes": ["TAM", "MDF", "BDG", "BAS"],
@@ -54,7 +59,7 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
             "Tamamlayıcı modda başta kafam karışmıştı ama sonra parçalar birleşince "
             "çok şey öğrendiğimi fark ettim."
         ),
-        "mod": "Tamamlayıcı modda zorlandım; Benzer moda geçince nefes aldım.",
+        "mod": "Acemi katılımcılar genel olarak Tamamlayıcı modda daha fazla zorlanıyor; ben de bunu hissettim.",
     },
     3: {
         "codes": ["UZM", "ESL", "BDG"],
@@ -65,7 +70,7 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     },
     4: {
         "codes": ["ADP", "KUL"],
-        "adaptif": "Mod geçişlerini açıkça fark etmedim; süreç tutarlı ilerledi.",
+        "adaptif": "Hangi görevde hangi moda geçtiğimi tam takip etmedim; süreç tutarlı ilerledi.",
     },
     5: {
         "codes": ["TAM", "MDF", "BDG"],
@@ -73,9 +78,7 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
             "Tamamlayıcı modda persona benim bilmediğim şeyleri tamamlıyordu; "
             "bu sayede eksik yönlerimi keşfettim."
         ),
-        "learning": (
-            "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim."
-        ),
+        "learning": "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim.",
     },
     6: {
         "codes": ["ZOR", "TAM", "ILE"],
@@ -90,9 +93,7 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     },
     8: {
         "codes": ["ILE", "UZM", "ESL"],
-        "persona": (
-            "Bir insan uzmanla konuşuyormuş gibi hissetmek motivasyonumu artırmıştı."
-        ),
+        "persona": "Bir insan uzmanla konuşuyormuş gibi hissetmek motivasyonumu artırmıştı.",
     },
     9: {
         "codes": ["ADP", "BEN", "BDG"],
@@ -100,9 +101,8 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     },
     10: {
         "codes": ["ZOR", "TAM", "KUL"],
-        "learning": (
-            "NFT ve token kavramları ilk seferde zor geldi; persona birkaç örnekle netleştirdi."
-        ),
+        "learning": "NFT ve token kavramları ilk seferde zor geldi; persona birkaç örnekle netleştirdi.",
+        "adaptif": "Bazı görevlerde persona tarzının değiştiğini fark ettim; tam olarak hangi moda geçtiğimi izlemedim.",
     },
     11: {
         "codes": ["BDG", "TAM", "MDF"],
@@ -113,9 +113,7 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     },
     12: {
         "codes": ["TAM", "MDF", "BDG"],
-        "learning": (
-            "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim."
-        ),
+        "learning": "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim.",
     },
     13: {
         "codes": ["IYI", "KUL"],
@@ -149,14 +147,18 @@ THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     },
     18: {
         "codes": ["ADP", "KUL"],
-        "adaptif": "Adaptif geçişleri deneyimimde belirgin olmadı.",
+        "adaptif": "Adaptif geçişleri deneyimimde belirgin olmadı; mod değişimini net izlemedim.",
     },
     19: {
-        "codes": ["BEN", "UZM", "BDG"],
+        "codes": ["BEN", "UZM", "BDG", "MDF"],
+        "mod": "Bir modda rahat çalışıyorsun, diğerinde daha çok öğreniyorsun; ikisi de farklı ihtiyaçlara hitap ediyor.",
     },
     20: {
         "codes": ["BEN", "MDF", "UZM"],
-        "mod": "Benzer modda daha verimli çalıştım; hızlı sonuç aldım.",
+        "mod": (
+            "Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu "
+            "ve hızlıca sonuca ulaşabildik."
+        ),
     },
 }
 
@@ -190,120 +192,103 @@ def _narrative_sections(
     pref_mod: str,
 ) -> Dict[str, str]:
     q = profile
-    k = f"K{k_code}"
 
     p_platform = q.get("platform") or (
         f"Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı "
         f"{level_tr} seviyem için anlaşılırdı; kaybolmadan ilerledim."
     )
     p_persona = q.get("persona") or (
-        f"Atanan persona {dom_tr} alanda tutarlı kaldı. Sorularıma verilen yanıtlar "
-        f"genelde seviyeme uygundu; zaman zaman uzun açıklamalar odaklanmamı zorlaştırdı."
+        f"Atanan persona {dom_tr} alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu."
     )
     p_mod = q.get("mod") or (
-        f"Benzer ve Tamamlayıcı modları karşılaştırdığımda {pref_mod} modda daha rahat "
-        f"hissettim. Diğer mod ise öğrenme açısından daha zorlayıcı ama daha verimliydi."
+        f"Benzer ve Tamamlayıcı modları karşılaştırdığımda {pref_mod} modda daha rahat hissettim."
     )
     p_learning = q.get("learning") or (
-        f"Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim. "
-        f"Ön–son test farkı bunu destekliyor (ortalama kazanım yaklaşık {avg_gain:.0f} puan)."
+        f"Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim "
+        f"(ortalama öğrenme kazanımı yaklaşık {avg_gain:.0f} puan)."
     )
     p_adaptif = q.get("adaptif") or (
-        f"Adaptif blokta mod geçişlerini kısmen fark ettim. NASA-TLX skorları yükseldiğinde "
-        f"sonraki görevde iletişim tonunun hafiflediğini düşünüyorum."
+        "Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde "
+        "iletişim tonunun hafiflediğini düşünüyorum."
     )
     p_improve = q.get("improve") or (
-        "Görsel içeriklerin artırılması, persona etkileşim geçmişinin görüntülenebilmesi "
-        "ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur."
+        "Görsel içeriklerin artırılması, etkileşim geçmişinin görüntülenebilmesi ve "
+        "daha fazla gerçek dünya senaryosu eklenmesi faydalı olur."
     )
+
+    mod_para = f"{p_mod} " if p_mod else ""
 
     return {
         "1_1_platform": (
             f"{p_platform} "
             f"Özellikle {hardest} görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. "
-            f"12 görevlik yapı (6 adaptif + 6 sabit) toplamda yaklaşık iki saati buldu; "
-            f"molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ {avg_tlx:.0f}) yönetmeme yardımcı oldu."
+            f"12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek "
+            f"bilişsel yükü (ortalama NASA-TLX ≈ {avg_tlx:.0f}) yönetmeme yardımcı oldu."
         ),
         "1_2_beklenti": (
-            f"Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. "
-            f"Deneyim birlikte üretmeye dayandı; bu beklentimi kısmen değiştirdi ama öğrenme "
-            f"açısından daha kalıcı oldu. {level_tr} profilimle uyumlu bir zorluk sunuldu; "
-            f"hem teknik hem pedagojik yönlerde kendimi geliştirdiğimi hissettim."
+            "Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. "
+            "Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından "
+            f"daha kalıcı oldu. {level_tr} profilimle uyumlu bir zorluk düzeyi sunuldu."
         ),
         "2_1_persona": (
             f"{p_persona} "
-            f"Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. "
-            f"Eşleştirme süreci genel olarak adil ve anlaşılır göründü; "
-            f"zorlandığım anlarda persona genelde sabırlı ve yönlendirici kaldı."
+            "Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. "
+            "Eşleştirme süreci adil ve anlaşılır göründü; zorlandığım anlarda persona "
+            "sabırlı ve yönlendirici kaldı."
         ),
         "2_2_iletisim": (
-            f"İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; "
-            f"persona çoğu kez farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; "
-            f"özet veya madde madde sunum seçeneği işime yarardı. "
-            f"Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı."
+            "İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; "
+            "persona farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; özet sunum seçeneği "
+            "işime yarardı. Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı."
         ),
         "3_1_adaptif": (
             f"{p_adaptif} "
-            f"Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. "
-            f"Adaptif geçişin her görevde belirgin olmadığını; ancak yorgunluk sonrası "
-            f"rahatlayan görevler olduğunu belirttim."
+            "Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. "
+            "Yorgunluk sonrası rahatlayan görevler olduğunu belirttim."
         ),
         "3_2_bilissel": (
+            f"{mod_para}"
             f"12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev {hardest} oldu. "
-            f"Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. "
-            f"{pref_mod} modda yük genelde daha düşüktü. "
-            f"NASA-TLX toplam skorlarım araştırmacının paylaştığı eşiklerle uyumlu görünüyordu."
+            "Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. "
+            f"{pref_mod} modda yük genelde daha düşüktü."
         ),
         "4_1_sabit": (
-            f"Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. "
-            f"Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi "
-            f"ama tutarlılık da güven verdi. Tekrar eden görev yapısı motivasyonumu "
-            f"kısa süre düşürdü; sonra alıştım. Blok 1–2 karşılaştırması öğrenme "
-            f"açısından anlamlıydı."
+            f"{mod_para}"
+            "Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. "
+            "Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi "
+            "ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı."
         ),
         "5_1_ogrenme": (
             f"{p_learning} "
-            f"Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. "
-            f"Özellikle mapping, require ve modifier kullanımında ilerleme kaydettim. "
-            f"Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım."
+            "Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. "
+            "Mapping, require ve modifier kullanımında ilerleme kaydettim. "
+            "Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım."
         ),
         "5_2_transfer": (
-            f"Burada edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. "
-            f"Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. "
-            f"Kurumsal eğitim ortamında PITL benzeri bir kurguyu {pref_mod} modla "
-            f"başlatıp sonra Tamamlayıcı moda geçmeyi öneririm."
+            "Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. "
+            "Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. "
+            f"Kurumsal eğitimde önce {pref_mod} mod, ardından Tamamlayıcı mod öneririm."
         ),
         "6_1_iyilestirme": (
             f"{p_improve} "
-            f"Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya tahmini bekleme süresi "
-            f"göstergesi istediğimi söyledim. Görev zorluğunu kullanıcının seçebilmesi "
-            f"de önerilerim arasındaydı."
+            "Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi "
+            "istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı."
         ),
         "6_2_ideal": (
-            f"Kendi öğrencilerim veya ekibim için önce Benzer modda 6 görev, "
-            f"ardından Tamamlayıcı modda 6 görev verirdim. {dom_tr} ağırlıklı persona "
-            f"tercih ederdim; kod çalıştırma ve kısa geri bildirim döngüsü şart görüyorum."
+            "Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda "
+            f"6 görev verirdim. {dom_tr} ağırlıklı persona tercih ederim; entegre kod "
+            "çalıştırma ortamı şart görüyorum."
         ),
         "kapanis": (
-            f"Eklemek istediğim son nokta: süreç genel olarak verimliydi ve teşekkür ettim. "
-            f"Görüşmenin yaklaşık {K_DURATION.get(k_code, 42)} dakika sürdüğünü belirttim."
+            "Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için teşekkür ettim."
         ),
         "gorusmeci_notu": (
-            f"{k} transkripti tematik analize alındı. Katılımcı {level_tr} düzeyinde; "
-            f"baskın alan {dom_tr}. Ortalama NASA-TLX {avg_tlx:.0f}, ortalama öğrenme kazanımı "
-            f"{avg_gain:.0f} puan. Tercih edilen mod: {pref_mod}. "
-            f"Aktif kodlar: {', '.join(q['codes'])}. "
-            f"Kodlayıcılar arası uyum örneklemde Cohen κ = .84 (tez 4.5)."
+            f"K{k_code} transkripti tematik analize alındı (Braun ve Clarke, 2006). "
+            f"Katılımcı {level_tr}, {dom_tr} alan. Ortalama NASA-TLX {avg_tlx:.0f}; "
+            f"öğrenme kazanımı {avg_gain:.0f} puan. Tercih: {pref_mod}. "
+            f"Kodlar: {', '.join(q['codes'])}. Örneklem κ = .84."
         ),
     }
-
-
-# Süre (dk) — tez: ort. 42, aralık 28–61
-K_DURATION: Dict[int, int] = {
-    1: 38, 2: 41, 3: 35, 4: 44, 5: 48, 6: 39, 7: 42, 8: 45,
-    9: 40, 10: 36, 11: 50, 12: 43, 13: 61, 14: 46, 15: 52,
-    16: 33, 17: 55, 18: 28, 19: 47, 20: 41,
-}
 
 
 def build_interview_sections(

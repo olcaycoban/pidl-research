@@ -9,69 +9,69 @@
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Çoklu İmza görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) toplamda yaklaşık iki saati buldu; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 47) yönetmeme yardımcı oldu.
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Acemi seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Çoklu İmza görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) yaklaşık iki saat sürdü; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 47) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
-Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi kısmen değiştirdi ama öğrenme açısından daha kalıcı oldu. Acemi profilimle uyumlu bir zorluk sunuldu; hem teknik hem pedagojik yönlerde kendimi geliştirdiğimi hissettim.
+Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi değiştirdi ama öğrenme açısından daha kalıcı oldu. Acemi profilimle uyumlu bir zorluk düzeyi sunuldu.
 
 ---
 
 ## BÖLÜM 2 — AI Persona *(4.5.1)*
 
 ### 2.1 Persona deneyimi
-Persona bana çok karmaşık kodlar göstermek yerine temel kavramları anlatarak başladı; bu beni rahatlattı. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci genel olarak adil ve anlaşılır göründü; zorlandığım anlarda persona genelde sabırlı ve yönlendirici kaldı.
+Persona bana çok karmaşık kodlar göstermek yerine temel kavramları anlatarak başladı; bu beni rahatlattı. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci adil ve anlaşılır göründü; zorlandığım anlarda persona sabırlı ve yönlendirici kaldı.
 
 ### 2.2 İletişim kalitesi
-İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; persona çoğu kez farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; özet veya madde madde sunum seçeneği işime yarardı. Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı.
+İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; persona farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; özet sunum seçeneği işime yarardı. Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı.
 
 ---
 
 ## BÖLÜM 3 — Adaptif Mod
 
 ### 3.1 Adaptif geçiş
-Adaptif blokta mod geçişlerini kısmen fark ettim. NASA-TLX skorları yükseldiğinde sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Adaptif geçişin her görevde belirgin olmadığını; ancak yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
+Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü. NASA-TLX toplam skorlarım araştırmacının paylaştığı eşiklerle uyumlu görünüyordu.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
 
 ---
 
 ## BÖLÜM 4 — Sabit Mod *(4.5.2)*
 
 ### 4.1 Blok 2
-Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık da güven verdi. Tekrar eden görev yapısı motivasyonumu kısa süre düşürdü; sonra alıştım. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
 
 ---
 
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim. Ön–son test farkı bunu destekliyor (ortalama kazanım yaklaşık 12 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Özellikle mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
+Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 12 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
-Burada edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitim ortamında PITL benzeri bir kurguyu Benzer modla başlatıp sonra Tamamlayıcı moda geçmeyi öneririm.
+Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
 
 ---
 
 ## BÖLÜM 6 — Geliştirme *(4.5.4)*
 
 ### 6.1 İyileştirme
-Görsel içeriklerin artırılması, persona etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya tahmini bekleme süresi göstergesi istediğimi söyledim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
+Görsel içeriklerin artırılması, etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya bekleme süresi göstergesi istediğimi belirttim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
 
 ### 6.2 İdeal senaryo
-Kendi öğrencilerim veya ekibim için önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederdim; kod çalıştırma ve kısa geri bildirim döngüsü şart görüyorum.
+Öğrencilerime veya ekibime önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederim; entegre kod çalıştırma ortamı şart görüyorum.
 
 ---
 
 ## Kapanış
 
-Eklemek istediğim son nokta: süreç genel olarak verimliydi ve teşekkür ettim. Görüşmenin yaklaşık 35 dakika sürdüğünü belirttim.
+Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için teşekkür ettim.
 
 ---
 
 ## Görüşmeci notları
 
-K3 transkripti tematik analize alındı. Katılımcı Acemi düzeyinde; baskın alan Pedagojik. Ortalama NASA-TLX 47, ortalama öğrenme kazanımı 12 puan. Tercih edilen mod: Benzer. Aktif kodlar: UZM, ESL, BDG. Kodlayıcılar arası uyum örneklemde Cohen κ = .84 (tez 4.5).
+K3 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Pedagojik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Benzer. Kodlar: UZM, ESL, BDG. Örneklem κ = .84.
 
 ---
 

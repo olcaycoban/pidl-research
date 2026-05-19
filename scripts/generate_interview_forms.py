@@ -170,6 +170,9 @@ def main() -> None:
     index: list[dict] = []
 
     for k_code in range(1, 21):
+        for stale in FILLED_DIR.glob(f"INT-{k_code:03d}_K{k_code}_*.md"):
+            stale.unlink()
+
         pid = K_TO_PARTICIPANT_ID[k_code]
         p = load_participant(pid)
         sections, meta = build_interview_sections(p, k_code)
