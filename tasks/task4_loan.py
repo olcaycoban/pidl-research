@@ -38,7 +38,9 @@ class Task4Loan(BaseTask):
              "options": ["Öğrenciye erişim kolaylığı", "Şeffaf kredi sistemi", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
             {"id": "q2", "question": "Collateral (teminat) olmadan kredi vermenin riskleri?", "type": "multiple_choice",
              "options": ["Geri ödememe riski", "Sybil attack riski", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q3", "question": "Havuz bazlı kredi sistemi nasıl çalışır?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q3", "question": "Havuz bazlı kredi sisteminin temel avantajı nedir?", "type": "multiple_choice",
+             "options": ["Riski çok sayıda yatırımcıya dağıtır", "Her krediyi merkezi onaylar", "Faizi sıfıra indirir", "Bilmiyorum"],
+             "correct_answer": "Riski çok sayıda yatırımcıya dağıtır"}
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
@@ -47,7 +49,9 @@ class Task4Loan(BaseTask):
              "options": ["Easier access for students", "Transparent credit system", "Both", "I don't know"], "correct_answer": "Both"},
             {"id": "q2", "question": "Risks of lending without collateral?", "type": "multiple_choice",
              "options": ["Default risk", "Sybil attack risk", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q3", "question": "How does a pool-based lending system work?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q3", "question": "What is the main advantage of a pool-based lending system?", "type": "multiple_choice",
+             "options": ["Distributes risk across many investors", "Requires central approval for every loan", "Reduces interest to zero", "I don't know"],
+             "correct_answer": "Distributes risk across many investors"}
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -57,14 +61,18 @@ class Task4Loan(BaseTask):
         return [
             {"id": "q4", "question": "Öğrenci kredilerinde oracle kullanımı ne sağlar?", "type": "multiple_choice",
              "options": ["Not ortalaması verisi", "Mezuniyet durumu", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q5", "question": "Eğitimde reputation-based lending nasıl işler?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q5", "question": "Eğitimde reputation-based lending'in teminat sistemine göre avantajı?", "type": "multiple_choice",
+             "options": ["Teminat olmadan geçmiş performansa göre güvenilirlik değerlendirmesi yapar", "Her öğrenciye eşit kredi verir", "Faizi tamamen kaldırır", "Bilmiyorum"],
+             "correct_answer": "Teminat olmadan geçmiş performansa göre güvenilirlik değerlendirmesi yapar"}
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q4", "question": "What does oracle use provide in student loans?", "type": "multiple_choice",
              "options": ["GPA data", "Graduation status", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q5", "question": "How does reputation-based lending work in education?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q5", "question": "Advantage of reputation-based lending over collateral-based systems in education?", "type": "multiple_choice",
+             "options": ["Assesses trustworthiness based on past performance without collateral", "Gives equal credit to every student", "Eliminates interest entirely", "I don't know"],
+             "correct_answer": "Assesses trustworthiness based on past performance without collateral"}
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:

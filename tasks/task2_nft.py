@@ -34,7 +34,9 @@ class Task2NFT(BaseTask):
              "options": ["Para kazanmak", "Dijital başarı rozeti vermek", "Öğrenci takibi", "Bilmiyorum"], "correct_answer": "Dijital başarı rozeti vermek"},
             {"id": "q2", "question": "Soulbound token ne demektir?", "type": "multiple_choice",
              "options": ["Pahalı token", "Transfer edilemeyen token", "Yakılabilen token", "Bilmiyorum"], "correct_answer": "Transfer edilemeyen token"},
-            {"id": "q3", "question": "Eğitim NFT'lerinde metadata neden önemlidir?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q3", "question": "Eğitim NFT'lerinde metadata neden önemlidir?", "type": "multiple_choice",
+             "options": ["Sertifikanın içeriğini ve özelliklerini tanımlar", "Gas maliyetini azaltır", "Transfer hızını artırır", "Bilmiyorum"],
+             "correct_answer": "Sertifikanın içeriğini ve özelliklerini tanımlar"}
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
@@ -43,7 +45,9 @@ class Task2NFT(BaseTask):
              "options": ["To earn money", "To give digital achievement badges", "Student tracking", "I don't know"], "correct_answer": "To give digital achievement badges"},
             {"id": "q2", "question": "What does a soulbound token mean?", "type": "multiple_choice",
              "options": ["Expensive token", "Non-transferable token", "Burnable token", "I don't know"], "correct_answer": "Non-transferable token"},
-            {"id": "q3", "question": "Why is metadata important in education NFTs?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q3", "question": "Why is metadata important in education NFTs?", "type": "multiple_choice",
+             "options": ["It defines the certificate's content and attributes", "Reduces gas cost", "Increases transfer speed", "I don't know"],
+             "correct_answer": "It defines the certificate's content and attributes"}
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -53,14 +57,18 @@ class Task2NFT(BaseTask):
         return [
             {"id": "q4", "question": "Başarı NFT'lerinin transfer edilememesi neden önemlidir?", "type": "multiple_choice",
              "options": ["Kişiye özel başarı olması için", "Gas tasarrufu için", "Daha hızlı işlem için", "Bilmiyorum"], "correct_answer": "Kişiye özel başarı olması için"},
-            {"id": "q5", "question": "Eğitim kurumları için on-chain vs off-chain metadata farkı?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q5", "question": "Eğitim kurumları için on-chain vs off-chain metadata farkı?", "type": "multiple_choice",
+             "options": ["On-chain kalıcı, off-chain daha ucuz ve esnek", "On-chain daha ucuz", "Aralarında teknik fark yok", "Bilmiyorum"],
+             "correct_answer": "On-chain kalıcı, off-chain daha ucuz ve esnek"}
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q4", "question": "Why is it important that achievement NFTs cannot be transferred?", "type": "multiple_choice",
              "options": ["So achievement is personal", "Gas savings", "Faster processing", "I don't know"], "correct_answer": "So achievement is personal"},
-            {"id": "q5", "question": "On-chain vs off-chain metadata for educational institutions?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q5", "question": "On-chain vs off-chain metadata for educational institutions?", "type": "multiple_choice",
+             "options": ["On-chain is permanent, off-chain is cheaper and flexible", "On-chain is cheaper", "There is no technical difference", "I don't know"],
+             "correct_answer": "On-chain is permanent, off-chain is cheaper and flexible"}
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:

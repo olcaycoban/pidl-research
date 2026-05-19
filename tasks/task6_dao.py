@@ -39,7 +39,9 @@ class Task6DAO(BaseTask):
              "options": ["Şeffaf yönetim", "Demokratik karar alma", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
             {"id": "q2", "question": "Role-based voting eğitimde neden önemli?", "type": "multiple_choice",
              "options": ["Farklı perspektifleri dengelemek", "Gas tasarrufu", "Hız için", "Bilmiyorum"], "correct_answer": "Farklı perspektifleri dengelemek"},
-            {"id": "q3", "question": "Eğitim DAO'sunda timelock neden kritik?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q3", "question": "Eğitim DAO'sunda timelock neden kritik?", "type": "multiple_choice",
+             "options": ["Ani ve zararlı değişikliklere karşı itiraz süresi tanır", "İşlem maliyetini düşürür", "Oy sayımını hızlandırır", "Bilmiyorum"],
+             "correct_answer": "Ani ve zararlı değişikliklere karşı itiraz süresi tanır"}
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
@@ -48,7 +50,9 @@ class Task6DAO(BaseTask):
              "options": ["Transparent governance", "Democratic decision-making", "Both", "I don't know"], "correct_answer": "Both"},
             {"id": "q2", "question": "Why is role-based voting important in education?", "type": "multiple_choice",
              "options": ["To balance different perspectives", "Gas savings", "Speed", "I don't know"], "correct_answer": "To balance different perspectives"},
-            {"id": "q3", "question": "Why is timelock critical in an education DAO?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q3", "question": "Why is timelock critical in an education DAO?", "type": "multiple_choice",
+             "options": ["It gives a challenge period against sudden harmful changes", "Reduces transaction costs", "Speeds up vote counting", "I don't know"],
+             "correct_answer": "It gives a challenge period against sudden harmful changes"}
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -58,14 +62,18 @@ class Task6DAO(BaseTask):
         return [
             {"id": "q4", "question": "Delegation (temsili oy) eğitim DAO'sunda nasıl işler?", "type": "multiple_choice",
              "options": ["Öğrenci temsilcileri sistemi", "Uzman delegeler", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q5", "question": "Eğitim kurumlarında on-chain vs off-chain governance dengesi?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q5", "question": "Eğitim kurumlarında on-chain governance'ın off-chain'e göre avantajı?", "type": "multiple_choice",
+             "options": ["Şeffaf ve manipülasyona kapalı karar alma sağlar", "Kararlar daha hızlı alınır", "Her zaman daha ucuzdur", "Bilmiyorum"],
+             "correct_answer": "Şeffaf ve manipülasyona kapalı karar alma sağlar"}
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q4", "question": "How does delegation work in an education DAO?", "type": "multiple_choice",
              "options": ["Student representative system", "Expert delegates", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q5", "question": "On-chain vs off-chain governance balance in educational institutions?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q5", "question": "Advantage of on-chain governance over off-chain in educational institutions?", "type": "multiple_choice",
+             "options": ["Provides transparent and tamper-proof decision-making", "Decisions are made faster", "Always cheaper", "I don't know"],
+             "correct_answer": "Provides transparent and tamper-proof decision-making"}
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:

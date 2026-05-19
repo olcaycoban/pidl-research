@@ -38,7 +38,9 @@ class Task5Incentive(BaseTask):
              "options": ["Finansal teşvik", "Şeffaf değerlendirme", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
             {"id": "q2", "question": "Quadratic voting eğitimde nasıl kullanılır?", "type": "multiple_choice",
              "options": ["Adil oylama için", "Whale dominansını önlemek için", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q3", "question": "Öğretmen performansının on-chain ölçümü nasıl yapılır?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q3", "question": "Öğretmen performansının on-chain ölçümünün avantajı nedir?", "type": "multiple_choice",
+             "options": ["Şeffaf ve manipülasyona kapalı değerlendirme sağlar", "Değerlendirmeyi daha hızlı yapar", "Her zaman daha ucuzdur", "Bilmiyorum"],
+             "correct_answer": "Şeffaf ve manipülasyona kapalı değerlendirme sağlar"}
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
@@ -47,7 +49,9 @@ class Task5Incentive(BaseTask):
              "options": ["Financial incentive", "Transparent evaluation", "Both", "I don't know"], "correct_answer": "Both"},
             {"id": "q2", "question": "How is quadratic voting used in education?", "type": "multiple_choice",
              "options": ["For fair voting", "To prevent whale dominance", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q3", "question": "How is teacher performance measured on-chain?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q3", "question": "What is the advantage of measuring teacher performance on-chain?", "type": "multiple_choice",
+             "options": ["Provides transparent and tamper-proof evaluation", "Makes evaluation faster", "Always cheaper", "I don't know"],
+             "correct_answer": "Provides transparent and tamper-proof evaluation"}
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -57,14 +61,18 @@ class Task5Incentive(BaseTask):
         return [
             {"id": "q4", "question": "Sybil-resistant oylama neden önemli?", "type": "multiple_choice",
              "options": ["Sahte hesapları önlemek", "Adil değerlendirme", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q5", "question": "Eğitimde outcome-based rewards vs activity-based rewards?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q5", "question": "Eğitimde outcome-based rewards'ın activity-based'e göre avantajı?", "type": "multiple_choice",
+             "options": ["Gerçek öğrenme çıktısını ödüllendirir, manipülasyona daha kapalıdır", "Hesaplaması daha kolaydır", "Her öğretmene eşit ödül verir", "Bilmiyorum"],
+             "correct_answer": "Gerçek öğrenme çıktısını ödüllendirir, manipülasyona daha kapalıdır"}
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q4", "question": "Why is Sybil-resistant voting important?", "type": "multiple_choice",
              "options": ["To prevent fake accounts", "Fair evaluation", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q5", "question": "Outcome-based rewards vs activity-based rewards in education?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q5", "question": "Advantage of outcome-based rewards over activity-based in education?", "type": "multiple_choice",
+             "options": ["Rewards actual learning outcomes and is harder to game", "Easier to calculate", "Gives equal rewards to all teachers", "I don't know"],
+             "correct_answer": "Rewards actual learning outcomes and is harder to game"}
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:

@@ -36,7 +36,9 @@ class Task3Access(BaseTask):
              "options": ["Aynı teknoloji", "IPFS içerik saklar, blockchain referans tutar", "Blockchain içerik saklar", "Bilmiyorum"], "correct_answer": "IPFS içerik saklar, blockchain referans tutar"},
             {"id": "q2", "question": "Eğitim içeriği erişiminde zaman kontrolü neden önemlidir?", "type": "multiple_choice",
              "options": ["Abonelik modeli için", "Gas tasarrufu için", "Hız için", "Bilmiyorum"], "correct_answer": "Abonelik modeli için"},
-            {"id": "q3", "question": "Payable fonksiyonlar nasıl çalışır?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q3", "question": "Payable fonksiyonlar nasıl çalışır?", "type": "multiple_choice",
+             "options": ["Fonksiyon çağrısıyla birlikte ETH transferine izin verir", "Ücretsiz işlem yapar", "Sadece admin çağırabilir", "Bilmiyorum"],
+             "correct_answer": "Fonksiyon çağrısıyla birlikte ETH transferine izin verir"}
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
@@ -45,7 +47,9 @@ class Task3Access(BaseTask):
              "options": ["Same technology", "IPFS stores content, blockchain holds reference", "Blockchain stores content", "I don't know"], "correct_answer": "IPFS stores content, blockchain holds reference"},
             {"id": "q2", "question": "Why is time control important for educational content access?", "type": "multiple_choice",
              "options": ["For subscription model", "Gas savings", "Speed", "I don't know"], "correct_answer": "For subscription model"},
-            {"id": "q3", "question": "How do payable functions work?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q3", "question": "How do payable functions work?", "type": "multiple_choice",
+             "options": ["Allow ETH transfers alongside the function call", "Execute transactions for free", "Only admin can call them", "I don't know"],
+             "correct_answer": "Allow ETH transfers alongside the function call"}
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -55,14 +59,18 @@ class Task3Access(BaseTask):
         return [
             {"id": "q4", "question": "block.timestamp kullanarak süre kontrolü güvenli mi?", "type": "multiple_choice",
              "options": ["Tamamen güvenli", "Manipüle edilebilir (±15 saniye)", "Hiç güvenli değil", "Bilmiyorum"], "correct_answer": "Manipüle edilebilir (±15 saniye)"},
-            {"id": "q5", "question": "Eğitimde mikro ödemeler için blockchain avantajları?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q5", "question": "Eğitimde mikro ödemeler için blockchain avantajları?", "type": "multiple_choice",
+             "options": ["İçeriğe esnek ve uygun fiyatlı erişim sağlar", "Tamamen ücretsiz işlem yapar", "İçerikleri otomatik üretir", "Bilmiyorum"],
+             "correct_answer": "İçeriğe esnek ve uygun fiyatlı erişim sağlar"}
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q4", "question": "Is duration control using block.timestamp secure?", "type": "multiple_choice",
              "options": ["Fully secure", "Can be manipulated (±15 seconds)", "Not secure at all", "I don't know"], "correct_answer": "Can be manipulated (±15 seconds)"},
-            {"id": "q5", "question": "Blockchain advantages for micro-payments in education?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q5", "question": "Blockchain advantages for micro-payments in education?", "type": "multiple_choice",
+             "options": ["Enables flexible and affordable content access", "Makes all transactions free", "Auto-generates content", "I don't know"],
+             "correct_answer": "Enables flexible and affordable content access"}
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:

@@ -35,7 +35,9 @@ class Task1Diploma(BaseTask):
              "options": ["Değiştirilemez kayıt", "Daha ucuz", "Daha hızlı", "Bilmiyorum"], "correct_answer": "Değiştirilemez kayıt"},
             {"id": "q2", "question": "Hash fonksiyonu ne işe yarar?", "type": "multiple_choice",
              "options": ["Şifreleme yapar", "Benzersiz parmak izi oluşturur", "Veri sıkıştırır", "Bilmiyorum"], "correct_answer": "Benzersiz parmak izi oluşturur"},
-            {"id": "q3", "question": "onlyOwner modifier'ı eğitim kurumları için neden önemlidir?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q3", "question": "onlyOwner modifier'ı eğitim kurumları için neden önemlidir?", "type": "multiple_choice",
+             "options": ["Sadece yetkili kişi diploma ekleyebilsin diye", "Gas maliyetini azaltır", "Doğrulama hızlandırır", "Bilmiyorum"],
+             "correct_answer": "Sadece yetkili kişi diploma ekleyebilsin diye"}
         ]
 
     def _get_pre_test_questions_en(self) -> List[Dict[str, Any]]:
@@ -44,7 +46,9 @@ class Task1Diploma(BaseTask):
              "options": ["Immutable record", "Cheaper", "Faster", "I don't know"], "correct_answer": "Immutable record"},
             {"id": "q2", "question": "What does a hash function do?", "type": "multiple_choice",
              "options": ["Encrypts data", "Creates a unique fingerprint", "Compresses data", "I don't know"], "correct_answer": "Creates a unique fingerprint"},
-            {"id": "q3", "question": "Why is the onlyOwner modifier important for educational institutions?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q3", "question": "Why is the onlyOwner modifier important for educational institutions?", "type": "multiple_choice",
+             "options": ["So only authorized users can add diplomas", "Reduces gas cost", "Speeds up verification", "I don't know"],
+             "correct_answer": "So only authorized users can add diplomas"}
         ]
 
     def get_pre_test_questions(self) -> List[Dict[str, Any]]:
@@ -54,14 +58,18 @@ class Task1Diploma(BaseTask):
         return [
             {"id": "q4", "question": "Diploma hash'i yerine tüm diploma verisini saklamak ne gibi sorunlar yaratır?", "type": "multiple_choice",
              "options": ["Gas maliyeti artar", "Gizlilik sorunu", "Her ikisi de", "Bilmiyorum"], "correct_answer": "Her ikisi de"},
-            {"id": "q5", "question": "Sahte diploma ile mücadelede blockchain nasıl yardımcı olur?", "type": "open_ended", "placeholder": "Cevabınızı buraya yazın..."}
+            {"id": "q5", "question": "Sahte diploma ile mücadelede blockchain nasıl yardımcı olur?", "type": "multiple_choice",
+             "options": ["Değiştirilemez kayıt sağlar", "Belgeleri daha ucuza basar", "İşlemleri hızlandırır", "Bilmiyorum"],
+             "correct_answer": "Değiştirilemez kayıt sağlar"}
         ]
 
     def _get_post_test_questions_en(self) -> List[Dict[str, Any]]:
         return [
             {"id": "q4", "question": "What problems does storing full diploma data instead of a hash create?", "type": "multiple_choice",
              "options": ["Higher gas cost", "Privacy issues", "Both", "I don't know"], "correct_answer": "Both"},
-            {"id": "q5", "question": "How does blockchain help combat fake diplomas?", "type": "open_ended", "placeholder": "Write your answer here..."}
+            {"id": "q5", "question": "How does blockchain help combat fake diplomas?", "type": "multiple_choice",
+             "options": ["Provides immutable records", "Makes printing cheaper", "Speeds up processing", "I don't know"],
+             "correct_answer": "Provides immutable records"}
         ]
 
     def get_post_test_questions(self) -> List[Dict[str, Any]]:

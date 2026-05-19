@@ -87,135 +87,129 @@ class CompetencyAssessment:
     }
     
     # BÖLÜM B: Teknik Yetkinlik (Likert 1-5)
-    # CAQ Formu - Blockchain Teknolojileri ve Genel Programlama
+    # CAQ Formu — Blockchain Teknolojileri (T1-T8) + Genel Programlama (T9-T12)
     TECHNICAL_QUESTIONS = [
-        {
-            "id": "tech_blockchain_1",
-            "category": "Blockchain Teknolojileri",
-            "question": "Blockchain temel kavramları (blok, hash, zincir yapısı)",
-            "scale": "likert_5",
-            "description": "1 = Hiç bilmiyorum, 5 = Uzman seviyesinde biliyorum"
-        },
-        {
-            "id": "tech_blockchain_2",
-            "category": "Blockchain Teknolojileri",
-            "question": "Smart contract geliştirme (Solidity, Vyper)",
-            "scale": "likert_5"
-        },
-        {
-            "id": "tech_blockchain_3",
-            "category": "Blockchain Teknolojileri",
-            "question": "Konsensus mekanizmaları (PoW, PoS, DPoS)",
-            "scale": "likert_5"
-        },
-        {
-            "id": "tech_blockchain_4",
-            "category": "Blockchain Teknolojileri",
-            "question": "Kripto-ekonomi ve tokenomics",
-            "scale": "likert_5"
-        },
-        {
-            "id": "tech_programming_1",
-            "category": "Genel Programlama",
-            "question": "Python/JavaScript gibi dillerde programlama",
-            "scale": "likert_5"
-        },
-        {
-            "id": "tech_programming_2",
-            "category": "Genel Programlama",
-            "question": "Veri yapıları ve algoritmalar",
-            "scale": "likert_5"
-        },
-        {
-            "id": "tech_programming_3",
-            "category": "Genel Programlama",
-            "question": "Yazılım mimarisi ve tasarım kalıpları",
-            "scale": "likert_5"
-        },
-        {
-            "id": "tech_programming_4",
-            "category": "Genel Programlama",
-            "question": "Test odaklı geliştirme (TDD) ve debugging",
-            "scale": "likert_5"
-        }
+        # Blockchain Teknolojileri
+        {"id": "tech_blockchain_1", "category": "Blockchain Teknolojileri",
+         "question": "Blockchain temel kavramları (block, hash, consensus)",
+         "scale": "likert_5", "description": "1 = Hiç bilmiyorum, 5 = Uzman seviyesinde biliyorum"},
+        {"id": "tech_blockchain_2", "category": "Blockchain Teknolojileri",
+         "question": "Akıllı sözleşme (Smart Contract) geliştirme", "scale": "likert_5"},
+        {"id": "tech_blockchain_3", "category": "Blockchain Teknolojileri",
+         "question": "Solidity programlama dili", "scale": "likert_5"},
+        {"id": "tech_blockchain_4", "category": "Blockchain Teknolojileri",
+         "question": "Web3.js / Ethers.js kullanımı", "scale": "likert_5"},
+        {"id": "tech_blockchain_5", "category": "Blockchain Teknolojileri",
+         "question": "DeFi (Decentralized Finance) protokolleri", "scale": "likert_5"},
+        {"id": "tech_blockchain_6", "category": "Blockchain Teknolojileri",
+         "question": "Gas optimizasyonu teknikleri", "scale": "likert_5"},
+        {"id": "tech_blockchain_7", "category": "Blockchain Teknolojileri",
+         "question": "Güvenlik denetimi (Security Audit)", "scale": "likert_5"},
+        {"id": "tech_blockchain_8", "category": "Blockchain Teknolojileri",
+         "question": "IPFS ve dağıtık depolama", "scale": "likert_5"},
+        # Genel Programlama
+        {"id": "tech_programming_1", "category": "Genel Programlama",
+         "question": "JavaScript/TypeScript", "scale": "likert_5"},
+        {"id": "tech_programming_2", "category": "Genel Programlama",
+         "question": "Python programlama", "scale": "likert_5"},
+        {"id": "tech_programming_3", "category": "Genel Programlama",
+         "question": "Veri yapıları ve algoritmalar", "scale": "likert_5"},
+        {"id": "tech_programming_4", "category": "Genel Programlama",
+         "question": "API geliştirme ve entegrasyon", "scale": "likert_5"},
     ]
 
     # Technical questions – English (same ids, for locale "en")
     TECHNICAL_QUESTIONS_EN = [
-        {"id": "tech_blockchain_1", "category": "Blockchain Technologies", "question": "Blockchain basic concepts (block, hash, chain structure)", "scale": "likert_5"},
-        {"id": "tech_blockchain_2", "category": "Blockchain Technologies", "question": "Smart contract development (Solidity, Vyper)", "scale": "likert_5"},
-        {"id": "tech_blockchain_3", "category": "Blockchain Technologies", "question": "Consensus mechanisms (PoW, PoS, DPoS)", "scale": "likert_5"},
-        {"id": "tech_blockchain_4", "category": "Blockchain Technologies", "question": "Crypto-economics and tokenomics", "scale": "likert_5"},
-        {"id": "tech_programming_1", "category": "General Programming", "question": "Programming in Python/JavaScript or similar", "scale": "likert_5"},
-        {"id": "tech_programming_2", "category": "General Programming", "question": "Data structures and algorithms", "scale": "likert_5"},
-        {"id": "tech_programming_3", "category": "General Programming", "question": "Software architecture and design patterns", "scale": "likert_5"},
-        {"id": "tech_programming_4", "category": "General Programming", "question": "Test-driven development (TDD) and debugging", "scale": "likert_5"}
+        # Blockchain Technologies
+        {"id": "tech_blockchain_1", "category": "Blockchain Technologies",
+         "question": "Blockchain basic concepts (block, hash, consensus)", "scale": "likert_5",
+         "description": "1 = No knowledge, 5 = Expert level"},
+        {"id": "tech_blockchain_2", "category": "Blockchain Technologies",
+         "question": "Smart contract development", "scale": "likert_5"},
+        {"id": "tech_blockchain_3", "category": "Blockchain Technologies",
+         "question": "Solidity programming language", "scale": "likert_5"},
+        {"id": "tech_blockchain_4", "category": "Blockchain Technologies",
+         "question": "Web3.js / Ethers.js usage", "scale": "likert_5"},
+        {"id": "tech_blockchain_5", "category": "Blockchain Technologies",
+         "question": "DeFi (Decentralized Finance) protocols", "scale": "likert_5"},
+        {"id": "tech_blockchain_6", "category": "Blockchain Technologies",
+         "question": "Gas optimization techniques", "scale": "likert_5"},
+        {"id": "tech_blockchain_7", "category": "Blockchain Technologies",
+         "question": "Security audit", "scale": "likert_5"},
+        {"id": "tech_blockchain_8", "category": "Blockchain Technologies",
+         "question": "IPFS and distributed storage", "scale": "likert_5"},
+        # General Programming
+        {"id": "tech_programming_1", "category": "General Programming",
+         "question": "JavaScript/TypeScript", "scale": "likert_5"},
+        {"id": "tech_programming_2", "category": "General Programming",
+         "question": "Python programming", "scale": "likert_5"},
+        {"id": "tech_programming_3", "category": "General Programming",
+         "question": "Data structures and algorithms", "scale": "likert_5"},
+        {"id": "tech_programming_4", "category": "General Programming",
+         "question": "API development and integration", "scale": "likert_5"},
     ]
     
     # BÖLÜM C: Pedagojik Yetkinlik (Likert 1-5)
-    # CAQ Formu - Eğitim Teorileri ve İletişim
+    # CAQ Formu — Eğitim Teorileri (P1-P8) + İletişim ve Sunum (P9-P12)
     EDUCATIONAL_QUESTIONS = [
-        {
-            "id": "edu_theory_1",
-            "category": "Eğitim Teorileri ve Uygulamaları",
-            "question": "Öğrenme teorileri (davranışçı, bilişsel, yapılandırmacı)",
-            "scale": "likert_5",
-            "description": "1 = Hiç bilmiyorum, 5 = Uzman seviyesinde biliyorum"
-        },
-        {
-            "id": "edu_theory_2",
-            "category": "Eğitim Teorileri ve Uygulamaları",
-            "question": "Öğretim tasarımı modelleri (ADDIE, SAM, Backward Design)",
-            "scale": "likert_5"
-        },
-        {
-            "id": "edu_theory_3",
-            "category": "Eğitim Teorileri ve Uygulamaları",
-            "question": "Değerlendirme yöntemleri (formatif, sümatif, otantik)",
-            "scale": "likert_5"
-        },
-        {
-            "id": "edu_theory_4",
-            "category": "Eğitim Teorileri ve Uygulamaları",
-            "question": "Dijital okuryazarlık ve e-öğrenme pedagojisi",
-            "scale": "likert_5"
-        },
-        {
-            "id": "edu_communication_1",
-            "category": "İletişim ve Sunum Becerileri",
-            "question": "Etkili sunum ve anlatım teknikleri",
-            "scale": "likert_5"
-        },
-        {
-            "id": "edu_communication_2",
-            "category": "İletişim ve Sunum Becerileri",
-            "question": "Grup yönetimi ve kolaylaştırıcılık (facilitation)",
-            "scale": "likert_5"
-        },
-        {
-            "id": "edu_communication_3",
-            "category": "İletişim ve Sunum Becerileri",
-            "question": "Geri bildirim verme ve alma becerileri",
-            "scale": "likert_5"
-        },
-        {
-            "id": "edu_communication_4",
-            "category": "İletişim ve Sunum Becerileri",
-            "question": "Çevrimiçi etkileşim ve topluluk oluşturma",
-            "scale": "likert_5"
-        }
+        # Eğitim Teorileri ve Uygulamaları
+        {"id": "edu_theory_1", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Öğrenme teorileri (davranışçı, bilişsel, yapılandırmacı)",
+         "scale": "likert_5", "description": "1 = Hiç bilmiyorum, 5 = Uzman seviyesinde biliyorum"},
+        {"id": "edu_theory_2", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Öğretim tasarımı (ADDIE, SAM modeli)", "scale": "likert_5"},
+        {"id": "edu_theory_3", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Bloom taksonomisi ve öğrenme hedefleri", "scale": "likert_5"},
+        {"id": "edu_theory_4", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Ölçme ve değerlendirme teknikleri", "scale": "likert_5"},
+        {"id": "edu_theory_5", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Farklılaştırılmış öğretim stratejileri", "scale": "likert_5"},
+        {"id": "edu_theory_6", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Öğrenci merkezli öğrenme yaklaşımları", "scale": "likert_5"},
+        {"id": "edu_theory_7", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Eğitim teknolojileri entegrasyonu", "scale": "likert_5"},
+        {"id": "edu_theory_8", "category": "Eğitim Teorileri ve Uygulamaları",
+         "question": "Öğrenme analitiği ve veri kullanımı", "scale": "likert_5"},
+        # İletişim ve Sunum Becerileri
+        {"id": "edu_communication_1", "category": "İletişim ve Sunum Becerileri",
+         "question": "Karmaşık konuları basit anlatma", "scale": "likert_5"},
+        {"id": "edu_communication_2", "category": "İletişim ve Sunum Becerileri",
+         "question": "Öğretici materyal hazırlama", "scale": "likert_5"},
+        {"id": "edu_communication_3", "category": "İletişim ve Sunum Becerileri",
+         "question": "Geri bildirim verme teknikleri", "scale": "likert_5"},
+        {"id": "edu_communication_4", "category": "İletişim ve Sunum Becerileri",
+         "question": "Çevrimiçi eğitim yönetimi", "scale": "likert_5"},
     ]
 
     # Educational questions – English (same ids, for locale "en")
     EDUCATIONAL_QUESTIONS_EN = [
-        {"id": "edu_theory_1", "category": "Educational Theory and Practice", "question": "Learning theories (behaviorist, cognitive, constructivist)", "scale": "likert_5"},
-        {"id": "edu_theory_2", "category": "Educational Theory and Practice", "question": "Instructional design models (ADDIE, SAM, Backward Design)", "scale": "likert_5"},
-        {"id": "edu_theory_3", "category": "Educational Theory and Practice", "question": "Assessment methods (formative, summative, authentic)", "scale": "likert_5"},
-        {"id": "edu_theory_4", "category": "Educational Theory and Practice", "question": "Digital literacy and e-learning pedagogy", "scale": "likert_5"},
-        {"id": "edu_communication_1", "category": "Communication and Presentation", "question": "Effective presentation and explanation techniques", "scale": "likert_5"},
-        {"id": "edu_communication_2", "category": "Communication and Presentation", "question": "Group facilitation and moderation", "scale": "likert_5"},
-        {"id": "edu_communication_3", "category": "Communication and Presentation", "question": "Giving and receiving feedback", "scale": "likert_5"},
-        {"id": "edu_communication_4", "category": "Communication and Presentation", "question": "Online interaction and community building", "scale": "likert_5"}
+        # Educational Theory and Practice
+        {"id": "edu_theory_1", "category": "Educational Theory and Practice",
+         "question": "Learning theories (behaviorist, cognitive, constructivist)", "scale": "likert_5",
+         "description": "1 = No knowledge, 5 = Expert level"},
+        {"id": "edu_theory_2", "category": "Educational Theory and Practice",
+         "question": "Instructional design (ADDIE, SAM model)", "scale": "likert_5"},
+        {"id": "edu_theory_3", "category": "Educational Theory and Practice",
+         "question": "Bloom's taxonomy and learning objectives", "scale": "likert_5"},
+        {"id": "edu_theory_4", "category": "Educational Theory and Practice",
+         "question": "Measurement and evaluation techniques", "scale": "likert_5"},
+        {"id": "edu_theory_5", "category": "Educational Theory and Practice",
+         "question": "Differentiated instruction strategies", "scale": "likert_5"},
+        {"id": "edu_theory_6", "category": "Educational Theory and Practice",
+         "question": "Student-centered learning approaches", "scale": "likert_5"},
+        {"id": "edu_theory_7", "category": "Educational Theory and Practice",
+         "question": "Educational technology integration", "scale": "likert_5"},
+        {"id": "edu_theory_8", "category": "Educational Theory and Practice",
+         "question": "Learning analytics and data usage", "scale": "likert_5"},
+        # Communication and Presentation
+        {"id": "edu_communication_1", "category": "Communication and Presentation",
+         "question": "Explaining complex topics simply", "scale": "likert_5"},
+        {"id": "edu_communication_2", "category": "Communication and Presentation",
+         "question": "Preparing instructional materials", "scale": "likert_5"},
+        {"id": "edu_communication_3", "category": "Communication and Presentation",
+         "question": "Giving feedback techniques", "scale": "likert_5"},
+        {"id": "edu_communication_4", "category": "Communication and Presentation",
+         "question": "Online education management", "scale": "likert_5"},
     ]
     
     # BÖLÜM D: AI Araçları Kullanım Deneyimi
@@ -246,48 +240,45 @@ class CompetencyAssessment:
         "usage_purposes": ["Coding/debugging", "Research", "Content creation", "Learning and education", "Problem solving", "Other"]
     }
     
-    # BÖLÜM E: Öğrenme Tercihleri (Likert 1-5)
+    # BÖLÜM E: Öğrenme Tercihleri (Likert 1-5) — CAQ L1-L8
     LEARNING_PREFERENCES = [
-        {
-            "id": "learn_pref_1",
-            "question": "Yeni bir konuyu öğrenirken önce teorik bilgiyi anlamak isterim",
-            "scale": "likert_5",
-            "description": "1 = Kesinlikle katılmıyorum, 5 = Kesinlikle katılıyorum"
-        },
-        {
-            "id": "learn_pref_2",
-            "question": "Yaparak ve deneyerek öğrenmeyi tercih ederim",
-            "scale": "likert_5"
-        },
-        {
-            "id": "learn_pref_3",
-            "question": "Kendi hızımda ilerleyebilmek benim için önemlidir",
-            "scale": "likert_5"
-        },
-        {
-            "id": "learn_pref_4",
-            "question": "Öğrenirken anlık geri bildirim almak benim için önemlidir",
-            "scale": "likert_5"
-        },
-        {
-            "id": "learn_pref_5",
-            "question": "Grup çalışması ve işbirliği öğrenmemi kolaylaştırır",
-            "scale": "likert_5"
-        },
-        {
-            "id": "learn_pref_6",
-            "question": "Görsel materyaller (diyagram, video) benim için faydalıdır",
-            "scale": "likert_5"
-        }
+        {"id": "learn_pref_1",
+         "question": "Yeni konuları öğrenirken adım adım rehberlik isterim",
+         "scale": "likert_5", "description": "1 = Kesinlikle katılmıyorum, 5 = Kesinlikle katılıyorum"},
+        {"id": "learn_pref_2",
+         "question": "Örneklerle öğrenmeyi tercih ederim", "scale": "likert_5"},
+        {"id": "learn_pref_3",
+         "question": "Teorik bilgiyi pratik uygulamalarla pekiştirmeyi severim", "scale": "likert_5"},
+        {"id": "learn_pref_4",
+         "question": "Zorlayıcı görevlerle karşılaşmaktan çekinmem", "scale": "likert_5"},
+        {"id": "learn_pref_5",
+         "question": "Hata yaparak öğrenmeyi normal bulurum", "scale": "likert_5"},
+        {"id": "learn_pref_6",
+         "question": "Kendi hızımda öğrenmeyi tercih ederim", "scale": "likert_5"},
+        {"id": "learn_pref_7",
+         "question": "Görsel materyallerle öğrenmek bana yardımcı olur", "scale": "likert_5"},
+        {"id": "learn_pref_8",
+         "question": "Grup çalışmalarını bireysel çalışmaya tercih ederim", "scale": "likert_5"},
     ]
 
     LEARNING_PREFERENCES_EN = [
-        {"id": "learn_pref_1", "question": "When learning something new I like to understand the theory first", "scale": "likert_5"},
-        {"id": "learn_pref_2", "question": "I prefer learning by doing and experimenting", "scale": "likert_5"},
-        {"id": "learn_pref_3", "question": "Being able to progress at my own pace is important to me", "scale": "likert_5"},
-        {"id": "learn_pref_4", "question": "Getting immediate feedback while learning is important to me", "scale": "likert_5"},
-        {"id": "learn_pref_5", "question": "Group work and collaboration make learning easier for me", "scale": "likert_5"},
-        {"id": "learn_pref_6", "question": "Visual materials (diagrams, video) are helpful for me", "scale": "likert_5"}
+        {"id": "learn_pref_1",
+         "question": "When learning new topics I prefer step-by-step guidance",
+         "scale": "likert_5", "description": "1 = Strongly disagree, 5 = Strongly agree"},
+        {"id": "learn_pref_2",
+         "question": "I prefer learning through examples", "scale": "likert_5"},
+        {"id": "learn_pref_3",
+         "question": "I like to reinforce theory with practical applications", "scale": "likert_5"},
+        {"id": "learn_pref_4",
+         "question": "I am not afraid of challenging tasks", "scale": "likert_5"},
+        {"id": "learn_pref_5",
+         "question": "I consider learning from mistakes to be normal", "scale": "likert_5"},
+        {"id": "learn_pref_6",
+         "question": "I prefer to learn at my own pace", "scale": "likert_5"},
+        {"id": "learn_pref_7",
+         "question": "Visual materials help me learn better", "scale": "likert_5"},
+        {"id": "learn_pref_8",
+         "question": "I prefer group work over individual study", "scale": "likert_5"},
     ]
     
     # BÖLÜM F: Kendini Değerlendirme

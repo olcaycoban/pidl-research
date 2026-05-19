@@ -25,9 +25,13 @@ from research_modules import (
 )
 from tasks import get_task_by_number
 from i18n import t, get_lang
+from database.database import init_db
 
 # .env dosyasını yükle
 load_dotenv()
+
+# Tablolar yoksa oluştur (Streamlit Cloud'da DB sıfırdan başlar)
+init_db()
 
 # OpenAI client (local: .env | Cloud: Streamlit Secrets)
 openai_client = OpenAI(api_key=get_openai_key())
@@ -627,7 +631,7 @@ def phase_competency():
             work_field=sector,  # Sektör bilgisi
             technical_score=int(profile.technical_score),
             pedagogical_score=int(profile.educational_score),
-            competency_level=profile.technical_level  # veya overall level
+            competency_level=profile.technical_level.title()  # Novice, Advanced Beginner, ... (enum map için title-case)
         )
         st.session_state.participant_uuid = participant_uuid
         st.session_state.competency_evaluated = True  # Flag ekle
