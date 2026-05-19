@@ -16,6 +16,7 @@ from src.competency_assessment import CompetencyAssessment, CompetencyProfile
 from src.personas import get_persona_by_id, get_personas_by_level, ALL_PERSONAS, get_persona_details
 from src.recommendation_engine import RecommendationEngine
 from src.content_analyzer import ContentAnalyzer
+from src.config import get_openai_key, get_config
 
 # Araştırma modülleri
 from research_modules import (
@@ -28,8 +29,8 @@ from i18n import t, get_lang
 # .env dosyasını yükle
 load_dotenv()
 
-# OpenAI client
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# OpenAI client (local: .env | Cloud: Streamlit Secrets)
+openai_client = OpenAI(api_key=get_openai_key())
 
 # Sayfa yapılandırması
 st.set_page_config(
@@ -262,10 +263,10 @@ Lütfen Solidity smart contract kodu yaz. Kodu açıklamalarla birlikte sun."""
 
         # OpenAI API çağrısı
         response = openai_client.chat.completions.create(
-            model=os.getenv("DEFAULT_MODEL", "gpt-4o-mini"),
+            model=get_config("DEFAULT_MODEL", "gpt-4o-mini"),
             messages=messages,
-            temperature=float(os.getenv("TEMPERATURE", "0.7")),
-            max_tokens=int(os.getenv("MAX_TOKENS", "2000"))
+            temperature=float(get_config("TEMPERATURE", "0.7")),
+            max_tokens=int(get_config("MAX_TOKENS", "2000"))
         )
 
         generated_code = response.choices[0].message.content
