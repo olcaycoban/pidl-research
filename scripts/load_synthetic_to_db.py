@@ -56,9 +56,8 @@ AI_TYPE_MAP = {
 }
 
 
-def _level_to_scores(level: str) -> tuple[int, int]:
-    """Dreyfus seviyesini (technical_score, pedagogical_score) yaklaşık değerlere çevir."""
-    # Likert 12 maddenin toplamı 12..60 aralığındadır.
+def _level_to_score(level: str) -> int:
+    """Dreyfus seviyesini CAQ toplam skoruna (12 madde Likert, 12–60) çevir."""
     midpoints = {
         "novice": 18,
         "advanced_beginner": 28,
@@ -66,7 +65,7 @@ def _level_to_scores(level: str) -> tuple[int, int]:
         "proficient": 48,
         "expert": 56,
     }
-    return midpoints.get(level, 36), midpoints.get(level, 36)
+    return midpoints.get(level, 36)
 
 
 def _make_persona_name(level_enum: CompetencyLevel, ai_type: AIType, domain: str) -> str:
@@ -83,9 +82,17 @@ def load_participant(session, p: dict[str, Any]) -> None:
     created_at = datetime.fromisoformat(p["created_at"])
     demo = p["demographics"]
     profile = p["competency_profile"]
-    level_str = profile["technical_level"]
+    # Tabakalı örnekleme seviyesi (30/level); CAQ skorları alanlara göre ayrışır
+    level_str = profile.get("stratum_level") or profile["technical_level"]
     level_enum = LEVEL_MAP[level_str]
-    tech_score, ped_score = _level_to_scores(level_str)
+    if "technical_score" in profile and "pedagogical_score" in profile:
+        tech_score = int(profile["technical_score"])
+        ped_score = int(profile["pedagogical_score"])
+    else:
+        tech_score = _level_to_score(profile["technical_level"])
+        ped_score = _level_to_score(
+            profile.get("educational_level", profile["technical_level"])
+        )
 
     participant = Participant(
         uuid=uuid_,

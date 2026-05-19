@@ -247,11 +247,59 @@ def quantize_5(v: float, lo: int = 0, hi: int = 100) -> int:
     return int(round(v / 5.0)) * 5
 
 
+# CAQ: 12 madde Likert 1–5 → toplam 12–60 (tez / competency_assessment ile uyumlu)
+LEVEL_LIKERT_MID = {
+    "novice": 1.5,
+    "advanced_beginner": 2.35,
+    "competent": 3.35,
+    "proficient": 4.2,
+    "expert": 4.8,
+}
+LIKERT_LEVEL_BOUNDS = [
+    ("novice", 1.0, 1.8),
+    ("advanced_beginner", 1.9, 2.8),
+    ("competent", 2.9, 3.8),
+    ("proficient", 3.9, 4.5),
+    ("expert", 4.6, 5.0),
+]
+DOMAIN_LIKERT_OFFSET = 0.42  # güçlü alan ~+5 puan toplam skor
+
+
+def likert_avg_to_level(avg: float) -> str:
+    for level, lo, hi in LIKERT_LEVEL_BOUNDS:
+        if lo <= avg <= hi:
+            return level
+    return "expert" if avg > 4.5 else "novice"
+
+
+def caq_domain_scores(stratum_level: str, domain: str) -> tuple[int, int, str, str]:
+    """Teknik ve pedagojik CAQ toplamları (12–60); baskın alan daha yüksek."""
+    mid = LEVEL_LIKERT_MID[stratum_level]
+    jitter = random.uniform(-0.14, 0.14)
+    if domain == "technical":
+        tech_l = mid + DOMAIN_LIKERT_OFFSET + jitter
+        ped_l = mid - DOMAIN_LIKERT_OFFSET + random.uniform(-0.14, 0.14)
+    else:
+        ped_l = mid + DOMAIN_LIKERT_OFFSET + jitter
+        tech_l = mid - DOMAIN_LIKERT_OFFSET + random.uniform(-0.14, 0.14)
+    tech_l = max(1.0, min(5.0, tech_l))
+    ped_l = max(1.0, min(5.0, ped_l))
+    tech_sum = max(12, min(60, stochastic_round(tech_l * 12)))
+    ped_sum = max(12, min(60, stochastic_round(ped_l * 12)))
+    return (
+        tech_sum,
+        ped_sum,
+        likert_avg_to_level(tech_sum / 12.0),
+        likert_avg_to_level(ped_sum / 12.0),
+    )
+
+
 # -----------------------------------------------------------------
 # Kompozisyon
 # -----------------------------------------------------------------
 def make_participant(pid: int, level: str, h4_supports_adaptive: bool) -> dict:
     domain = random.choice(["technical", "educational"])
+    tech_sum, ped_sum, tech_lvl, edu_lvl = caq_domain_scores(level, domain)
     # Tezde 134/150 katılımcıda adaptif > sabit; geri kalan 16'da etkisiz/ters.
     # h4_factor: +1 normal, -0.6 ters (varyansla birleştiğinde adaptif <= sabit olur).
     h4_factor = 1.0 if h4_supports_adaptive else -0.6
@@ -337,10 +385,13 @@ def make_participant(pid: int, level: str, h4_supports_adaptive: bool) -> dict:
             "education": education, "work_field": work_field,
         },
         "competency_profile": {
-            "technical_level": level,
-            "educational_level": level,
+            "technical_level": tech_lvl,
+            "educational_level": edu_lvl,
+            "technical_score": tech_sum,
+            "pedagogical_score": ped_sum,
+            "stratum_level": level,
             "dominant_domain": domain,
-            "weak_domain": "technical" if domain == "educational" else "educational",
+            "weak_domain": "educational" if domain == "technical" else "technical",
         },
         "adaptive_block": {"tasks": adaptive_tasks, **a_avg},
         "fixed_block":    {"tasks": fixed_tasks,    **f_avg},
@@ -472,7 +523,8 @@ def main() -> None:
             for block in ("adaptive", "fixed"):
                 # LG kalibrasyonu
                 pairs = collect(lambda p, t, l=lvl, m=mod, b=block:
-                                 p["competency_profile"]["technical_level"] == l
+                                 (p["competency_profile"].get("stratum_level")
+                                  or p["competency_profile"]["technical_level"]) == l
                                  and t["assigned_ai_type"] == m
                                  and t["block"] == b)
                 # Hedef ortalama (Tablo 4.3 + 4.6 birebir)
@@ -620,7 +672,7 @@ def main() -> None:
 
     for p in participants:
         new_pid = p["participant_id"]
-        lvl = p["competency_profile"]["technical_level"]
+        lvl = p["competency_profile"].get("stratum_level") or p["competency_profile"]["technical_level"]
         fname = f"participant_{new_pid:03d}_{lvl}.json"
         (OUT_DIR / fname).write_text(json.dumps(p, ensure_ascii=False, indent=2))
 

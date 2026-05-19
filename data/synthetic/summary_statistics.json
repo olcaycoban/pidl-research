@@ -1,6 +1,6 @@
 {
   "total_participants": 150,
-  "generation_date": "2026-05-19T22:23:31.965780",
+  "generation_date": "2026-05-19T23:59:22.313738",
   "version": "4.0 — Tezdeki tablolar (4.3/4.4/4.6/4.7) ile birebir kalibre",
   "design": "Her katılımcı 6 adaptif + 6 sabit = 12 görev; tabakalı (19/27/38/35/31)",
   "by_level": {
@@ -29,7 +29,7 @@
       "count": 27,
       "adaptive_avg_learning_gain": 14.01,
       "fixed_avg_learning_gain": 12.39,
-      "adaptive_avg_quality": 64.89,
+      "adaptive_avg_quality": 64.9,
       "fixed_avg_quality": 62.53
     },
     "novice": {
