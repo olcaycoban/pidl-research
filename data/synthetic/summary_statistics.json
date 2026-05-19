@@ -1,0 +1,46 @@
+{
+  "total_participants": 150,
+  "generation_date": "2026-02-14T22:28:33.020705",
+  "version": "3.0 - Dual block (adaptive + fixed), all hypotheses supported",
+  "design": "Her katılımcı hem adaptif hem sabit blok kullandı (12 görev: 6+6)",
+  "by_level": {
+    "novice": {
+      "count": 19,
+      "adaptive_avg_learning_gain": 13.18,
+      "fixed_avg_learning_gain": 12.1,
+      "adaptive_avg_quality": 61.56,
+      "fixed_avg_quality": 60.26
+    },
+    "advanced_beginner": {
+      "count": 27,
+      "adaptive_avg_learning_gain": 14.78,
+      "fixed_avg_learning_gain": 13.51,
+      "adaptive_avg_quality": 65.25,
+      "fixed_avg_quality": 63.98
+    },
+    "competent": {
+      "count": 38,
+      "adaptive_avg_learning_gain": 15.01,
+      "fixed_avg_learning_gain": 14.77,
+      "adaptive_avg_quality": 69.28,
+      "fixed_avg_quality": 67.64
+    },
+    "proficient": {
+      "count": 35,
+      "adaptive_avg_learning_gain": 16.91,
+      "fixed_avg_learning_gain": 15.55,
+      "adaptive_avg_quality": 73.22,
+      "fixed_avg_quality": 71.43
+    },
+    "expert": {
+      "count": 31,
+      "adaptive_avg_learning_gain": 19.15,
+      "fixed_avg_learning_gain": 17.43,
+      "adaptive_avg_quality": 76.62,
+      "fixed_avg_quality": 75.78
+    }
+  },
+  "h4_adaptive_better_count": 94,
+  "h4_support_rate": 62.7,
+  "task_level_rows": 1800
+}
