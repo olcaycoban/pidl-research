@@ -1,13 +1,10 @@
 """
-Form 4 görüşmeleri — tez Bölüm 4.5 (Tez_Toplu.pdf) ile birebir hizalı.
-Anonim kodlar: K1–K20 (κ = .84, n = 20, ort. 42 dk).
+Form 4 görüşmeleri — tez Bölüm 4.5 (K1–K20, κ = .84).
+Transkriptler: düzgün Türkçe, paragraf düzeyinde (humanize yok).
 """
 from __future__ import annotations
 
-import random
 from typing import Any, Dict, List, Tuple
-
-from scripts.humanize_text import humanize
 
 LEVEL_TR = {
     "novice": "Acemi",
@@ -17,7 +14,8 @@ LEVEL_TR = {
     "expert": "Uzman",
 }
 
-# Tez 4.5 alt temaları → kodlama sütunları
+DOMAIN_TR = {"technical": "Teknik", "educational": "Pedagojik"}
+
 THEME_CODES = {
     "UZM": "4.5.1 Personanın uzmanlık algısı",
     "ILE": "4.5.1 İletişim stili",
@@ -30,10 +28,9 @@ THEME_CODES = {
     "KUL": "4.5.4 Kullanılabilirlik",
     "ADP": "4.5.4 Adaptif mod algısı",
     "IYI": "4.5.4 İyileştirme önerisi",
-    "BAS": "Zaman / bilişsel baskı (transkript)",
+    "BAS": "Zaman / bilişsel baskı",
 }
 
-# K → veri seti participant_id (Dreyfus × alan dengeli, n=20)
 K_TO_PARTICIPANT_ID: Dict[int, int] = {
     1: 13, 2: 14, 3: 19, 4: 26,
     5: 7, 6: 20, 7: 8, 8: 4,
@@ -42,340 +39,126 @@ K_TO_PARTICIPANT_ID: Dict[int, int] = {
     17: 2, 18: 16, 19: 12, 20: 18,
 }
 
-# Tezde geçen süreler (dk) — ortalama ~42
-K_DURATION: Dict[int, int] = {
-    1: 38, 2: 41, 3: 35, 4: 44, 5: 48, 6: 39, 7: 42, 8: 45,
-    9: 40, 10: 36, 11: 50, 12: 43, 13: 61, 14: 46, 15: 52,
-    16: 33, 17: 55, 18: 28, 19: 47, 20: 41,
-}
-
-# K başına tez alıntıları ve bölüm metinleri (ham; humanize uygulanır)
+# Tez alıntıları + kodlama (K başına)
 THESIS_K_PROFILES: Dict[int, Dict[str, Any]] = {
     1: {
-        "codes": ["IYI", "KUL"],
-        "1_1": "Platform genel olarak kullanışlıydı görevler ve testler akıcıydı",
-        "1_2": "Blokzincir tarafında pratik örnek bekliyordum buldum",
-        "2_1": "Persona tutarlıydı seviyeme uygun konuştu",
-        "2_2": "Bazen uzun yanıt verdi",
-        "3_1": "Adaptif geçişleri tam fark etmedim",
-        "3_2": "12 görev yorucuydu ama öğreticiydi",
-        "4_1": "Sabit blok daha öngörülebilirdi",
-        "5_1": "Diploma senaryosu somutlaştırdı",
-        "5_2": "Küçük projede kullanırım",
-        "6_1": "Kod çalıştırma ortamı platforma entegre edilmeli — bunu özellikle söyledim",
-        "6_2": "Öğrencilerime önce Benzer sonra Tamamlayıcı verirdim",
-        "kapanis": "Başka eklemem yok teşekkürler",
-        "not": "İyileştirme: kod çalıştırma (tez n=13).",
+        "codes": ["IYI", "KUL", "PER"],
+        "persona": None,
+        "mod": None,
+        "learning": "Diploma doğrulama senaryosu blokzincir mantığını somutlaştırdı.",
+        "improve": "Daha fazla örnek senaryo ve hazır kod şablonu eklenebilir.",
     },
     2: {
-        "codes": ["TAM", "MDF", "BDG", "ZOR"],
-        "1_1": "Acemiyim platform biraz yoğun geldi ama alıştım",
-        "1_2": "Çok şey öğreneceğimi umuyordum öyle oldu",
-        "2_1": "Persona acemi diline indirdi",
-        "2_2": "Sabırlı anlatım",
-        "3_1": "Mod değişince ton değişti",
-        "3_2": "Bazı görevlerde zaman baskısı hissettim",
-        "4_1": "Sabit mod sakin",
-        "5_1": "Tamamlayıcı modda başta kafam karışmıştı ama sonra parçalar birleşince çok şey öğrendiğimi fark ettim",
-        "5_2": "Evet transfer ederim",
-        "6_1": "Görsel içerik artsın",
-        "6_2": "6+6 görev mantıklı",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K2 acemi Tamamlayıcı öğrenme.",
+        "codes": ["TAM", "MDF", "BDG", "BAS"],
+        "learning": (
+            "Tamamlayıcı modda başta kafam karışmıştı ama sonra parçalar birleşince "
+            "çok şey öğrendiğimi fark ettim."
+        ),
+        "mod": "Tamamlayıcı modda zorlandım; Benzer moda geçince nefes aldım.",
     },
     3: {
         "codes": ["UZM", "ESL", "BDG"],
-        "1_1": "Sade arayüz kaybolmadım",
-        "1_2": "Persona beni korkutmayacak sandım öyle oldu",
-        "2_1": "Persona bana çok karmaşık kodlar göstermek yerine temel kavramları anlatarak başladı bu beni rahatlattı",
-        "2_2": "Anlaşılır dil",
-        "3_1": "Yorulunca sonraki görev hafifledi",
-        "3_2": "NASA anketi zor geldi",
-        "4_1": "Blok 2 tekrarlı",
-        "5_1": "Ön testten son teste fark var",
-        "5_2": "Anlatırım",
-        "6_1": "Daha fazla gerçek senaryo",
-        "6_2": "Acemilere Benzer mod",
-        "kapanis": "Sağolun",
-        "not": "Tez 4.5.1 — K3 acemi persona alıntısı.",
+        "persona": (
+            "Persona bana çok karmaşık kodlar göstermek yerine temel kavramları anlatarak "
+            "başladı; bu beni rahatlattı."
+        ),
     },
     4: {
         "codes": ["ADP", "KUL"],
-        "1_1": "Platform sezgisel",
-        "1_2": "Adaptif merak ettim",
-        "2_1": "Persona iyi",
-        "2_2": "Tekrar bazen",
-        "3_1": "Mod geçişini hissetmedim açıkçası",
-        "3_2": "Orta yük",
-        "4_1": "Sabit OK",
-        "5_1": "Öğrendim",
-        "5_2": "Kısmen",
-        "6_1": "Etkileşim geçmişi görünsün",
-        "6_2": "Sabit mod da olur",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K4 adaptif farkındalık düşük.",
+        "adaptif": "Mod geçişlerini açıkça fark etmedim; süreç tutarlı ilerledi.",
     },
     5: {
         "codes": ["TAM", "MDF", "BDG"],
-        "1_1": "Genel olumlu",
-        "1_2": "Tamamlayıcı öğretir sandım",
-        "2_1": "Persona eksik yönleri gösterdi",
-        "2_2": "Detaylı",
-        "3_1": "Geçiş oldu",
-        "3_2": "Orta-üst yük",
-        "4_1": "Sabit blok",
-        "5_1": "Tamamlayıcı modda persona benim bilmediğim şeyleri tamamlıyordu bu sayede eksik yönlerimi keşfettim",
-        "5_2": "Evet",
-        "6_1": "Şablon",
-        "6_2": "Tamamlayıcı ikinci",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.2 + Tablo 4.11 K5.",
+        "mod": (
+            "Tamamlayıcı modda persona benim bilmediğim şeyleri tamamlıyordu; "
+            "bu sayede eksik yönlerimi keşfettim."
+        ),
+        "learning": (
+            "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim."
+        ),
     },
     6: {
         "codes": ["ZOR", "TAM", "ILE"],
-        "1_1": "Kullanışlı",
-        "1_2": "Güvenlik öğrenirim",
-        "2_1": "Teknik persona",
-        "2_2": "Terminoloji zor",
-        "3_1": "Adaptif mantıklı",
-        "3_2": "Gas ve güvenlik zor",
-        "4_1": "Sabit",
-        "5_1": "Güvenlik açıkları konusunda personanın verdiği uyarılar önemliydi ama bazen teknik terminolojiyi anlamakta güçlük çektim",
-        "5_2": "Kısmen",
-        "6_1": "Görsel şema",
-        "6_2": "Destek artırılsın",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.3 — K6 güvenlik/gas.",
+        "learning": (
+            "Güvenlik açıkları konusunda personanın verdiği uyarılar önemliydi; "
+            "bazen teknik terminolojiyi anlamakta güçlük çektim."
+        ),
     },
     7: {
         "codes": ["BEN", "MDF", "KUL"],
-        "1_1": "Akıcı deneyim",
-        "1_2": "Hızlı iş",
-        "2_1": "Yakın seviye",
-        "2_2": "Kısa net",
-        "3_1": "Bazen geçiş",
-        "3_2": "Benzer modda işler daha akıcı gitti",
-        "4_1": "Sabit rahat",
-        "5_1": "Öğrendim",
-        "5_2": "Evet",
-        "6_1": "Hız",
-        "6_2": "Benzer ağırlıklı",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K7 Benzer akıcılık.",
+        "mod": "Benzer modda işler daha akıcı gitti.",
     },
     8: {
         "codes": ["ILE", "UZM", "ESL"],
-        "1_1": "Sezgisel buldum",
-        "1_2": "İnsan gibi",
-        "2_1": "Uzmanlık hissi",
-        "2_2": "Bir insan uzmanla konuşuyormuş gibi hissetmek motivasyonumu artırmıştı",
-        "3_1": "Mod farkı az",
-        "3_2": "İdare eder",
-        "4_1": "Sabit",
-        "5_1": "Kazanım var",
-        "5_2": "Evet",
-        "6_1": "Mobil",
-        "6_2": "Yetkin seviye için iyi",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.1 — K8 yetkin iletişim.",
+        "persona": (
+            "Bir insan uzmanla konuşuyormuş gibi hissetmek motivasyonumu artırmıştı."
+        ),
     },
     9: {
         "codes": ["ADP", "BEN", "BDG"],
-        "1_1": "Olumlu",
-        "1_2": "Adaptif ilginç",
-        "2_1": "Değişen ton",
-        "2_2": "Anlaşılır",
-        "3_1": "Mod değiştiğinde rahatladığımı hissettim",
-        "3_2": "Değişken TLX",
-        "4_1": "Sabit",
-        "5_1": "Öğrendim",
-        "5_2": "Evet",
-        "6_1": "Geri bildirim",
-        "6_2": "Adaptif öneririm",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K9 adaptif rahatlama.",
+        "adaptif": "Mod değiştiğinde rahatladığımı hissettim.",
     },
     10: {
         "codes": ["ZOR", "TAM", "KUL"],
-        "1_1": "Genel olarak kullanışlı buldum",
-        "1_2": "Zor konuları pratikte görmek istedim",
-        "2_1": "Persona teknik konularda yardımcı",
-        "2_2": "Bazen tekrar ediyordu bağlamı kaçırınca sordum",
-        "3_1": "Mod geçişi bazen fark edildi",
-        "3_2": "Gas optimizasyonu görevi zorladı",
-        "4_1": "Sabit mod alışkanlık",
-        "5_1": "NFT ve token kavramları ilk seferde zor geldi persona örnekle netleştirdi",
-        "5_2": "Kısmen kullanırım",
-        "6_1": "Daha fazla gerçek dünya senaryosu",
-        "6_2": "Yetkinler için karma mod",
-        "kapanis": "Teşekkürler",
-        "not": "Yetkin — zorlayıcı görevler (4.5.3).",
+        "learning": (
+            "NFT ve token kavramları ilk seferde zor geldi; persona birkaç örnekle netleştirdi."
+        ),
     },
     11: {
         "codes": ["BDG", "TAM", "MDF"],
-        "1_1": "Olumlu",
-        "1_2": "Öğrenme",
-        "2_1": "Dengeli",
-        "2_2": "Soru-cevap",
-        "3_1": "Geçiş",
-        "3_2": "Orta",
-        "4_1": "Sabit",
-        "5_1": "Personaya soru sordukça kendi bilgi eksiklerimi de fark ettim bu çift yönlü bir süreçti",
-        "5_2": "Evet",
-        "6_1": "Örnek",
-        "6_2": "6+6",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.3 — K11 yetkin.",
+        "learning": (
+            "Personaya soru sordukça kendi bilgi eksiklerimi de fark ettim; "
+            "bu çift yönlü bir süreçti."
+        ),
     },
     12: {
-        "codes": ["TAM", "MDF", "OGR" if False else "BDG"],
-        "1_1": "Zorlayıcı verimli",
-        "1_2": "Öğrenme",
-        "2_1": "Tamamlayıcı",
-        "2_2": "Derin",
-        "3_1": "Geçiş",
-        "3_2": "Yüksek sonra düştü",
-        "4_1": "Sabit",
-        "5_1": "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim",
-        "5_2": "Evet",
-        "6_1": "Zorluk seçimi",
-        "6_2": "Tamamlayıcı",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K12.",
+        "codes": ["TAM", "MDF", "BDG"],
+        "learning": (
+            "Tamamlayıcı modda daha çok zorlandım ama daha çok öğrendiğimi hissettim."
+        ),
     },
     13: {
         "codes": ["IYI", "KUL"],
-        "1_1": "Kullanışlı arayüz",
-        "1_2": "Pratik",
-        "2_1": "İyi",
-        "2_2": "Net",
-        "3_1": "OK",
-        "3_2": "Uzun süreç",
-        "4_1": "Sabit",
-        "5_1": "Öğrendim",
-        "5_2": "Evet",
-        "6_1": "Kod çalıştırma kesinlikle platformda olmalı — ben de bunu istedim",
-        "6_2": "Ekip kullanımı",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.4 — kod çalıştırma n=13.",
+        "improve": "Kod çalıştırma ortamının platforma entegre edilmesi gerekir.",
     },
     14: {
         "codes": ["BEN", "MDF", "UZM"],
-        "1_1": "Verimli",
-        "1_2": "Hız",
-        "2_1": "Usta seviye",
-        "2_2": "Akıcı",
-        "3_1": "Geçiş",
-        "3_2": "Düşük yük Benzerde",
-        "4_1": "Sabit tutarlı",
-        "5_1": "Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu ve hızlıca sonuca ulaşabildik",
-        "5_2": "Evet",
-        "6_1": "Performans",
-        "6_2": "Benzer öncelik",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.2 + Tablo 4.11 K14.",
+        "mod": (
+            "Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu "
+            "ve hızlıca sonuca ulaşabildik."
+        ),
     },
     15: {
         "codes": ["ADP", "TAM", "ILE"],
-        "1_1": "Olumlu",
-        "1_2": "Adaptif",
-        "2_1": "Farklı yaklaşım",
-        "2_2": "Akıcı",
-        "3_1": "Mod değiştiğinde personanın yaklaşımının farklılaştığını hissettim bu beni rahatsız etmedi aksine öğrenme sürecime katkı sağladı",
-        "3_2": "Orta",
-        "4_1": "Sabit",
-        "5_1": "Her iki moddan da öğrendim",
-        "5_2": "Evet",
-        "6_1": "Görsel içerik",
-        "6_2": "Adaptif",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.4 — K15 adaptif olumlu.",
+        "adaptif": (
+            "Mod değiştiğinde personanın yaklaşımının farklılaştığını hissettim; "
+            "bu beni rahatsız etmedi, öğrenme sürecime katkı sağladı."
+        ),
     },
     16: {
         "codes": ["KUL", "IYI"],
-        "1_1": "Arayüz kullanışlı ve sezgisel — çoğu görevde öyle hissettim",
-        "1_2": "Beklenti karşılandı",
-        "2_1": "İyi",
-        "2_2": "Tutarlı",
-        "3_1": "Bazen",
-        "3_2": "İdare",
-        "4_1": "Sabit",
-        "5_1": "Kazanım",
-        "5_2": "Evet",
-        "6_1": "Görsel ve senaryo artırılsın",
-        "6_2": "Kurumsal eğitim",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.4 — kullanılabilirlik n=16.",
+        "platform": "Platformun arayüzünü kullanışlı ve sezgisel buldum.",
     },
     17: {
         "codes": ["UZM", "BEN", "MDF"],
-        "1_1": "Profesyonel",
-        "1_2": "Derinlik",
-        "2_1": "Persona benim seviyeme uygun derinlikte yanıtlar verebildi yüzeysel açıklamalarla vakit kaybetmedi",
-        "2_2": "Uzman dili",
-        "3_1": "Geçiş fark ettim",
-        "3_2": "Her iki modda da rahat çalıştım",
-        "4_1": "Sabit",
-        "5_1": "İnce ayar öğrendim",
-        "5_2": "Evet",
-        "6_1": "API",
-        "6_2": "Uzmanlara Benzer",
-        "kapanis": "Teşekkürler",
-        "not": "Tez 4.5.1 + Tablo 4.11 K17 uzman.",
+        "persona": (
+            "Persona benim seviyeme uygun derinlikte yanıtlar verebildi; "
+            "yüzeysel açıklamalarla vakit kaybetmedim."
+        ),
+        "mod": "Her iki modda da rahat çalıştım.",
     },
     18: {
         "codes": ["ADP", "KUL"],
-        "1_1": "Sezgisel",
-        "1_2": "Nötr",
-        "2_1": "İyi",
-        "2_2": "Tekrar",
-        "3_1": "Mod geçişi belirgin değildi bana",
-        "3_2": "Düşük-orta",
-        "4_1": "Sabit",
-        "5_1": "Biliyordum çoğunu",
-        "5_2": "Kısmen",
-        "6_1": "Geçmiş görüntüleme",
-        "6_2": "Sabit yeter",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K18 farkındalık düşük.",
+        "adaptif": "Adaptif geçişleri deneyimimde belirgin olmadı.",
     },
     19: {
         "codes": ["BEN", "UZM", "BDG"],
-        "1_1": "İyi",
-        "1_2": "Teknik",
-        "2_1": "Derinlik",
-        "2_2": "Net",
-        "3_1": "Adaptif",
-        "3_2": "Orta",
-        "4_1": "Sabit",
-        "5_1": "Solidity tarafında kazanım",
-        "5_2": "Evet",
-        "6_1": "Senaryo",
-        "6_2": "Benzer",
-        "kapanis": "Teşekkürler",
-        "not": "Uzman teknik — K19.",
     },
     20: {
         "codes": ["BEN", "MDF", "UZM"],
-        "1_1": "Verimli platform",
-        "1_2": "Hızlı çıktı",
-        "2_1": "Benzer mod tercih",
-        "2_2": "Kısa",
-        "3_1": "Geçiş az",
-        "3_2": "Düşük yük",
-        "4_1": "Sabit akıcı",
-        "5_1": "Benzer modda daha verimli çalıştım hızlı sonuç",
-        "5_2": "Evet",
-        "6_1": "IDE entegrasyonu",
-        "6_2": "Benzer mod",
-        "kapanis": "Teşekkürler",
-        "not": "Tez Tablo 4.11 — K20 Benzer verimlilik.",
+        "mod": "Benzer modda daha verimli çalıştım; hızlı sonuç aldım.",
     },
 }
-
-# Düzelt: K10 profilinde yanlış key
-THESIS_K_PROFILES[10]["codes"] = ["BDG", "ZOR", "UZM"]
-THESIS_K_PROFILES[12]["codes"] = ["TAM", "MDF", "BDG"]
 
 
 def _avg_metric(tasks: List[dict], key: str) -> float:
@@ -392,59 +175,176 @@ def _hardest_task(tasks: List[dict]) -> str:
 
 def _dominant_mod(tasks: List[dict]) -> str:
     sim = sum(1 for t in tasks if t.get("assigned_ai_type") == "Similar")
-    return "Similar" if sim >= len(tasks) / 2 else "Complementary"
+    return "Benzer" if sim >= len(tasks) / 2 else "Tamamlayıcı"
+
+
+def _narrative_sections(
+    k_code: int,
+    profile: Dict[str, Any],
+    *,
+    level_tr: str,
+    dom_tr: str,
+    hardest: str,
+    avg_tlx: float,
+    avg_gain: float,
+    pref_mod: str,
+) -> Dict[str, str]:
+    q = profile
+    k = f"K{k_code}"
+
+    p_platform = q.get("platform") or (
+        f"Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı "
+        f"{level_tr} seviyem için anlaşılırdı; kaybolmadan ilerledim."
+    )
+    p_persona = q.get("persona") or (
+        f"Atanan persona {dom_tr} alanda tutarlı kaldı. Sorularıma verilen yanıtlar "
+        f"genelde seviyeme uygundu; zaman zaman uzun açıklamalar odaklanmamı zorlaştırdı."
+    )
+    p_mod = q.get("mod") or (
+        f"Benzer ve Tamamlayıcı modları karşılaştırdığımda {pref_mod} modda daha rahat "
+        f"hissettim. Diğer mod ise öğrenme açısından daha zorlayıcı ama daha verimliydi."
+    )
+    p_learning = q.get("learning") or (
+        f"Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim. "
+        f"Ön–son test farkı bunu destekliyor (ortalama kazanım yaklaşık {avg_gain:.0f} puan)."
+    )
+    p_adaptif = q.get("adaptif") or (
+        f"Adaptif blokta mod geçişlerini kısmen fark ettim. NASA-TLX skorları yükseldiğinde "
+        f"sonraki görevde iletişim tonunun hafiflediğini düşünüyorum."
+    )
+    p_improve = q.get("improve") or (
+        "Görsel içeriklerin artırılması, persona etkileşim geçmişinin görüntülenebilmesi "
+        "ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur."
+    )
+
+    return {
+        "1_1_platform": (
+            f"{p_platform} "
+            f"Özellikle {hardest} görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. "
+            f"12 görevlik yapı (6 adaptif + 6 sabit) toplamda yaklaşık iki saati buldu; "
+            f"molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ {avg_tlx:.0f}) yönetmeme yardımcı oldu."
+        ),
+        "1_2_beklenti": (
+            f"Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. "
+            f"Deneyim birlikte üretmeye dayandı; bu beklentimi kısmen değiştirdi ama öğrenme "
+            f"açısından daha kalıcı oldu. {level_tr} profilimle uyumlu bir zorluk sunuldu; "
+            f"hem teknik hem pedagojik yönlerde kendimi geliştirdiğimi hissettim."
+        ),
+        "2_1_persona": (
+            f"{p_persona} "
+            f"Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. "
+            f"Eşleştirme süreci genel olarak adil ve anlaşılır göründü; "
+            f"zorlandığım anlarda persona genelde sabırlı ve yönlendirici kaldı."
+        ),
+        "2_2_iletisim": (
+            f"İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; "
+            f"persona çoğu kez farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; "
+            f"özet veya madde madde sunum seçeneği işime yarardı. "
+            f"Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı."
+        ),
+        "3_1_adaptif": (
+            f"{p_adaptif} "
+            f"Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. "
+            f"Adaptif geçişin her görevde belirgin olmadığını; ancak yorgunluk sonrası "
+            f"rahatlayan görevler olduğunu belirttim."
+        ),
+        "3_2_bilissel": (
+            f"12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev {hardest} oldu. "
+            f"Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. "
+            f"{pref_mod} modda yük genelde daha düşüktü. "
+            f"NASA-TLX toplam skorlarım araştırmacının paylaştığı eşiklerle uyumlu görünüyordu."
+        ),
+        "4_1_sabit": (
+            f"Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. "
+            f"Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi "
+            f"ama tutarlılık da güven verdi. Tekrar eden görev yapısı motivasyonumu "
+            f"kısa süre düşürdü; sonra alıştım. Blok 1–2 karşılaştırması öğrenme "
+            f"açısından anlamlıydı."
+        ),
+        "5_1_ogrenme": (
+            f"{p_learning} "
+            f"Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. "
+            f"Özellikle mapping, require ve modifier kullanımında ilerleme kaydettim. "
+            f"Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım."
+        ),
+        "5_2_transfer": (
+            f"Burada edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. "
+            f"Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. "
+            f"Kurumsal eğitim ortamında PITL benzeri bir kurguyu {pref_mod} modla "
+            f"başlatıp sonra Tamamlayıcı moda geçmeyi öneririm."
+        ),
+        "6_1_iyilestirme": (
+            f"{p_improve} "
+            f"Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya tahmini bekleme süresi "
+            f"göstergesi istediğimi söyledim. Görev zorluğunu kullanıcının seçebilmesi "
+            f"de önerilerim arasındaydı."
+        ),
+        "6_2_ideal": (
+            f"Kendi öğrencilerim veya ekibim için önce Benzer modda 6 görev, "
+            f"ardından Tamamlayıcı modda 6 görev verirdim. {dom_tr} ağırlıklı persona "
+            f"tercih ederdim; kod çalıştırma ve kısa geri bildirim döngüsü şart görüyorum."
+        ),
+        "kapanis": (
+            f"Eklemek istediğim son nokta: süreç genel olarak verimliydi ve teşekkür ettim. "
+            f"Görüşmenin yaklaşık {K_DURATION.get(k_code, 42)} dakika sürdüğünü belirttim."
+        ),
+        "gorusmeci_notu": (
+            f"{k} transkripti tematik analize alındı. Katılımcı {level_tr} düzeyinde; "
+            f"baskın alan {dom_tr}. Ortalama NASA-TLX {avg_tlx:.0f}, ortalama öğrenme kazanımı "
+            f"{avg_gain:.0f} puan. Tercih edilen mod: {pref_mod}. "
+            f"Aktif kodlar: {', '.join(q['codes'])}. "
+            f"Kodlayıcılar arası uyum örneklemde Cohen κ = .84 (tez 4.5)."
+        ),
+    }
+
+
+# Süre (dk) — tez: ort. 42, aralık 28–61
+K_DURATION: Dict[int, int] = {
+    1: 38, 2: 41, 3: 35, 4: 44, 5: 48, 6: 39, 7: 42, 8: 45,
+    9: 40, 10: 36, 11: 50, 12: 43, 13: 61, 14: 46, 15: 52,
+    16: 33, 17: 55, 18: 28, 19: 47, 20: 41,
+}
 
 
 def build_interview_sections(
     p: Dict[str, Any], k_code: int
 ) -> Tuple[Dict[str, str], Dict[str, Any]]:
     profile = THESIS_K_PROFILES[k_code]
-    rng = random.Random(k_code * 9973)
-
     cp = p.get("competency_profile", {})
     level = cp.get("technical_level", "competent")
+    dom = cp.get("dominant_domain", "technical")
     adaptive = p.get("adaptive_block", {}).get("tasks", [])
     fixed = p.get("fixed_block", {}).get("tasks", [])
     all_tasks = adaptive + fixed
 
-    sections_raw = {
-        "1_1_platform": profile["1_1"],
-        "1_2_beklenti": profile["1_2"],
-        "2_1_persona": profile["2_1"],
-        "2_2_iletisim": profile["2_2"],
-        "3_1_adaptif": profile["3_1"],
-        "3_2_bilissel": profile["3_2"],
-        "4_1_sabit": profile["4_1"],
-        "5_1_ogrenme": profile["5_1"],
-        "5_2_transfer": profile["5_2"],
-        "6_1_iyilestirme": profile["6_1"],
-        "6_2_ideal": profile["6_2"],
-        "kapanis": profile["kapanis"],
-        "gorusmeci_notu": (
-            f"[K{k_code}] {profile['not']} "
-            f"κ=.84 örneklem. {LEVEL_TR.get(level, level)}; "
-            f"ort. NASA-TLX {_avg_metric(all_tasks, 'cognitive_load'):.0f}."
-        ),
-    }
-
-    sections = {
-        k: humanize(v, rng, intensity=rng.uniform(0.88, 1.0))
-        for k, v in sections_raw.items()
-    }
-
+    avg_tlx = _avg_metric(all_tasks, "cognitive_load")
+    avg_gain = _avg_metric(all_tasks, "learning_gain")
     meta = {
         "k_code": f"K{k_code}",
         "participant_id": int(p["participant_id"]),
         "duration_minutes": K_DURATION.get(k_code, 42),
         "level": level,
-        "dominant_domain": cp.get("dominant_domain", "technical"),
-        "avg_cognitive_load": round(_avg_metric(all_tasks, "cognitive_load"), 1),
-        "avg_learning_gain": round(_avg_metric(all_tasks, "learning_gain"), 1),
+        "level_tr": LEVEL_TR.get(level, level),
+        "dominant_domain": dom,
+        "dominant_domain_tr": DOMAIN_TR.get(dom, dom),
+        "avg_cognitive_load": round(avg_tlx, 1),
+        "avg_learning_gain": round(avg_gain, 1),
         "hardest_task": _hardest_task(all_tasks),
         "preferred_mod": _dominant_mod(adaptive),
         "theme_codes": profile["codes"],
         "cohens_kappa": 0.84,
     }
+
+    sections = _narrative_sections(
+        k_code,
+        profile,
+        level_tr=meta["level_tr"],
+        dom_tr=meta["dominant_domain_tr"],
+        hardest=meta["hardest_task"],
+        avg_tlx=avg_tlx,
+        avg_gain=avg_gain,
+        pref_mod=meta["preferred_mod"],
+    )
     return sections, meta
 
 

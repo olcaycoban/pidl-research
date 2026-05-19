@@ -9,16 +9,13 @@ from __future__ import annotations
 import csv
 import json
 import sys
-from datetime import datetime, timedelta
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.interview_content import (  # noqa: E402
-    K_DURATION,
     K_TO_PARTICIPANT_ID,
-    LEVEL_TR,
     THEME_CODES,
     build_interview_sections,
     theme_code_rows,
@@ -44,25 +41,7 @@ def load_participant(pid: int) -> dict:
     return json.loads(matches[0].read_text(encoding="utf-8"))
 
 
-def interview_datetime(k_code: int) -> tuple[str, str, str]:
-    base = datetime(2025, 3, 1) + timedelta(days=k_code % 35)
-    dur = K_DURATION.get(k_code, 42)
-    start_h = 9 + (k_code % 6)
-    start_m = 10 + (k_code * 5) % 50
-    end_total = start_h * 60 + start_m + dur
-    end_h, end_m = end_total // 60, end_total % 60
-    date = base.strftime("%d / %m / 2025")
-    start = f"{start_h:02d}:{start_m:02d}"
-    end = f"{end_h:02d}:{end_m:02d}"
-    return date, start, end
-
-
 def render_form(int_code: str, k_code: int, p: dict, sections: dict, meta: dict) -> str:
-    uuid_short = (p.get("uuid") or "")[:8].upper()
-    date, start, end = interview_datetime(k_code)
-    cp = p.get("competency_profile", {})
-    level_tr = LEVEL_TR.get(cp.get("technical_level", ""), "")
-    dur = meta["duration_minutes"]
     tema_rows = "\n".join(
         f"| {code} | {THEME_CODES[code]} | {'✓' if code in meta['theme_codes'] else '—'} |"
         for code in THEME_CODES
@@ -71,28 +50,8 @@ def render_form(int_code: str, k_code: int, p: dict, sections: dict, meta: dict)
     return f"""# Form 4 — Yarı Yapılandırılmış Görüşme (DOLDURULMUŞ)
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
-**Anonim katılımcı kodu:** **{meta['k_code']}** · Görüşme: {int_code}
-**Tez uyumu:** `s/Tez_Toplu (1).pdf` — κ = .84, n = 20, ort. 42 dk (28–61)
-
----
-
-## Görüşme Bilgileri
-
-| Alan | Değer |
-|------|-------|
-| Görüşme Kodu | {int_code} |
-| Katılımcı Kodu (tez) | **{meta['k_code']}** |
-| Katılımcı UUID | P-{uuid_short}… |
-| Veri seti participant_id | {meta['participant_id']} |
-| Dreyfus Seviyesi | {level_tr} |
-| Baskın alan | {meta['dominant_domain']} |
-| Görüşme Tarihi | {date} |
-| Saat | {start} – {end} |
-| Süre | **{dur}** dakika |
-| Tür | ☑ Video konferans |
-| Görüşmeci | Dr. A. Yılmaz |
-
-**Kayıt onayı:** ☑ Evet
+**Görüşme kodu:** {int_code} · **Katılımcı:** **{meta['k_code']}**
+**Dreyfus:** {meta['level_tr']} · **Alan:** {meta['dominant_domain_tr']}
 
 ---
 

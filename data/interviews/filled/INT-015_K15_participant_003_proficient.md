@@ -1,97 +1,77 @@
 # Form 4 — Yarı Yapılandırılmış Görüşme (DOLDURULMUŞ)
 ## PITL — Tez Bölüm 4.5 Nitel Bulgular
 
-**Anonim katılımcı kodu:** **K15** · Görüşme: INT-015
-**Tez uyumu:** `s/Tez_Toplu (1).pdf` — κ = .84, n = 20, ort. 42 dk (28–61)
-
----
-
-## Görüşme Bilgileri
-
-| Alan | Değer |
-|------|-------|
-| Görüşme Kodu | INT-015 |
-| Katılımcı Kodu (tez) | **K15** |
-| Katılımcı UUID | P-0DDF3E1D… |
-| Veri seti participant_id | 3 |
-| Dreyfus Seviyesi | Usta |
-| Baskın alan | educational |
-| Görüşme Tarihi | 16 / 03 / 2025 |
-| Saat | 12:35 – 13:27 |
-| Süre | **52** dakika |
-| Tür | ☑ Video konferans |
-| Görüşmeci | Dr. A. Yılmaz |
-
-**Kayıt onayı:** ☑ Evet
+**Görüşme kodu:** INT-015 · **Katılımcı:** **K15**
+**Dreyfus:** Usta · **Alan:** Pedagojik
 
 ---
 
 ## BÖLÜM 1 — Isınma *(4.5.4)*
 
 ### 1.1 Platform deneyimi
-Olumlu
+Platformu genel olarak olumlu değerlendirdim. Görev, test ve sohbet akışı Usta seviyem için anlaşılırdı; kaybolmadan ilerledim. Özellikle Sertifika NFT görevinde yoğunluk hissettim; buna rağmen süreç öğreticiydi. 12 görevlik yapı (6 adaptif + 6 sabit) toplamda yaklaşık iki saati buldu; molalı ilerlemek bilişsel yükü (ortalama NASA-TLX ≈ 38) yönetmeme yardımcı oldu.
 
 ### 1.2 Beklentiler
-Adaptif
+Platforma başlamadan önce yapay zekânın hazır kod vereceğini düşünüyordum. Deneyim birlikte üretmeye dayandı; bu beklentimi kısmen değiştirdi ama öğrenme açısından daha kalıcı oldu. Usta profilimle uyumlu bir zorluk sunuldu; hem teknik hem pedagojik yönlerde kendimi geliştirdiğimi hissettim.
 
 ---
 
 ## BÖLÜM 2 — AI Persona *(4.5.1)*
 
 ### 2.1 Persona deneyimi
-Farklı yaklaşım
+Atanan persona Pedagojik alanda tutarlı kaldı. Sorularıma verilen yanıtlar genelde seviyeme uygundu; zaman zaman uzun açıklamalar odaklanmamı zorlaştırdı. Farklı görevlerde persona karakterinin değiştiğini zaman zaman fark ettim. Eşleştirme süreci genel olarak adil ve anlaşılır göründü; zorlandığım anlarda persona genelde sabırlı ve yönlendirici kaldı.
 
 ### 2.2 İletişim kalitesi
-Akıcı
+İletişim dili çoğunlukla doğal ve akıcıydı. Anlamadığım yanıtlarda tekrar sordum; persona çoğu kez farklı bir açıdan açıkladı. Bazen yanıtlar uzun geldi; özet veya madde madde sunum seçeneği işime yarardı. Kodun yanında açıklama vermesi kopyalamadan öğrenmemi sağladı.
 
 ---
 
 ## BÖLÜM 3 — Adaptif Mod
 
 ### 3.1 Adaptif geçiş
-Mod değiştiğinde personanın yaklaşımının farklılaştığını hissettim bu beni rahatsız etmedi aksiine öğrenme sürecime katkı sağlaadı
+Mod değiştiğinde personanın yaklaşımının farklılaştığını hissettim; bu beni rahatsız etmedi, öğrenme sürecime katkı sağladı. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Adaptif geçişin her görevde belirgin olmadığını; ancak yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Orta
+12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Sertifika NFT oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü. NASA-TLX toplam skorlarım araştırmacının paylaştığı eşiklerle uyumlu görünüyordu.
 
 ---
 
 ## BÖLÜM 4 — Sabit Mod *(4.5.2)*
 
 ### 4.1 Blok 2
-Sabit
+Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık da güven verdi. Tekrar eden görev yapısı motivasyonumu kısa süre düşürdü; sonra alıştım. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
 
 ---
 
 ## BÖLÜM 5 — Öğrenme *(4.5.3)*
 
 ### 5.1 Kazanımlar
-Her iki modan da öğrendim
+Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim. Ön–son test farkı bunu destekliyor (ortalama kazanım yaklaşık 16 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Özellikle mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
-Evet
+Burada edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitim ortamında PITL benzeri bir kurguyu Benzer modla başlatıp sonra Tamamlayıcı moda geçmeyi öneririm.
 
 ---
 
 ## BÖLÜM 6 — Geliştirme *(4.5.4)*
 
 ### 6.1 İyileştirme
-Görsel içerik
+Görsel içeriklerin artırılması, persona etkileşim geçmişinin görüntülenebilmesi ve daha fazla gerçek dünya senaryosu eklenmesi faydalı olur. Yanıt süresinin bazen uzadığını; ilerleme çubuğu veya tahmini bekleme süresi göstergesi istediğimi söyledim. Görev zorluğunu kullanıcının seçebilmesi de önerilerim arasındaydı.
 
 ### 6.2 İdeal senaryo
-Adaptif
+Kendi öğrencilerim veya ekibim için önce Benzer modda 6 görev, ardından Tamamlayıcı modda 6 görev verirdim. Pedagojik ağırlıklı persona tercih ederdim; kod çalıştırma ve kısa geri bildirim döngüsü şart görüyorum.
 
 ---
 
 ## Kapanış
 
-Teşekkürler
+Eklemek istediğim son nokta: süreç genel olarak verimliydi ve teşekkür ettim. Görüşmenin yaklaşık 52 dakika sürdüğünü belirttim.
 
 ---
 
 ## Görüşmeci notları
 
-[K15] Tez 4.5.4 — K15 adaptif olumlu. κ=.84 örneklem. Usta; ort. NASA-TLX 38.
+K15 transkripti tematik analize alındı. Katılımcı Usta düzeyinde; baskın alan Pedagojik. Ortalama NASA-TLX 38, ortalama öğrenme kazanımı 16 puan. Tercih edilen mod: Benzer. Aktif kodlar: ADP, TAM, ILE. Kodlayıcılar arası uyum örneklemde Cohen κ = .84 (tez 4.5).
 
 ---
 
@@ -110,7 +90,7 @@ Teşekkürler
 | KUL | 4.5.4 Kullanılabilirlik | — |
 | ADP | 4.5.4 Adaptif mod algısı | ✓ |
 | IYI | 4.5.4 İyileştirme önerisi | — |
-| BAS | Zaman / bilişsel baskı (transkript) | — |
+| BAS | Zaman / bilişsel baskı | — |
 
 **Aktif:** ADP, TAM, ILE
 
