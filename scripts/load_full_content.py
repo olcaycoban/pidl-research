@@ -31,8 +31,10 @@ from database.models import (  # noqa: E402
     NASATLXResponse,
     Participant,
     PedagogicalMetrics,
+    PrePostTest,
     TaskComparison,
     TaskSession,
+    TestType,
     TechnicalMetrics,
 )
 from scripts.content_templates import make_content  # noqa: E402
@@ -150,7 +152,24 @@ def _ai_eval_scores(mod: str, quality: int, rng: random.Random) -> dict:
     }
 
 
-def _final_for_participant(p: Participant, rng: random.Random) -> FinalEvaluation:
+def _mean_test_learning_gain(session, p: Participant) -> float:
+    """Görev ön/son test farkının ortalaması (0–100 ölçek)."""
+    gains: list[float] = []
+    for ts in p.task_sessions:
+        pre = session.query(PrePostTest).filter_by(
+            task_session_id=ts.id, test_type=TestType.PRE
+        ).first()
+        post = session.query(PrePostTest).filter_by(
+            task_session_id=ts.id, test_type=TestType.POST
+        ).first()
+        if pre and post and pre.score is not None and post.score is not None:
+            gains.append(float(post.score - pre.score))
+    return sum(gains) / len(gains) if gains else 15.0
+
+
+def _final_for_participant(
+    p: Participant, session, rng: random.Random
+) -> FinalEvaluation:
     roll = rng.random()
     if roll < 0.60:
         preferred = "Complementary"
@@ -159,16 +178,15 @@ def _final_for_participant(p: Participant, rng: random.Random) -> FinalEvaluatio
     else:
         preferred = "Both"
 
-    avg_lg = 15.0
-    if p.task_sessions:
-        gains = []
-        for ts in p.task_sessions:
-            if ts.generated_codes:
-                gains.append(ts.generated_codes[0].total_score or 70)
-        if gains:
-            avg_lg = sum(gains) / len(gains) / 5
-
-    rating = _clamp(int(round(avg_lg / 3)), 1, 10)
+    avg_gain = _mean_test_learning_gain(session, p)
+    # Tipik kazanım ~12–22 → AI rating çoğunlukla 7–10 (tez olumlu dağılım)
+    rating = _clamp(7 + int(round(avg_gain / 7)) + rng.randint(-1, 1), 6, 10)
+    if rating >= 9:
+        would_recommend = "Kesinlikle evet"
+    elif rating >= 7:
+        would_recommend = "Evet"
+    else:
+        would_recommend = "Kısmen"
 
     return FinalEvaluation(
         participant_uuid=p.uuid,
@@ -187,7 +205,7 @@ def _final_for_participant(p: Participant, rng: random.Random) -> FinalEvaluatio
         hybrid_ideal=rng.randint(4, 5),
         blockchain_view_change="Olumlu",
         ai_learning_rating=rating,
-        would_recommend="Evet" if rating >= 7 else "Kısmen",
+        would_recommend=would_recommend,
         hardest_task=rng.choice(FINAL_OPEN["hardest_task"]),
         ai_potential=rng.choice(FINAL_OPEN["ai_potential"]),
         suggestions=rng.choice(FINAL_OPEN["suggestions"]),
@@ -216,7 +234,11 @@ def main() -> None:
             session.query(FinalEvaluation).filter(
                 FinalEvaluation.participant_uuid == p.uuid
             ).delete(synchronize_session=False)
-            session.add(_final_for_participant(p, random.Random(hash(p.uuid) % 2**31)))
+            session.add(
+                _final_for_participant(
+                    p, session, random.Random(hash(p.uuid) % 2**31)
+                )
+            )
 
             sessions = sorted(p.task_sessions, key=lambda t: t.task_number or 0)
             for ts in sessions:
