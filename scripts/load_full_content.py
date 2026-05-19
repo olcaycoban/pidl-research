@@ -84,7 +84,6 @@ FINAL_OPEN = {
     ],
     "suggestions": [
         "Adaptif mod geçişleri için daha görünür bildirim eklenebilir.",
-        "Görevler arası özet ekranı faydalı olur.",
     ],
     "blockchain_education_view": [
         "Blokzincir eğitiminde pratik uygulama fırsatı arttı.",
