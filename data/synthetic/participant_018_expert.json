@@ -11,8 +11,8 @@
   "competency_profile": {
     "technical_level": "expert",
     "educational_level": "proficient",
-    "technical_score": 60,
-    "pedagogical_score": 54,
+    "technical_score": 100,
+    "pedagogical_score": 88,
     "stratum_level": "expert",
     "dominant_domain": "technical",
     "weak_domain": "educational"

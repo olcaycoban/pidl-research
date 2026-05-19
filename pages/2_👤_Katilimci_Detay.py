@@ -250,8 +250,8 @@ st.markdown(f"""
         </div>
         <div>
             <strong>{t('participant_detail.work_field')}:</strong> {data['participant'].work_field}<br>
-            <strong>{t('participant_detail.technical_score')}:</strong> {data['participant'].technical_score}/60 (CAQ)<br>
-            <strong>{t('participant_detail.pedagogical_score')}:</strong> {data['participant'].pedagogical_score}/60 (CAQ)
+            <strong>{t('participant_detail.technical_score')}:</strong> {data['participant'].technical_score}/100<br>
+            <strong>{t('participant_detail.pedagogical_score')}:</strong> {data['participant'].pedagogical_score}/100
         </div>
         <div>
             <strong>{t('participant_detail.dreyfus')}:</strong> {data['participant'].competency_level.value}<br>

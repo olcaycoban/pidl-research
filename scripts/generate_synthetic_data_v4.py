@@ -272,6 +272,12 @@ def likert_avg_to_level(avg: float) -> str:
     return "expert" if avg > 4.5 else "novice"
 
 
+def caq_sum_to_percent(caq_total: int) -> int:
+    """12 maddelik CAQ toplamı (12–60) → competency_assessment ile uyumlu 0–100."""
+    total = max(12, min(60, int(caq_total)))
+    return int(round((total - 12) / 48 * 100))
+
+
 def caq_domain_scores(stratum_level: str, domain: str) -> tuple[int, int, str, str]:
     """Teknik ve pedagojik CAQ toplamları (12–60); baskın alan daha yüksek."""
     mid = LEVEL_LIKERT_MID[stratum_level]
@@ -387,8 +393,8 @@ def make_participant(pid: int, level: str, h4_supports_adaptive: bool) -> dict:
         "competency_profile": {
             "technical_level": tech_lvl,
             "educational_level": edu_lvl,
-            "technical_score": tech_sum,
-            "pedagogical_score": ped_sum,
+            "technical_score": caq_sum_to_percent(tech_sum),
+            "pedagogical_score": caq_sum_to_percent(ped_sum),
             "stratum_level": level,
             "dominant_domain": domain,
             "weak_domain": "educational" if domain == "technical" else "technical",

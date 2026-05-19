@@ -56,8 +56,14 @@ AI_TYPE_MAP = {
 }
 
 
+def _caq_sum_to_percent(caq_total: int) -> int:
+    """12 maddelik CAQ toplamı (12–60) → 0–100."""
+    total = max(12, min(60, int(caq_total)))
+    return int(round((total - 12) / 48 * 100))
+
+
 def _level_to_score(level: str) -> int:
-    """Dreyfus seviyesini CAQ toplam skoruna (12 madde Likert, 12–60) çevir."""
+    """Dreyfus seviyesini 0–100 CAQ skoruna çevir."""
     midpoints = {
         "novice": 18,
         "advanced_beginner": 28,
@@ -65,7 +71,14 @@ def _level_to_score(level: str) -> int:
         "proficient": 48,
         "expert": 56,
     }
-    return midpoints.get(level, 36)
+    return _caq_sum_to_percent(midpoints.get(level, 36))
+
+
+def _normalize_caq_score(score: int) -> int:
+    """Eski kayıtlar (12–60) ve yeni kayıtlar (0–100) için tek ölçek."""
+    if score <= 60:
+        return _caq_sum_to_percent(score)
+    return max(0, min(100, int(score)))
 
 
 def _make_persona_name(level_enum: CompetencyLevel, ai_type: AIType, domain: str) -> str:
@@ -86,8 +99,8 @@ def load_participant(session, p: dict[str, Any]) -> None:
     level_str = profile.get("stratum_level") or profile["technical_level"]
     level_enum = LEVEL_MAP[level_str]
     if "technical_score" in profile and "pedagogical_score" in profile:
-        tech_score = int(profile["technical_score"])
-        ped_score = int(profile["pedagogical_score"])
+        tech_score = _normalize_caq_score(int(profile["technical_score"]))
+        ped_score = _normalize_caq_score(int(profile["pedagogical_score"]))
     else:
         tech_score = _level_to_score(profile["technical_level"])
         ped_score = _level_to_score(
