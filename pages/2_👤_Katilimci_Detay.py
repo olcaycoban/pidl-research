@@ -24,6 +24,34 @@ from database.models import (
 )
 from i18n import t, get_lang
 
+PREPOST_QUESTION_COUNT = 5
+PREPOST_POINTS_PER_Q = 5
+PREPOST_MAX_POINTS = 25
+
+
+def _prepost_from_percent(score_100: int | None) -> tuple[int, int]:
+    """Veritabanındaki 0–100 skor → (toplam/25, doğru soru/5)."""
+    if score_100 is None:
+        return 0, 0
+    pct = max(0, min(100, int(score_100)))
+    correct = max(0, min(PREPOST_QUESTION_COUNT, round(pct * PREPOST_QUESTION_COUNT / 100)))
+    return correct * PREPOST_POINTS_PER_Q, correct
+
+
+def _render_prepost_test(test, *, is_post: bool) -> None:
+    points, correct = _prepost_from_percent(test.score)
+    pct = int(test.score) if test.score is not None else 0
+    st.markdown(f"**Toplam Skor:** {points}/{PREPOST_MAX_POINTS} ({correct}/{PREPOST_QUESTION_COUNT} soru doğru, %{pct})")
+    active_q = PREPOST_QUESTION_COUNT if is_post else 3
+    for i in range(1, PREPOST_QUESTION_COUNT + 1):
+        answer = getattr(test, f"q{i}_answer", None)
+        if not is_post and i > active_q:
+            st.write(f"Soru {i}: — (ön testte uygulanmadı)")
+            continue
+        q_pts = PREPOST_POINTS_PER_Q if i <= correct else 0
+        label = answer if answer else "—"
+        st.write(f"Soru {i}: {label} · **{q_pts}/{PREPOST_POINTS_PER_Q}** puan")
+
 # Dil session state
 if "lang" not in st.session_state:
     st.session_state.lang = "tr"
@@ -265,12 +293,13 @@ with col5:
     learning_gains = []
     for s in data["sessions"]:
         if s["pre_test"] and s["post_test"]:
-            gain = s["post_test"].score - s["pre_test"].score
-            learning_gains.append(gain)
+            post_pts, _ = _prepost_from_percent(s["post_test"].score)
+            pre_pts, _ = _prepost_from_percent(s["pre_test"].score)
+            learning_gains.append(post_pts - pre_pts)
 
     if learning_gains:
         avg_gain = sum(learning_gains) / len(learning_gains)
-        st.metric("Ort. Learning Gain", f"+{avg_gain:.1f}")
+        st.metric("Ort. Learning Gain", f"+{avg_gain:.1f}", help="Görev ön/son test farkı (0–25 puan)")
     else:
         st.metric("Ort. Learning Gain", "N/A")
 
@@ -341,27 +370,21 @@ for idx, session_data in enumerate(data["sessions"], 1):
             with col1:
                 st.markdown("### 📝 Pre-Test")
                 if session_data["pre_test"]:
-                    pt = session_data["pre_test"]
-                    st.markdown(f"**Toplam Skor:** {pt.score}/25")
-                    for i in range(1, 6):
-                        answer = getattr(pt, f"q{i}_answer")
-                        st.write(f"Soru {i}: {answer}/5")
+                    _render_prepost_test(session_data["pre_test"], is_post=False)
                 else:
                     st.warning("Pre-test verisi yok")
 
             with col2:
                 st.markdown("### 📝 Post-Test")
                 if session_data["post_test"]:
-                    pt = session_data["post_test"]
-                    st.markdown(f"**Toplam Skor:** {pt.score}/25")
-                    for i in range(1, 6):
-                        answer = getattr(pt, f"q{i}_answer")
-                        st.write(f"Soru {i}: {answer}/5")
+                    _render_prepost_test(session_data["post_test"], is_post=True)
 
-                    # Learning gain
                     if session_data["pre_test"]:
-                        gain = pt.score - session_data["pre_test"].score
-                        st.success(f"**Learning Gain:** +{gain} puan")
+                        post_pts, _ = _prepost_from_percent(session_data["post_test"].score)
+                        pre_pts, _ = _prepost_from_percent(session_data["pre_test"].score)
+                        gain = post_pts - pre_pts
+                        sign = "+" if gain >= 0 else ""
+                        st.success(f"**Learning Gain:** {sign}{gain} puan (/25)")
                 else:
                     st.warning("Post-test verisi yok")
 
