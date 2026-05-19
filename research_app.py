@@ -100,8 +100,18 @@ def init_session_state():
         st.session_state.assigned_personas = {}
         st.session_state.session_start_time = datetime.now()
 
-        # YENİ: Kısa karşılaştırma verileri (B Yaklaşımı)
+        # Kısa karşılaştırma verileri
         st.session_state.task_comparisons = {}  # {task_number: comparison_data}
+
+        # Adaptif Mod: NASA-TLX tabanlı mod geçiş mekanizması (A1)
+        # current_mode: "Similar" | "Complementary"
+        st.session_state.current_mode = None          # Görev 1'de CAQ learning_goal ile belirlenir
+        st.session_state.task_tlx_scores = {}         # {task_number: normalized_tlx_0_100}
+
+        # Sabit Mod Bloğu: Adaptif (1-6) + Sabit (7-12) — H4 kontrol koşulu (A2)
+        # block_order "AB" → önce adaptif, sonra sabit; "BA" → tersi (counterbalancing)
+        st.session_state.current_block = "adaptive"   # "adaptive" | "fixed"
+        st.session_state.block_order = None           # UUID'den belirlenir
 
 
 def get_persona_recommendations_from_profile(profile: CompetencyProfile, use_math_engine: bool = True):
@@ -234,71 +244,101 @@ def get_persona_recommendations_from_profile(profile: CompetencyProfile, use_mat
         }
 
 
-def generate_code_with_persona(persona, task, user_prompt: str) -> tuple:
+def generate_code_with_persona(
+    persona, task, user_prompt: str,
+    conversation_history: list = None
+) -> tuple:
     """
-    Persona'nın system prompt'u ile OpenAI GPT-4 kullanarak kod üret
+    Persona'nın system prompt'u ile kod üret — C1/C2/C3 dahil.
+
+    C3: Kullanıcı girdisi sanitize edilir + system prompt'a Security delimiter eklenir.
+    C2: Geçmiş mesajlar sliding window ile kırpılır (son 3 tur).
+    C1: OpenAI başarısız olursa Anthropic Claude'a otomatik geçiş.
 
     Returns:
-        (generated_code: str, generation_time: float, messages: dict, full_prompt: str)
+        (generated_code, generation_time, messages, full_prompt)
     """
+    from src.security import sanitize_input, append_security_delimiter, trim_history
+
     start_time = time.time()
 
-    try:
-        # Persona'nın system prompt'unu kullan
-        system_prompt = persona.system_prompt
+    # C3: Kullanıcı girdisini sanitize et
+    safe_prompt = sanitize_input(user_prompt)
 
-        # Kullanıcı prompt'una görev bilgisini ekle (dile göre)
-        task_title = t(f"task{task.task_number}.title")
-        task_desc = t(f"task{task.task_number}.description")
-        full_prompt = f"""Görev: {task_title}
+    # C3: Security delimiter ekle
+    system_prompt = append_security_delimiter(persona.system_prompt)
 
-{task_desc}
+    # Görev bilgisini ekle
+    content_num = task.task_number  # base_task'taki 1-6 numarası
+    task_title = t(f"task{content_num}.title")
+    task_desc  = t(f"task{content_num}.description")
+    full_prompt = (
+        f"Görev: {task_title}\n\n{task_desc}\n\n"
+        f"Kullanıcı İsteği:\n{safe_prompt}\n\n"
+        "Lütfen Solidity smart contract kodu yaz. Kodu açıklamalarla birlikte sun."
+    )
 
-Kullanıcı İsteği:
-{user_prompt}
+    # C2: Mevcut geçmişe yeni user mesajı ekle, sliding window uygula
+    history = list(conversation_history) if conversation_history else []
+    history.append({"role": "user", "content": full_prompt})
 
-Lütfen Solidity smart contract kodu yaz. Kodu açıklamalarla birlikte sun."""
+    messages = [{"role": "system", "content": system_prompt}] + trim_history(history, max_turns=3)
 
-        # GPT-4'e gönderilecek mesajlar (TAM CONVERSATION)
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": full_prompt}
-        ]
-
-        # OpenAI API çağrısı
+    # ── C1: OpenAI → Anthropic failover ─────────────────────────────────────
+    def _call_openai():
         response = openai_client.chat.completions.create(
             model=get_config("DEFAULT_MODEL", "gpt-4o-mini"),
             messages=messages,
             temperature=float(get_config("TEMPERATURE", "0.7")),
-            max_tokens=int(get_config("MAX_TOKENS", "2000"))
+            max_tokens=int(get_config("MAX_TOKENS", "2000")),
+            timeout=30
         )
+        return response.choices[0].message.content
 
-        generated_code = response.choices[0].message.content
-        generation_time = time.time() - start_time
+    def _call_anthropic():
+        from anthropic import Anthropic
+        from src.config import get_anthropic_key
+        anthropic_key = get_anthropic_key()
+        if not anthropic_key:
+            raise RuntimeError("ANTHROPIC_API_KEY tanımlı değil")
+        client = Anthropic(api_key=anthropic_key)
+        # Anthropic sistemini ayrı tutar
+        system_text = next(
+            (m["content"] for m in messages if m["role"] == "system"), ""
+        )
+        non_system = [m for m in messages if m["role"] != "system"]
+        response = client.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            max_tokens=int(get_config("MAX_TOKENS", "2000")),
+            system=system_text,
+            messages=non_system
+        )
+        return response.content[0].text
 
-        # Mesajları ve full prompt'u da return et
-        return generated_code, generation_time, messages, full_prompt
+    generated_code = None
+    provider = "openai"
 
-    except Exception as e:
-        # Hata durumunda fallback
-        generation_time = time.time() - start_time
-        error_code = f"""// HATA: Kod üretimi başarısız oldu
-// Hata mesajı: {str(e)}
-// Persona: {persona.name}
+    try:
+        generated_code = _call_openai()
+    except Exception as openai_err:
+        # C1: Fallback → Anthropic Claude
+        try:
+            generated_code = _call_anthropic()
+            provider = "anthropic"
+        except Exception as anthropic_err:
+            generation_time = time.time() - start_time
+            error_code = (
+                f"// HATA: Her iki sağlayıcı da başarısız oldu.\n"
+                f"// OpenAI: {openai_err}\n"
+                f"// Anthropic: {anthropic_err}\n\n"
+                "pragma solidity ^0.8.0;\ncontract ErrorFallback {}"
+            )
+            return error_code, generation_time, messages, f"ERROR: {openai_err}"
 
-pragma solidity ^0.8.0;
-
-// Lütfen tekrar deneyin veya farklı bir prompt kullanın
-contract ErrorFallback {{
-    // Kod üretilemedi
-}}
-"""
-        # Hata durumunda da mesajları döndür
-        error_messages = [
-            {"role": "system", "content": persona.system_prompt},
-            {"role": "user", "content": f"ERROR: {str(e)}"}
-        ]
-        return error_code, generation_time, error_messages, f"ERROR: {str(e)}"
+    generation_time = time.time() - start_time
+    # Asistan yanıtını geçmişe ekle (C2 için bir sonraki turda kullanılır)
+    messages.append({"role": "assistant", "content": generated_code})
+    return generated_code, generation_time, messages, full_prompt
 
 
 def get_persona_balance(persona):
@@ -323,17 +363,76 @@ def get_persona_balance(persona):
     }
 
 
+def determine_next_mode_from_tlx(task_number: int) -> str:
+    """
+    NASA-TLX tabanlı adaptif mod geçiş kuralı (Savunma Rehberi — Rehber 2).
+
+    Kural:
+        TLX_normalized > 60  →  Benzer Mod  (yükü hafiflet)
+        TLX_normalized < 30  →  Tamamlayıcı Mod  (zorla, öğret)
+        30 ≤ TLX ≤ 60       →  Alternatif  (bir öncekinin tersi — monotonluk kır)
+
+    Görev 1'de henüz TLX verisi olmadığından CAQ learning_goal kullanılır:
+        learning_goal > 0.6  →  Tamamlayıcı Mod
+        learning_goal ≤ 0.6  →  Benzer Mod
+
+    Returns: "Similar" | "Complementary"
+    """
+    # Görev 1: TLX yok, learning_goal'a bak
+    if task_number == 1:
+        profile = st.session_state.get("competency_profile")
+        if profile and hasattr(profile, "learning_goal_score"):
+            lg = profile.learning_goal_score
+        else:
+            # Fallback: recommendation engine üzerinden hesapla
+            try:
+                from src.recommendation_engine import RecommendationEngine
+                rec = RecommendationEngine()
+                uv = rec.create_user_vector(
+                    profile.__dict__ if profile else {}
+                )
+                lg = uv.learning_goal
+            except Exception:
+                lg = 0.5
+        return "Complementary" if lg > 0.6 else "Similar"
+
+    # Görev 2+: Bir önceki görevin TLX skoruna bak
+    prev_tlx = st.session_state.task_tlx_scores.get(task_number - 1)
+    if prev_tlx is None:
+        # TLX henüz kaydedilmemişse önceki modu koru
+        return st.session_state.get("current_mode", "Similar")
+
+    if prev_tlx > 60:
+        return "Similar"        # Yüksek yük → hafiflet
+    elif prev_tlx < 30:
+        return "Complementary"  # Düşük yük → zorla
+    else:
+        # Monotonluğu kır: bir öncekinin tersi
+        prev_mode = st.session_state.get("current_mode", "Similar")
+        return "Complementary" if prev_mode == "Similar" else "Similar"
+
+
 def assign_ai_persona_for_task(task_number: int, similar_persona, complementary_persona):
     """
-    Dengeli task assignment: 3 Similar + 3 Complementary
+    Adaptif mod ataması (A1) — NASA-TLX tabanlı karar kuralı.
 
-    Görev Dağılımı:
-    - Görev 1, 3, 5 → Similar AI (3 görev)
-    - Görev 2, 4, 6 → Complementary AI (3 görev)
-
-    Bu sayede her katılımcı her iki AI tipini de eşit sayıda deneyimler.
+    Blok 1 (görev 1-6): Adaptif mod geçişi (TLX eşikleri).
+    Blok 2 (görev 7-12): Sabit sıra (7,9,11 → Similar; 8,10,12 → Complementary) — H4 kontrol.
     """
-    ai_type = "Similar" if task_number % 2 == 1 else "Complementary"
+    block = st.session_state.get("current_block", "adaptive")
+
+    if block == "fixed":
+        # Sabit blok: kullanıcı durumuna bakmadan değişmez sıra
+        ai_type = "Similar" if task_number % 2 == 1 else "Complementary"
+    else:
+        # Adaptif blok: NASA-TLX kuralı
+        # İlk görev için current_mode henüz None olabilir → belirle
+        if st.session_state.get("current_mode") is None or task_number == 1:
+            ai_type = determine_next_mode_from_tlx(task_number)
+            st.session_state.current_mode = ai_type
+        else:
+            ai_type = st.session_state.current_mode
+
     persona = similar_persona if ai_type == "Similar" else complementary_persona
 
     return {
@@ -384,9 +483,21 @@ def show_sidebar():
 
         # Görev ilerlemesi
         if st.session_state.phase == 'tasks':
-            st.markdown(f"**{t('sidebar.task_progress')}:** {st.session_state.current_task_number}/6")
-            progress = (st.session_state.current_task_number - 1) / 6
-            st.progress(progress)
+            total_tasks = 12
+            current_task = st.session_state.current_task_number
+            block = st.session_state.get("current_block", "adaptive")
+            block_label = "Adaptif" if block == "adaptive" else "Sabit"
+            block_num = 1 if current_task <= 6 else 2
+            st.markdown(f"**{t('sidebar.task_progress')}:** {current_task}/{total_tasks}")
+            st.progress((current_task - 1) / total_tasks)
+            st.caption(f"Blok {block_num}/2 — {block_label}")
+
+            # Aktif mod göster (A1)
+            mode = st.session_state.get("current_mode")
+            if mode:
+                mode_icon = "🔵" if mode == "Similar" else "🟠"
+                mode_label = "Benzer Mod" if mode == "Similar" else "Tamamlayıcı Mod"
+                st.caption(f"{mode_icon} {mode_label}")
 
         # Yetkinlik bilgisi
         if st.session_state.competency_profile:
@@ -845,19 +956,50 @@ def phase_competency():
             st.rerun()
 
 
+def _get_block_order_for_participant(uuid_str: str) -> str:
+    """
+    Counterbalancing: UUID son karakterine göre blok sırası belirle.
+    Çift karakter → "AB" (önce adaptif, sonra sabit)
+    Tek karakter  → "BA" (önce sabit, sonra adaptif)
+    """
+    try:
+        last_char = uuid_str.replace("-", "")[-1]
+        return "AB" if int(last_char, 16) % 2 == 0 else "BA"
+    except Exception:
+        return "AB"
+
+
 def phase_tasks():
-    """Faz 3: 6 Görev"""
+    """Faz 3: 12 Görev (6 Adaptif Blok + 6 Sabit Blok — H4)"""
     task_number = st.session_state.current_task_number
 
-    if task_number > 6:
+    # Blok sıralamasını ilk girişte belirle (A2 counterbalancing)
+    if st.session_state.get("block_order") is None and st.session_state.participant_uuid:
+        st.session_state.block_order = _get_block_order_for_participant(
+            st.session_state.participant_uuid
+        )
+
+    # Tüm 12 görev bitti → final
+    if task_number > 12:
         st.session_state.phase = 'final'
         st.rerun()
         return
 
-    st.markdown(f'<h1 class="main-header">💻 {t("task.title")} {task_number}/6</h1>', unsafe_allow_html=True)
+    # Blok geçişi: görev 7'ye ilk adımda blok güncelle
+    if task_number == 7 and st.session_state.get("current_block") == "adaptive":
+        st.session_state.current_block = "fixed"
+        # Sabit blokta modu sıfırla (artık NASA-TLX değil sabit sıra)
+        st.session_state.current_mode = None
+        st.info("🔁 Blok 1 (Adaptif) tamamlandı. Blok 2 (Sabit) başlıyor...")
 
-    # Görevi al
-    task = get_task_by_number(task_number)
+    # Görev içeriği için görev numarasını 1-6 aralığına dönüştür
+    # Görev 7→1, 8→2, 9→3, 10→4, 11→5, 12→6 (aynı içerik, farklı blok)
+    content_task_number = task_number if task_number <= 6 else task_number - 6
+
+    st.markdown(f'<h1 class="main-header">💻 {t("task.title")} {task_number}/12</h1>', unsafe_allow_html=True)
+
+    # Görevi al (içerik 1-6 döngüsü)
+    task = get_task_by_number(content_task_number)
 
     # Persona ataması yap
     if task_number not in st.session_state.assigned_personas:
@@ -872,10 +1014,10 @@ def phase_tasks():
     persona_obj = assigned["persona_obj"]
     persona_balance = get_persona_balance(persona_obj)
 
-    # Görev bilgisi (dile göre başlık/açıklama/zorluk)
-    task_title = t(f"task{task_number}.title")
-    task_desc = t(f"task{task_number}.description")
-    task_diff = t(f"task{task_number}.difficulty")
+    # Görev bilgisi (dile göre başlık/açıklama/zorluk) — içerik 1-6 arası
+    task_title = t(f"task{content_task_number}.title")
+    task_desc = t(f"task{content_task_number}.description")
+    task_diff = t(f"task{content_task_number}.difficulty")
     st.markdown(f"""
     <div class="task-card">
         <h2>{task_title}</h2>
@@ -900,12 +1042,13 @@ def phase_tasks():
         pre_answers = PrePostTestForm.show_test(pre_test_questions, "pre")
 
         if st.button("✅ " + t("task.pre_test_done"), type="primary"):
-            # Task session başlat
+            # Task session başlat (A2: block_type dahil)
             task_session_id = DataLogger.start_task_session(
                 participant_uuid=st.session_state.participant_uuid,
                 task_number=task_number,
                 assigned_ai_type=assigned['ai_type'],
-                assigned_persona=persona_obj.name
+                assigned_persona=persona_obj.name,
+                block_type=st.session_state.get("current_block", "adaptive")
             )
             st.session_state.current_task_session_id = task_session_id
             st.session_state.task_start_time = datetime.now()
@@ -1255,6 +1398,19 @@ def phase_tasks():
 
         if st.button("✅ " + t("task.nasa_done"), type="primary"):
             DataLogger.save_nasa_tlx(st.session_state.current_task_session_id, nasa_responses)
+
+            # NASA-TLX skorunu 0-100 ölçeğine normalize edip kaydet (A1)
+            # Slider aralığı 1-10 × 6 boyut = max 60 → normalize: /60 × 100
+            raw_total = nasa_responses.get("total_cognitive_load", 30)
+            normalized_tlx = round((raw_total / 60) * 100, 1)
+            current_task = st.session_state.current_task_number
+            st.session_state.task_tlx_scores[current_task] = normalized_tlx
+
+            # Adaptif blokta: bir sonraki görev için modu hesapla ve güncelle (A1)
+            if st.session_state.get("current_block", "adaptive") == "adaptive":
+                next_mode = determine_next_mode_from_tlx(current_task + 1)
+                st.session_state.current_mode = next_mode
+
             st.session_state.task_substep = 'ai_evaluation'
             st.rerun()
 
@@ -1315,7 +1471,8 @@ def phase_tasks():
                 key=f"task_difficulty_task_{task_number}"
             )
 
-        button_text = "✅ " + (t("task.button_task_done") if task_number == 1 else t("task.button_ai_done"))
+        is_first_in_block = task_number in (1, 7)
+        button_text = "✅ " + (t("task.button_task_done") if is_first_in_block else t("task.button_ai_done"))
 
         if st.button(button_text, type="primary"):
             # AI Evaluation kaydet
@@ -1326,16 +1483,18 @@ def phase_tasks():
                 task_session_id=st.session_state.current_task_session_id,
                 used_ai=used_ai,
                 other_ai=other_ai,
-                suitability=comparison_suitability,  # İlk görevde None
-                reason=comparison_reason,  # İlk görevde boş
+                suitability=comparison_suitability,  # İlk blok görevi → None
+                reason=comparison_reason,  # İlk blok görevi → boş
                 difficulty=task_difficulty_rating,
-                has_comparison=task_number > 1
+                has_comparison=not is_first_in_block
             )
 
             # Karşılaştırma verilerini session state'e de kaydet (opsiyonel - UI için)
             if 'task_comparisons' not in st.session_state:
                 st.session_state.task_comparisons = {}
 
+            # Blok içindeki ilk görevde karşılaştırma yok (görev 1 ve 7)
+            is_first_in_block = task_number in (1, 7)
             st.session_state.task_comparisons[task_number] = {
                 'used_ai': used_ai,
                 'other_ai': other_ai,
@@ -1343,7 +1502,7 @@ def phase_tasks():
                 'reason': comparison_reason,
                 'difficulty': task_difficulty_rating,
                 'timestamp': datetime.now().isoformat(),
-                'has_comparison': task_number > 1
+                'has_comparison': not is_first_in_block
             }
 
             # Görevi tamamla
@@ -1384,6 +1543,18 @@ def phase_complete():
     st.markdown(f'<h1 class="main-header">🎉 {t("complete.title")}</h1>', unsafe_allow_html=True)
 
     st.success("✅ " + t("complete.success"))
+
+    # D2: Blockchain NFT sertifikası — arka planda sessizce dene
+    try:
+        from src.blockchain import blockchain
+        wallet = get_api_key("RESEARCHER_WALLET", "")
+        if blockchain.enabled and wallet and not st.session_state.get("nft_minted"):
+            tx_hash = blockchain.mint_certificate(wallet)
+            if tx_hash:
+                st.session_state.nft_minted = True
+                st.info(f"🔗 NFT sertifikası Sepolia testnet'e yazıldı — tx: `{tx_hash[:16]}...`")
+    except Exception:
+        pass
 
     st.markdown(f"""
     ### 🙏 {t("complete.thanks")}

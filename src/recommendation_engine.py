@@ -511,94 +511,89 @@ class RecommendationEngine:
         
         return max(0, min(1, competency_match))
     
-    def predict_performance(self, user: UserVector, persona: PersonaVector, 
-                          task_complexity: float = 0.5) -> float:
+    def predict_performance(self, user: UserVector, persona: PersonaVector,
+                          task_complexity: float = 0.5,
+                          historical_avg: float = 0.5) -> float:
         """
-        P(u,p,g): Performans Tahmin Skoru
-        
-        Regresyon modeli bazlı tahmin
-        
-        Formül:
-        P = σ(β₀ + β₁·u_skill + β₂·p_quality + β₃·match + β₄·task_complexity)
-        
-        σ: Sigmoid fonksiyonu
-        
+        P(u,p,g): Performans Tahmin Skoru — Sigmoid fonksiyonu (B1).
+
+        Formül (savunma Rehber 1, Aşama 4):
+        P = σ(w₁·S + w₂·C + w₃·geçmiş + b)
+
+        - S  : benzerlik skoru
+        - C  : yetkinlik uyumu
+        - geçmiş : benzer profildeki katılımcıların bu personayla elde ettiği ortalama skor
+        - b  : intercept
+        - σ  : sigmoid (S-eğrisi; eşiği aşınca hızla artıp sonra tavana oturur)
+
         Args:
             user: Kullanıcı vektörü
             persona: Persona vektörü
             task_complexity: Görev karmaşıklığı (0-1)
-            
+            historical_avg: DB'den gelen geçmiş ortalama performans (0-1); varsayılan 0.5
+
         Returns:
             Tahmini performans (0-1)
         """
-        # Regresyon katsayıları (fitted from pilot data)
-        beta_0 = 0.3  # Intercept
-        beta_1 = 0.4  # User skill coefficient
-        beta_2 = 0.3  # Persona quality coefficient
-        beta_3 = 0.25  # Match coefficient
-        beta_4 = -0.2  # Task complexity coefficient (negative)
-        
-        # Feature'lar
-        user_skill_feature = (user.technical_skill + user.domain_knowledge) / 2
-        persona_quality = (persona.production_readiness + persona.learning_support) / 2
-        match_feature = self.calculate_similarity_score(user, persona)
-        
-        # Linear combination
-        z = (beta_0 + 
-             beta_1 * user_skill_feature +
-             beta_2 * persona_quality +
-             beta_3 * match_feature +
-             beta_4 * task_complexity)
-        
-        # Sigmoid activation
+        w1 = 0.40   # Benzerlik ağırlığı
+        w2 = 0.35   # Yetkinlik uyumu ağırlığı
+        w3 = 0.25   # Geçmiş veri ağırlığı
+        b  = -0.5   # Intercept (S-eğrisini ortaya kaydır)
+
+        similarity   = self.calculate_similarity_score(user, persona)
+        competency   = self.calculate_competency_match(user, persona)
+
+        z = w1 * similarity + w2 * competency + w3 * historical_avg + b
+
+        # Sigmoid aktivasyon
         performance = 1 / (1 + np.exp(-z))
-        
-        return max(0, min(1, performance))
+
+        return max(0.0, min(1.0, float(performance)))
     
-    def calculate_learning_trajectory(self, user: UserVector, persona: PersonaVector, 
-                                     time_factor: float = 0.5) -> float:
+    def calculate_learning_trajectory(self, user: UserVector, persona: PersonaVector,
+                                     time_factor: float = 0.5,
+                                     completed_tasks: int = 0) -> float:
         """
-        L(u,t): Öğrenme Yörüngesi Skoru
-        
-        Zaman içinde beklenen öğrenme gelişimi
-        
-        Formül:
-        L(u,p,t) = L_max · (1 - e^(-k·t)) · potential(u,p)
-        
-        Power Law of Practice (Newell & Rosenbloom)
-        
+        L(u,t): Öğrenme Yörüngesi — Power Law of Practice (B1).
+
+        Formül (savunma Rehber 1, Aşama 5; Newell & Rosenbloom, 1981):
+        L = a · t^(-b)
+
+        - t  : tamamlanan görev sayısı (pratik süresi); t=0 için t=1 kullanılır
+        - a  : başlangıç öğrenme kapasitesi (kullanıcıya özel)
+        - b  : azalma hızı (sabit = 0.30)
+
+        t arttıkça L azalır (azalan getiri yasası), ama asla sıfır olmaz.
+        Yeni başlayan (t küçük) → yüksek öğrenme potansiyeli.
+        Uzman (t büyük) → düşük potansiyel (zaten biliyor).
+
         Args:
             user: Kullanıcı vektörü
             persona: Persona vektörü
-            time_factor: Zaman faktörü (0-1)
-            
+            time_factor: 0-1 arası normalize faktör (geriye dönük uyumluluk)
+            completed_tasks: Bugüne kadar tamamlanan görev sayısı (t)
+
         Returns:
             Öğrenme potansiyeli (0-1)
         """
-        # Öğrenme potansiyeli
-        L_max = 1.0
-        k = 2.0  # Öğrenme hızı parametresi
-        
-        # Zamanla öğrenme (exponential growth)
-        time_learning = L_max * (1 - np.exp(-k * time_factor))
-        
-        # Persona'nın öğrenme desteği
-        learning_support = persona.learning_support
-        
-        # Kullanıcının öğrenme kapasitesi
+        b_decay = 0.30  # Azalma hızı (Power Law)
+
+        # t: pratik süresi — tamamlanan görev sayısı (min 1; log(0) kaçınma)
+        t = max(1, completed_tasks + 1)  # +1: mevcut görev de dahil
+
+        # a: kullanıcının başlangıç öğrenme kapasitesi
         learning_capacity = (
             user.cognitive_capacity * 0.4 +
             user.pattern_recognition * 0.3 +
-            (1 - user.abstraction_level) * 0.3  # Başlangıç seviyesi daha çok öğrenir
+            (1 - user.technical_skill) * 0.3   # Düşük beceri → daha fazla öğrenme alanı
         )
-        
-        # Potential function
-        potential = learning_support * learning_capacity
-        
-        # Final trajectory score
-        trajectory = time_learning * potential
-        
-        return max(0, min(1, trajectory))
+        # Persona'nın öğrenme desteği ağırlığıyla çarp
+        a = learning_capacity * persona.learning_support
+
+        # Power Law: L = a × t^(−b)
+        trajectory = a * (t ** (-b_decay))
+
+        return max(0.0, min(1.0, float(trajectory)))
     
     def calculate_complementarity(self, user: UserVector, persona: PersonaVector) -> float:
         """
@@ -917,7 +912,9 @@ class RecommendationEngine:
                                       task_complexity: float = 0.5,
                                       time_factor: float = 0.5,
                                       mode: str = "adaptive",
-                                      use_clt: bool = True) -> Dict:
+                                      use_clt: bool = True,
+                                      historical_avg: float = 0.5,
+                                      completed_tasks: int = 0) -> Dict:
         """
         R(u,p): Ana Tavsiye Skoru Hesaplama (DUAL-MODE + CLT)
         
@@ -952,11 +949,11 @@ class RecommendationEngine:
         Returns:
             Detaylı skor breakdown'u (CLT analizi dahil)
         """
-        # Bileşenleri hesapla
+        # Bileşenleri hesapla (B1: P geçmiş veri, L güç yasası dahil)
         similarity = self.calculate_similarity_score(user, persona)
         competency = self.calculate_competency_match(user, persona)
-        performance = self.predict_performance(user, persona, task_complexity)
-        learning = self.calculate_learning_trajectory(user, persona, time_factor)
+        performance = self.predict_performance(user, persona, task_complexity, historical_avg)
+        learning = self.calculate_learning_trajectory(user, persona, time_factor, completed_tasks)
         complementarity = self.calculate_complementarity(user, persona)
         
         # CLT Analizi (Sweller, 1988)

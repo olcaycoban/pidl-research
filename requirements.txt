@@ -13,4 +13,8 @@ google-generativeai>=0.3.2
 sqlalchemy>=2.0.44
 scikit-learn>=1.4.0
 numpy>=1.26.0,<2.0.0
+psycopg2-binary>=2.9.9
+coverage>=7.4.0
+textblob>=0.18.0
+web3>=6.0.0
 

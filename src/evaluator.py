@@ -22,72 +22,115 @@ class CodeEvaluator:
         """Evaluator başlat"""
         self.metrics = {}
     
-    def evaluate_code(self, code: str, persona_id: str, persona_name: str) -> Dict:
+    # Adaptif Gamma (γ) tablosu — Dreyfus seviyesine göre (B2)
+    # Kalite = γ × Teknik_skor + (1-γ) × Pedagojik_skor
+    # Acemi: teknik %30, pedagojik %70 (çalışan ama açıklanmış kod önemli)
+    # Uzman: teknik %70, pedagojik %30 (production kalitesi öncelikli)
+    GAMMA_BY_LEVEL = {
+        "novice":            0.30,
+        "advanced_beginner": 0.40,
+        "competent":         0.50,
+        "proficient":        0.60,
+        "expert":            0.70,
+    }
+
+    @staticmethod
+    def get_gamma(dreyfus_level: str) -> float:
+        """Dreyfus seviyesinden γ parametresini döndür."""
+        key = dreyfus_level.lower().replace(" ", "_").replace("-", "_")
+        return CodeEvaluator.GAMMA_BY_LEVEL.get(key, 0.50)
+
+    def evaluate_code(self, code: str, persona_id: str, persona_name: str,
+                      dreyfus_level: str = "competent") -> Dict:
         """
-        Tek bir kodu değerlendir
-        
+        Tek bir kodu değerlendir — Adaptif Gamma (B2) dahil.
+
         Args:
             code: Değerlendirilecek kod
             persona_id: Persona ID
             persona_name: Persona adı
-            
+            dreyfus_level: Kullanıcının Dreyfus seviyesi (gamma hesabı için)
+
         Returns:
             Değerlendirme sonuçları
         """
+        gamma = self.get_gamma(dreyfus_level)
+
         results = {
             "persona_id": persona_id,
             "persona_name": persona_name,
             "code": code,
+            "dreyfus_level": dreyfus_level,
+            "gamma": gamma,
             "security_score": 0,
             "quality_score": 0,
             "complexity_score": 0,
             "maintainability_index": 0,
+            "pedagogical_score": 0,
+            "coverage_score": 0,
             "total_score": 0,
             "metrics": {},
             "issues": []
         }
-        
+
         try:
             # 1. Güvenlik Analizi (Bandit)
             security_results = self._run_security_analysis(code)
             results["security_score"] = security_results["score"]
             results["metrics"]["security"] = security_results
             results["issues"].extend(security_results.get("issues", []))
-            
+
             # 2. Kod Kalitesi Analizi (Pylint)
             quality_results = self._run_quality_analysis(code)
             results["quality_score"] = quality_results["score"]
             results["metrics"]["quality"] = quality_results
             results["issues"].extend(quality_results.get("issues", []))
-            
+
             # 3. Karmaşıklık Analizi (Radon)
             complexity_results = self._analyze_complexity(code)
             results["complexity_score"] = complexity_results["score"]
             results["metrics"]["complexity"] = complexity_results
-            
+
             # 4. Maintainability Index (Radon)
             mi_results = self._analyze_maintainability(code)
             results["maintainability_index"] = mi_results["index"]
             results["metrics"]["maintainability"] = mi_results
-            
+
             # 5. Genel Metrikler
             general_metrics = self._analyze_general_metrics(code)
             results["metrics"]["general"] = general_metrics
-            
-            # Toplam skor hesapla (ağırlıklı ortalama)
-            results["total_score"] = (
-                results["security_score"] * 0.30 +
-                results["quality_score"] * 0.30 +
+
+            # 6. Pedagojik Kalite — NLP tabanlı (B4)
+            ped_results = self._analyze_pedagogical_quality(code)
+            results["pedagogical_score"] = ped_results["score"]
+            results["metrics"]["pedagogical"] = ped_results
+
+            # 7. Coverage Analizi (B3)
+            cov_results = self._run_coverage_analysis(code)
+            results["coverage_score"] = cov_results["score"]
+            results["metrics"]["coverage"] = cov_results
+
+            # Teknik skor: güvenlik + pylint + karmaşıklık + maintainability + coverage
+            technical_score = (
+                results["security_score"] * 0.25 +
+                results["quality_score"]  * 0.25 +
                 results["complexity_score"] * 0.20 +
-                (results["maintainability_index"] / 100) * 100 * 0.20
+                (results["maintainability_index"] / 100) * 100 * 0.20 +
+                results["coverage_score"] * 0.10
             )
-            
+
+            # Adaptif Gamma (B2): Kalite = γ × Teknik + (1-γ) × Pedagojik
+            results["technical_composite"] = round(technical_score, 2)
+            results["total_score"] = round(
+                gamma * technical_score + (1 - gamma) * results["pedagogical_score"], 2
+            )
+
         except Exception as e:
             results["issues"].append({
                 "type": "error",
                 "message": f"Değerlendirme hatası: {str(e)}"
             })
-        
+
         return results
     
     def _run_security_analysis(self, code: str) -> Dict:
@@ -795,24 +838,187 @@ class CodeEvaluator:
         else:
             return "F"
     
-    def evaluate_all(self, results: List[Dict]) -> List[Dict]:
+    def _analyze_pedagogical_quality(self, code: str) -> Dict:
         """
-        Tüm persona sonuçlarını değerlendir
-        
+        NLP tabanlı pedagojik kalite analizi (B4).
+
+        Ölçütler:
+        - Yorum satırı / toplam satır oranı (hedef %15-30)
+        - Anlamlı değişken isimleri (tek harf değişkenler ceza)
+        - Docstring varlığı ve kalitesi
+        - Adım adım açıklama marker'ları
+
+        Returns:
+            {"score": 0-100, "comment_ratio": ..., "meaningful_vars": ..., "has_docstrings": ...}
+        """
+        try:
+            lines = code.split('\n')
+            non_empty_lines = [l for l in lines if l.strip()]
+            total_non_empty = max(len(non_empty_lines), 1)
+
+            # 1. Yorum satırı oranı (0-100, %15-30 arası optimal)
+            comment_lines = [l for l in lines if l.strip().startswith('#')]
+            comment_ratio = len(comment_lines) / total_non_empty * 100
+            if 15 <= comment_ratio <= 30:
+                comment_score = 100.0
+            elif comment_ratio < 15:
+                comment_score = (comment_ratio / 15) * 100
+            else:
+                comment_score = max(60.0, 100.0 - (comment_ratio - 30) * 2)
+
+            # 2. Anlamlı değişken isimleri (tek harf ceza, snake_case bonus)
+            import re
+            var_names = re.findall(r'\b([a-z_][a-z0-9_]*)\s*=', code)
+            math_ok = {'i', 'j', 'k', 'n', 'm', 'x', 'y', 'z'}
+            single_letter = [v for v in var_names if len(v) == 1 and v not in math_ok]
+            meaningful = [v for v in var_names if len(v) > 4]
+            total_vars = max(len(set(var_names)), 1)
+            var_score = max(0.0, 100.0 - (len(single_letter) / total_vars * 60)) \
+                        + min(40.0, len(meaningful) / total_vars * 40)
+            var_score = min(100.0, var_score)
+
+            # 3. Docstring varlığı
+            has_docstrings = '"""' in code or "'''" in code
+            docstring_score = 100.0 if has_docstrings else 30.0
+
+            # 4. Adım adım marker
+            markers = ['adim', 'step', 'aşama', '# 1.', '# 2.', '# 3.']
+            has_markers = any(m in code.lower() for m in markers)
+            marker_score = 100.0 if has_markers else 60.0
+
+            # Ağırlıklı ortalama
+            score = (
+                comment_score  * 0.35 +
+                var_score      * 0.30 +
+                docstring_score * 0.25 +
+                marker_score   * 0.10
+            )
+
+            return {
+                "score": round(min(100.0, max(0.0, score)), 2),
+                "comment_ratio": round(comment_ratio, 2),
+                "comment_score": round(comment_score, 2),
+                "var_score": round(var_score, 2),
+                "docstring_score": round(docstring_score, 2),
+                "marker_score": round(marker_score, 2),
+                "has_docstrings": has_docstrings,
+                "has_markers": has_markers,
+            }
+        except Exception as e:
+            return {"score": 50.0, "error": str(e)}
+
+    def _run_coverage_analysis(self, code: str) -> Dict:
+        """
+        Coverage analizi — test edilebilirlik (B3).
+
+        Solidity veya genel Python kodu için:
+        - İçinde 'test' / 'assert' / 'require' / 'revert' ifadeleri var mı?
+        - Exception handling var mı (try/except, require, revert)?
+        - Input doğrulama var mı?
+        Python kodu için 'coverage' ile geçici dosyada çalıştırılır; Solidity için sözlük bazlı skor.
+
+        Returns:
+            {"score": 0-100, "method": "static"|"dynamic", ...}
+        """
+        try:
+            # Solidity kodu mu?
+            is_solidity = 'pragma solidity' in code or 'contract ' in code
+
+            if is_solidity:
+                # Statik analiz: require / revert / emit / event kullanımı
+                has_require  = bool(re.search(r'\brequire\s*\(', code))
+                has_revert   = bool(re.search(r'\brevert\s*\(', code))
+                has_event    = 'event ' in code or 'emit ' in code
+                has_modifier = 'modifier ' in code
+                has_onlyowner = 'onlyOwner' in code
+
+                score = 40.0  # Baseline
+                if has_require:   score += 20.0
+                if has_revert:    score += 15.0
+                if has_event:     score += 10.0
+                if has_modifier:  score += 10.0
+                if has_onlyowner: score += 5.0
+
+                return {
+                    "score": min(100.0, score),
+                    "method": "static_solidity",
+                    "has_require": has_require,
+                    "has_revert": has_revert,
+                    "has_event": has_event,
+                    "has_modifier": has_modifier,
+                }
+
+            # Python kodu: 'coverage' paketi ile dinamik analiz
+            import subprocess, tempfile, json as _json, os as _os
+
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+                f.write(code)
+                tmp = f.name
+
+            try:
+                result = subprocess.run(
+                    ['python', '-m', 'coverage', 'run', '--branch', tmp],
+                    capture_output=True, text=True, timeout=10
+                )
+                report = subprocess.run(
+                    ['python', '-m', 'coverage', 'report', '--include', tmp],
+                    capture_output=True, text=True, timeout=5
+                )
+                # Son satırda "TOTAL ... XX%" biçimi
+                lines = report.stdout.strip().split('\n')
+                for line in reversed(lines):
+                    if 'TOTAL' in line or tmp in line:
+                        parts = line.split()
+                        if parts:
+                            pct_str = parts[-1].replace('%', '')
+                            try:
+                                score = float(pct_str)
+                                return {"score": min(100.0, score), "method": "dynamic"}
+                            except ValueError:
+                                pass
+            except Exception:
+                pass
+            finally:
+                try:
+                    _os.unlink(tmp)
+                except Exception:
+                    pass
+
+            # Dinamik başarısız → statik fallback
+            has_try    = 'try:' in code or 'except ' in code
+            has_assert = 'assert ' in code
+            has_raise  = 'raise ' in code
+
+            score = 40.0
+            if has_try:    score += 25.0
+            if has_assert: score += 20.0
+            if has_raise:  score += 15.0
+
+            return {"score": min(100.0, score), "method": "static_fallback"}
+
+        except Exception as e:
+            return {"score": 50.0, "method": "error", "error": str(e)}
+
+    def evaluate_all(self, results: List[Dict], dreyfus_level: str = "competent") -> List[Dict]:
+        """
+        Tüm persona sonuçlarını değerlendir — dreyfus_level ile adaptif gamma dahil (B2).
+
         Args:
             results: Code generator sonuçları
-            
+            dreyfus_level: Kullanıcının Dreyfus seviyesi
+
         Returns:
             Değerlendirilmiş sonuçlar
         """
         evaluated = []
-        
+
         for result in results:
             if result.get("success") and result.get("code"):
                 evaluation = self.evaluate_code(
                     result["code"],
                     result["persona_id"],
-                    result["persona_name"]
+                    result["persona_name"],
+                    dreyfus_level=dreyfus_level
                 )
                 # Orijinal bilgileri ekle
                 evaluation.update({

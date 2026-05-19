@@ -74,10 +74,12 @@ class DataLogger:
         participant_uuid: str,
         task_number: int,
         assigned_ai_type: str,
-        assigned_persona: str
+        assigned_persona: str,
+        block_type: str = "adaptive"
     ) -> int:
         """
-        Görev oturumu başlat
+        Görev oturumu başlat.
+        block_type: "adaptive" (görev 1-6) | "fixed" (görev 7-12, H4 kontrol koşulu)
 
         Returns:
             Task session ID
@@ -91,6 +93,7 @@ class DataLogger:
             task_session = TaskSession(
                 participant_uuid=participant_uuid,
                 task_number=task_number,
+                block_type=block_type if block_type in ("adaptive", "fixed") else "adaptive",
                 assigned_ai_type=ai_type_map.get(assigned_ai_type, AIType.SIMILAR),
                 assigned_persona=assigned_persona,
                 status=TaskStatus.STARTED
@@ -382,3 +385,40 @@ class DataLogger:
             )
             session.add(ped_metrics)
             session.commit()
+
+    @staticmethod
+    def get_historical_performance_avg(
+        competency_level: str,
+        persona_id: str,
+        fallback: float = 0.5
+    ) -> float:
+        """
+        Benzer profildeki katılımcıların bu personayla geçmişteki ortalama kod skorunu döndür.
+        MCDA P bileşeni için 'geçmiş' terimi (B1).
+
+        Args:
+            competency_level: Katılımcının yetkinlik seviyesi (Dreyfus)
+            persona_id: Persona ID
+            fallback: Yeterli veri yoksa kullanılacak varsayılan (0-1)
+
+        Returns:
+            Normalize ortalama skor (0-1)
+        """
+        try:
+            with DatabaseSession() as session:
+                rows = (
+                    session.query(GeneratedCode.total_score)
+                    .join(TaskSession, GeneratedCode.task_session_id == TaskSession.id)
+                    .join(Participant, TaskSession.participant_uuid == Participant.uuid)
+                    .filter(
+                        GeneratedCode.ai_persona == persona_id,
+                        GeneratedCode.total_score.isnot(None)
+                    )
+                    .all()
+                )
+                if not rows:
+                    return fallback
+                avg_score = sum(r[0] for r in rows) / len(rows)
+                return max(0.0, min(1.0, avg_score / 100.0))
+        except Exception:
+            return fallback

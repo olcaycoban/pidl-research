@@ -84,7 +84,8 @@ class TaskSession(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     participant_uuid = Column(String(36), ForeignKey('participants.uuid'))
 
-    task_number = Column(Integer)  # 1-6
+    task_number = Column(Integer)  # 1-12 (A2: 1-6 adaptif, 7-12 sabit blok)
+    block_type = Column(String(20), default="adaptive")  # "adaptive" | "fixed" (A2)
     assigned_ai_type = Column(SQLEnum(AIType))
     assigned_persona = Column(String(100))
 
