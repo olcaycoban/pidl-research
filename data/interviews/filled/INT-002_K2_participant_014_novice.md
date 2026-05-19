@@ -32,7 +32,7 @@ Atanan persona Pedagojik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Acemi katılımcılar genel olarak Tamamlayıcı modda daha fazla zorlanıyor; ben de bunu hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
+Acemi katılımcılar genel olarak Tamamlayıcı modda daha fazla zorlanıyor; ben de bunu hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -49,7 +49,7 @@ Acemi katılımcılar genel olarak Tamamlayıcı modda daha fazla zorlanıyor; b
 Tamamlayıcı modda başta kafam karışmıştı ama sonra parçalar birleşince çok şey öğrendiğimi fark ettim. Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
-Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
+Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Tamamlayıcı mod, ardından Tamamlayıcı mod öneririm.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K2 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Pedagojik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Benzer. Kodlar: TAM, MDF, BDG, BAS. Örneklem κ = .84.
+K2 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Acemi, Pedagojik alan. Ortalama NASA-TLX 47; öğrenme kazanımı 12 puan. Tercih: Tamamlayıcı. Kodlar: TAM, MDF, BDG, BAS. Örneklem κ = .84.
 
 ---
 

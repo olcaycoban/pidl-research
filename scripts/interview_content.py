@@ -176,8 +176,20 @@ def _hardest_task(tasks: List[dict]) -> str:
 
 
 def _dominant_mod(tasks: List[dict]) -> str:
-    sim = sum(1 for t in tasks if t.get("assigned_ai_type") == "Similar")
-    return "Benzer" if sim >= len(tasks) / 2 else "Tamamlayıcı"
+    """Öğrenme kazanımı daha yüksek olan mod (tez: Tamamlayıcı LG > Benzer)."""
+    sim_g = [
+        float(t.get("learning_gain") or 0)
+        for t in tasks
+        if t.get("assigned_ai_type") == "Similar"
+    ]
+    comp_g = [
+        float(t.get("learning_gain") or 0)
+        for t in tasks
+        if t.get("assigned_ai_type") == "Complementary"
+    ]
+    sim_avg = sum(sim_g) / max(len(sim_g), 1)
+    comp_avg = sum(comp_g) / max(len(comp_g), 1)
+    return "Tamamlayıcı" if comp_avg >= sim_avg else "Benzer"
 
 
 def _narrative_sections(

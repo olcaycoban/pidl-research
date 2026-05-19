@@ -32,7 +32,7 @@ Persona benim seviyeme uygun derinlikte yanıtlar verebildi; yüzeysel açıklam
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Her iki modda da rahat çalıştım. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Token Teşvik oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
+Her iki modda da rahat çalıştım. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Token Teşvik oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -49,7 +49,7 @@ Her iki modda da rahat çalıştım. Sabit mod bloğunda aynı modda kalmak öng
 Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 18 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
-Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
+Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Tamamlayıcı mod, ardından Tamamlayıcı mod öneririm.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K17 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Uzman, Pedagojik alan. Ortalama NASA-TLX 36; öğrenme kazanımı 18 puan. Tercih: Benzer. Kodlar: UZM, BEN, MDF. Örneklem κ = .84.
+K17 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Uzman, Pedagojik alan. Ortalama NASA-TLX 36; öğrenme kazanımı 18 puan. Tercih: Tamamlayıcı. Kodlar: UZM, BEN, MDF. Örneklem κ = .84.
 
 ---
 

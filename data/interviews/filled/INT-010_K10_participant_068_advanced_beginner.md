@@ -32,14 +32,14 @@ Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu
 Bazı görevlerde persona tarzının değiştiğini fark ettim; tam olarak hangi moda geçtiğimi izlemedim. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Çoklu İmza oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
 ## BÖLÜM 4 — Sabit Mod *(4.5.2)*
 
 ### 4.1 Blok 2
-Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rahat hissettim. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
+Benzer ve Tamamlayıcı modları karşılaştırdığımda Tamamlayıcı modda daha rahat hissettim. Sabit mod bloğunda aynı modda kalmak öngörülebilirlik sağladı. Adaptif bloka kıyasla sürpriz geçiş yoktu; bu bazen sıkıcı hissettirdi ama tutarlılık güven verdi. Blok 1–2 karşılaştırması öğrenme açısından anlamlıydı.
 
 ---
 
@@ -49,7 +49,7 @@ Benzer ve Tamamlayıcı modları karşılaştırdığımda Benzer modda daha rah
 NFT ve token kavramları ilk seferde zor geldi; persona birkaç örnekle netleştirdi. Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
-Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
+Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Tamamlayıcı mod, ardından Tamamlayıcı mod öneririm.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K10 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı İleri Başlangıç, Teknik alan. Ortalama NASA-TLX 44; öğrenme kazanımı 13 puan. Tercih: Benzer. Kodlar: ZOR, TAM, KUL. Örneklem κ = .84.
+K10 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı İleri Başlangıç, Teknik alan. Ortalama NASA-TLX 44; öğrenme kazanımı 13 puan. Tercih: Tamamlayıcı. Kodlar: ZOR, TAM, KUL. Örneklem κ = .84.
 
 ---
 

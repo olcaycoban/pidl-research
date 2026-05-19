@@ -509,5 +509,3 @@ if data["final_eval"]:
     if final.suggestions:
         st.info(f"**Öneriler:** {final.suggestions}")
 
-st.markdown("---")
-st.caption("💡 **İpucu:** Farklı katılımcıları karşılaştırmak için sol menüden başka bir katılımcı seçin.")

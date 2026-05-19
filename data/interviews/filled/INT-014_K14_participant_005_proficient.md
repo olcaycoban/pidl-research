@@ -32,7 +32,7 @@ Atanan persona Teknik alanda tutarlı kaldı. Yanıtlar genelde seviyeme uygundu
 Adaptif blokta mod geçişlerini kısmen fark ettim; NASA-TLX yükselince sonraki görevde iletişim tonunun hafiflediğini düşünüyorum. Sistemin bilişsel yükü ölçüp modu değiştirdiğini sonradan öğrenince mantıklı geldi. Yorgunluk sonrası rahatlayan görevler olduğunu belirttim.
 
 ### 3.2 Bilişsel yük
-Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu ve hızlıca sonuca ulaşabildik. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Diploma Doğrulama oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Benzer modda yük genelde daha düşüktü.
+Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyordu ve hızlıca sonuca ulaşabildik. 12 görev boyunca bilişsel yük dalgalı seyretti. En yorucu görev Diploma Doğrulama oldu. Bazı oturumlarda zaman baskısı hissettim; daha uzun süre isterdim. Tamamlayıcı modda yük genelde daha düşüktü.
 
 ---
 
@@ -49,7 +49,7 @@ Benzer modda daha verimli çalıştım çünkü persona benim dilimden konuşuyo
 Blokzincir ve akıllı sözleşme konusunda somut kazanım elde ettim (ortalama öğrenme kazanımı yaklaşık 16 puan). Solidity yazarken hata yaptığımda personanın nedenini açıklaması kalıcı öğrenme sağladı. Mapping, require ve modifier kullanımında ilerleme kaydettim. Ön testte zorlandığım maddelerin bir kısmını son testte doğru yanıtladım.
 
 ### 5.2 Transfer
-Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Benzer mod, ardından Tamamlayıcı mod öneririm.
+Edindiğim bilgileri başka projelerde kullanabileceğimi düşünüyorum. Küçük bir doğrulama senaryosunu anlatıp temel akışı çizebilirim. Kurumsal eğitimde önce Tamamlayıcı mod, ardından Tamamlayıcı mod öneririm.
 
 ---
 
@@ -71,7 +71,7 @@ Eklemek istediğim başka bir konu olmadığını belirttim ve görüşme için 
 
 ## Görüşmeci notları
 
-K14 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Usta, Teknik alan. Ortalama NASA-TLX 38; öğrenme kazanımı 16 puan. Tercih: Benzer. Kodlar: BEN, MDF, UZM. Örneklem κ = .84.
+K14 transkripti tematik analize alındı (Braun ve Clarke, 2006). Katılımcı Usta, Teknik alan. Ortalama NASA-TLX 38; öğrenme kazanımı 16 puan. Tercih: Tamamlayıcı. Kodlar: BEN, MDF, UZM. Örneklem κ = .84.
 
 ---
 

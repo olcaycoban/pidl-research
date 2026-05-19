@@ -114,6 +114,29 @@ def is_valid_code(c) -> bool:
     )
 
 
+@st.cache_data(ttl=86400, show_spinner=False)
+def run_full_content_analysis(code_payload: tuple) -> list:
+    """Tüm geçerli kodları analiz et (1800 kayıt; sonuç cache'lenir)."""
+    if ContentAnalyzer is None or not code_payload:
+        return []
+    analyzer = ContentAnalyzer()
+    results = []
+    for row in code_payload:
+        try:
+            analysis = analyzer.full_analysis(prompt=row[1], code=row[2])
+            results.append({
+                "code_id": row[0],
+                "task_session_id": row[3],
+                "ai_persona": row[4],
+                "generation_time": row[5],
+                "created_at": row[6],
+                "analysis": analysis,
+            })
+        except Exception:
+            continue
+    return results
+
+
 # Veri yükleme fonksiyonları
 @st.cache_data(ttl=5)  # 5 saniye cache (real-time güncellemeler için)
 def load_dashboard_data():
@@ -210,44 +233,21 @@ st.markdown("---")
 st.markdown("## 👥 " + t("dashboard.participant_analysis"))
 
 if data["participants"]:
-    # Yetkinlik dağılımı
-    col1, col2 = st.columns(2)
+    st.markdown("### 📊 " + t("dashboard.competency_dist"))
+    level_counts = {}
+    for p in data["participants"]:
+        level = p.competency_level.value if hasattr(p.competency_level, 'value') else str(p.competency_level)
+        level_counts[level] = level_counts.get(level, 0) + 1
 
-    with col1:
-        st.markdown("### 📊 " + t("dashboard.competency_dist"))
-        level_counts = {}
-        for p in data["participants"]:
-            level = p.competency_level.value if hasattr(p.competency_level, 'value') else str(p.competency_level)
-            level_counts[level] = level_counts.get(level, 0) + 1
+    fig = px.pie(
+        values=list(level_counts.values()),
+        names=list(level_counts.keys()),
+        title=t("dashboard.dreyfus_dist")
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
-        fig = px.pie(
-            values=list(level_counts.values()),
-            names=list(level_counts.keys()),
-            title=t("dashboard.dreyfus_dist")
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    with col2:
-        st.markdown("### 🎯 " + t("dashboard.tech_vs_ped"))
-        participants_df = pd.DataFrame([{
-            t("sidebar.technical"): p.technical_score,
-            t("sidebar.pedagogical"): p.pedagogical_score,
-            "Seviye": p.competency_level.value if hasattr(p.competency_level, 'value') else str(p.competency_level)
-        } for p in data["participants"]])
-
-        fig = px.scatter(
-            participants_df,
-            x=t("sidebar.technical"),
-            y=t("sidebar.pedagogical"),
-            color="Seviye",
-            title=t("dashboard.tech_ped_scatter"),
-            labels={t("sidebar.technical"): f"{t('participant_detail.technical_score')} (0-100)", t("sidebar.pedagogical"): f"{t('participant_detail.pedagogical_score')} (0-100)"}
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    # Demografik bilgiler
     st.markdown("### 📋 " + t("dashboard.demographic_dist"))
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     with col1:
         gender_counts = {}
@@ -263,80 +263,12 @@ if data["participants"]:
         fig = px.bar(x=list(edu_counts.keys()), y=list(edu_counts.values()), title=t("dashboard.education_dist"))
         st.plotly_chart(fig, use_container_width=True)
 
-    with col3:
-        work_counts = {}
-        for p in data["participants"]:
-            work_counts[p.work_field] = work_counts.get(p.work_field, 0) + 1
-        fig = px.bar(x=list(work_counts.keys()), y=list(work_counts.values()), title=t("dashboard.work_field_dist"))
-        st.plotly_chart(fig, use_container_width=True)
-
 else:
     st.info(t("dashboard.no_participants"))
 
 st.markdown("---")
 
-# 3. GÖREV ANALİZİ
-st.markdown("## 💻 " + t("dashboard.task_analysis"))
-
-if data["task_sessions"]:
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("### 📊 " + t("dashboard.task_status"))
-        task_counts = {}
-        for ts in data["task_sessions"]:
-            status = ts.status.value if hasattr(ts.status, 'value') else str(ts.status)
-            task_counts[status] = task_counts.get(status, 0) + 1
-
-        fig = px.pie(
-            values=list(task_counts.values()),
-            names=list(task_counts.keys()),
-            title=t("dashboard.task_status_dist")
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    with col2:
-        st.markdown("### 🤖 " + t("dashboard.ai_usage"))
-        ai_counts = {}
-        for ts in data["task_sessions"]:
-            ai_type = ts.assigned_ai_type.value if hasattr(ts.assigned_ai_type, 'value') else str(ts.assigned_ai_type)
-            ai_counts[ai_type] = ai_counts.get(ai_type, 0) + 1
-
-        fig = px.bar(
-            x=list(ai_counts.keys()),
-            y=list(ai_counts.values()),
-            title="Similar vs Complementary AI",
-            labels={"x": "AI Type", "y": "Count"}
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    # Görev bazlı süre analizi
-    st.markdown("### ⏱️ " + t("dashboard.task_durations"))
-    completed_sessions = [ts for ts in data["task_sessions"] if ts.duration_minutes and ts.duration_minutes > 0]
-    if completed_sessions:
-        task_durations = {}
-        for ts in completed_sessions:
-            task_num = f"{t('task.title')} {ts.task_number}"
-            if task_num not in task_durations:
-                task_durations[task_num] = []
-            task_durations[task_num].append(ts.duration_minutes)
-
-        avg_durations = {k: sum(v)/len(v) for k, v in task_durations.items()}
-
-        fig = px.bar(
-            x=list(avg_durations.keys()),
-            y=list(avg_durations.values()),
-            title=t("dashboard.avg_task_duration"),
-            labels={"x": t("task.title"), "y": t("dashboard.duration_min")}
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-else:
-    st.info(t("dashboard.no_tasks"))
-
-st.markdown("---")
-
-# 4. ÖĞRENME KAZANIMI ANALİZİ
+# 3. ÖĞRENME KAZANIMI ANALİZİ
 st.markdown("## 📚 " + t("dashboard.learning_gain"))
 
 if data["tests"]:
@@ -623,21 +555,7 @@ st.markdown("## 🔬 İçerik Analizi - 6 Aşamalı Matematiksel Model")
 
 # İçerik analizi aktif - Tüm prompt ve kodlar analiz edilir
 if len(data["codes"]) > 0:
-    total_codes = len(data["codes"])
     valid_codes = [c for c in data["codes"] if is_valid_code(c)]
-    placeholder_count = total_codes - len(valid_codes)
-
-    st.info(
-        f"📊 Toplam **{total_codes}** kod kaydı — "
-        f"**{len(valid_codes)}** gerçek prompt/kod içeriyor, "
-        f"**{placeholder_count}** placeholder/boş."
-    )
-    if placeholder_count > 0:
-        st.warning(
-            "Placeholder kayıtlar var. Yerelde `python3 scripts/load_full_content.py` çalıştırın "
-            "veya Streamlit Cloud'da güncel `research_data.db` deploy edildiğinden emin olun."
-        )
-
     all_analyses = []
 
     if ContentAnalyzer is None:
@@ -648,51 +566,23 @@ if len(data["codes"]) > 0:
     elif len(valid_codes) == 0:
         st.warning(
             "⚠️ Analiz yapılabilecek geçerli kod bulunamadı. "
-            "Kodların hem prompt hem de kod metni içermesi gerekir (placeholder değil)."
+            "Kodların hem prompt hem de kod metni içermesi gerekir."
         )
     else:
-        analyzer = ContentAnalyzer()
-
-        analyze_all = st.checkbox(
-            "Tüm 1800 kodu analiz et (yavaş, ~30–60 sn)",
-            value=False,
-            help="İşaretlenmezse persona başına 1 örnek analiz edilir (hızlı mod).",
+        code_payload = tuple(
+            (
+                c.id,
+                c.prompt_used,
+                c.code_text,
+                c.task_session_id,
+                c.ai_persona or "",
+                c.generation_time_seconds,
+                str(c.created_at) if c.created_at else "",
+            )
+            for c in valid_codes
         )
-
-        analyzed_personas = set()
-        spinner_msg = (
-            "Tüm kodlar analiz ediliyor..."
-            if analyze_all
-            else "Kod örnekleri analiz ediliyor (persona başına 1 örnek)..."
-        )
-
-        with st.spinner(spinner_msg):
-            for code_obj in valid_codes:
-                if not analyze_all and code_obj.ai_persona in analyzed_personas:
-                    continue
-
-                try:
-                    analysis = analyzer.full_analysis(
-                        prompt=code_obj.prompt_used,
-                        code=code_obj.code_text,
-                    )
-
-                    all_analyses.append({
-                        "code_id": code_obj.id,
-                        "task_session_id": code_obj.task_session_id,
-                        "ai_persona": code_obj.ai_persona,
-                        "generation_time": code_obj.generation_time_seconds,
-                        "created_at": code_obj.created_at,
-                        "analysis": analysis,
-                    })
-
-                    analyzed_personas.add(code_obj.ai_persona)
-
-                    if not analyze_all and len(analyzed_personas) >= 10:
-                        break
-
-                except Exception as e:
-                    st.warning(f"Kod ID {code_obj.id} analiz edilemedi: {str(e)}")
+        with st.spinner(f"{len(valid_codes)} kod analiz ediliyor (ilk yüklemede ~30–60 sn)..."):
+            all_analyses = run_full_content_analysis(code_payload)
 
     if len(all_analyses) == 0:
         if ContentAnalyzer is not None and len(valid_codes) > 0:
@@ -1008,6 +898,8 @@ st.markdown("## 🎙️ Yarı Yapılandırılmış Görüşmeler (Tez 4.5)")
 
 try:
     from src.interview_loader import (
+        THEME_LABELS,
+        format_theme_codes,
         load_coding_matrix,
         load_interview_index,
         load_transcript,
@@ -1047,20 +939,25 @@ try:
                 if c in (
                     "interview_code", "k_code", "participant_id", "level",
                     "dominant_domain", "duration_minutes", "avg_cognitive_load",
-                    "preferred_mod", "themes_active",
                 )
             ]
-            st.dataframe(_iv_matrix[show_cols], use_container_width=True, hide_index=True)
+            matrix_view = _iv_matrix[show_cols].copy()
+            if "themes_active" in _iv_matrix.columns:
+                matrix_view["Aktif temalar"] = _iv_matrix["themes_active"].map(
+                    format_theme_codes
+                )
+            st.dataframe(matrix_view, use_container_width=True, hide_index=True)
 
             theme_cols = [c for c in _iv_matrix.columns if len(c) == 3 and c.isupper()]
             if theme_cols:
                 st.markdown("### Tema özeti (aktif kod sayısı)")
                 freq = _iv_matrix[theme_cols].sum().sort_values(ascending=False)
-                st.dataframe(
-                    freq.reset_index().rename(columns={"index": "Kod", 0: "n"}),
-                    use_container_width=True,
-                    hide_index=True,
+                freq_df = freq.reset_index()
+                freq_df.columns = ["Tema", "n"]
+                freq_df["Tema"] = freq_df["Tema"].map(
+                    lambda c: THEME_LABELS.get(str(c), str(c))
                 )
+                st.dataframe(freq_df, use_container_width=True, hide_index=True)
 
         with iv_tab2:
             st.markdown("### Nicel–nitel birleşik tablo (Tablo 4.11)")
