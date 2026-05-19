@@ -50,10 +50,23 @@ class ContentAnalyzer:
         technical_term_count = sum(1 for term in technical_terms
                                    if term.lower() in prompt.lower())
 
-        # Netlik skoru: ortalama cümle uzunluğuna göre (kısa = daha net)
+        # Netlik skoru: çok kısa (liste) ve çok uzun (dolambaçlı) cümleleri cezalandır
         avg_sentence_length = word_count / max(sentence_count, 1)
-        clarity_score = max(0, 100 - (avg_sentence_length - 10) * 2)
-        clarity_score = min(100, clarity_score)
+        if avg_sentence_length <= 9:
+            clarity_score = 72 + avg_sentence_length * 1.8
+        elif avg_sentence_length <= 16:
+            clarity_score = 88 + (avg_sentence_length - 9) * 0.6
+        elif avg_sentence_length <= 24:
+            clarity_score = 92 - (avg_sentence_length - 16) * 2.8
+        else:
+            clarity_score = max(48, 70 - (avg_sentence_length - 24) * 2.2)
+        filler_words = (
+            "sanırım", "belki", "biraz", "gibi", "yani", "aslında",
+            "şöyle", "falan", "galiba", "hani", "işte",
+        )
+        filler_hits = sum(1 for w in filler_words if w in prompt.lower())
+        clarity_score -= min(18, filler_hits * 3.5)
+        clarity_score = round(max(42, min(94, clarity_score)), 2)
 
         # Özgüllük skoru: teknik terim yoğunluğu
         specificity_score = min(100, (technical_term_count / max(word_count, 1)) * 1000)

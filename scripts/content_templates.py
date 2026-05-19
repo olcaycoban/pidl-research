@@ -10,6 +10,8 @@ import hashlib
 import random
 from typing import Tuple
 
+from scripts.humanize_text import humanize
+
 TASK_NAMES = [
     "Diploma Doğrulama",
     "Sertifika NFT",
@@ -98,6 +100,29 @@ def _style_suffix(level: str, mod: str, domain: str) -> str:
     return " ".join(parts)
 
 
+_HUMAN_OPENINGS = [
+    "Selam, şu görev için yardıma ihtiyacım var —",
+    "Merhaba, biraz karıştım galiba;",
+    "Hocam/arkadaşlar, pratikte şöyle bir senaryo düşünüyorum:",
+    "Kısaca anlatayım:",
+    "Aslında elimde net bir şablon yok ama",
+]
+
+_HUMAN_MIDDLES = [
+    "benzer şekilde ilerlemek istiyorum,",
+    "biraz acelem var ama mantığını da anlamak istiyorum,",
+    "yani hem çalışsın hem de neden böyle yazdığımı göreyim,",
+    "sanırım temel iskelet yeterli olur, detayı sonra düşünürüz,",
+]
+
+_HUMAN_CLOSINGS = [
+    "Tek dosyada çalışır bir örnek yeterli, teşekkürler.",
+    "Mümkünse tek Solidity dosyasında toparlar mısın?",
+    "Kodu kopyalayıp deneyeceğim; yorum satırları işime yarar.",
+    "Hata mesajlarını da Türkçe/İngilizce kısa tutarsan sevinirim.",
+]
+
+
 def make_prompt(
     task_number: int,
     level: str,
@@ -106,29 +131,43 @@ def make_prompt(
     *,
     seed: int | None = None,
 ) -> str:
-    """50–200 kelime arası görev promptu."""
+    """50–120 kelime, konuşma diline yakın görev promptu."""
     tn = logical_task_number(task_number)
     base = TASK_PROMPT_BASE[tn]
     style = _style_suffix(level, mod, domain)
     extras = {
-        1: "Örnek senaryo: İstanbul Üniversitesi mezunları için doğrulama.",
-        2: "Örnek: tamamlanan kurslar için benzersiz tokenId üret.",
-        3: "Örnek: 5 modüllük program, her modül 0-100 puan.",
-        4: "Örnek: eğitim kurumu, denetçi ve öğrenci temsilcisi imzacı.",
-        5: "Örnek: müfredat güncelleme önerisi için 7 günlük oylama.",
-        6: "Örnek: modül başına 10 PITL token ödülü.",
+        1: "Örnek olarak İstanbul Üniversitesi mezunları için doğrulama düşünüyorum.",
+        2: "Kurs bitince benzersiz tokenId üretsin istiyorum.",
+        3: "5 modüllük bir program var, her modül 0–100 puan gibi.",
+        4: "Eğitim kurumu, denetçi ve öğrenci temsilcisi imzacı olsun.",
+        5: "Müfredat güncelleme için 7 günlük oylama senaryosu.",
+        6: "Modül başına mesela 10 PITL token ödülü verilebilir.",
     }
-    prompt = (
-        f"Görev: {TASK_NAMES[tn - 1]}. {base} {extras[tn]} {style} "
-        f"Lütfen tek bir Solidity dosyasında çalışır örnek üret."
-    )
-    # Deterministik varyasyon
     rng = random.Random(seed if seed is not None else _seed(str(tn), level, mod, domain))
-    if rng.random() > 0.5:
-        prompt += " OpenZeppelin Ownable veya benzeri pattern kullanabilirsin."
-    if mod == "Complementary" and rng.random() > 0.4:
-        prompt += " Ek olarak birim test senaryolarını yorum satırında özetle."
-    return prompt
+    opening = rng.choice(_HUMAN_OPENINGS)
+    middle = rng.choice(_HUMAN_MIDDLES)
+    closing = rng.choice(_HUMAN_CLOSINGS)
+    task_label = TASK_NAMES[tn - 1]
+
+    # Uzun tek cümle + kısa ekler → netlik skoru her zaman 100 olmaz
+    prompt = (
+        f"{opening} {task_label} konusunda {middle} {base} "
+        f"{extras[tn]} {style} {closing}"
+    )
+    if rng.random() > 0.55:
+        prompt += " OpenZeppelin Ownable falan kullanılabilir belki."
+    if mod == "Complementary" and rng.random() > 0.35:
+        prompt += " Bir de yorum satırında kısa test senaryosu yazarsan iyi olur."
+    if domain == "educational" and rng.random() > 0.5:
+        prompt += " Öğrenirken takıldığım yerler için @dev notu ekle lütfen."
+    # Bazen ikinci paragraf (daha insansı, biraz dağınık)
+    if rng.random() > 0.65:
+        prompt += (
+            f"\n\nEk not: {LEVEL_LABELS.get(level, level)} seviyesindeyim, "
+            "çok akademik anlatma; pratik örnek yeter."
+        )
+    hseed = (seed if seed is not None else _seed(str(tn), level, mod, domain)) + 17
+    return humanize(prompt, random.Random(hseed), intensity=rng.uniform(0.9, 1.0))
 
 
 def _tier(quality_score: float) -> str:
