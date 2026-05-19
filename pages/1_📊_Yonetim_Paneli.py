@@ -8,6 +8,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
+from types import SimpleNamespace
 import sys
 import os
 
@@ -88,6 +89,31 @@ if os.path.exists(DB_PATH):
 else:
     st.error(f"❌ {t('dashboard.db_error')}: `{DB_PATH}`")
 
+def _code_to_row(c: GeneratedCode) -> SimpleNamespace:
+    """ORM → pickle-güvenli satır (Streamlit cache_data için)."""
+    return SimpleNamespace(
+        id=c.id,
+        task_session_id=c.task_session_id,
+        code_text=c.code_text or "",
+        prompt_used=c.prompt_used or "",
+        ai_persona=c.ai_persona or "",
+        language=c.language or "Solidity",
+        generation_time_seconds=float(c.generation_time_seconds or 0.0),
+        created_at=c.created_at,
+        total_score=c.total_score,
+    )
+
+
+def is_valid_code(c) -> bool:
+    """İçerik analizi için geçerli prompt + kod metni."""
+    return bool(
+        c.code_text
+        and c.prompt_used
+        and c.prompt_used.strip() != "(sentetik)"
+        and "Sentetik kayıt" not in c.code_text
+    )
+
+
 # Veri yükleme fonksiyonları
 @st.cache_data(ttl=5)  # 5 saniye cache (real-time güncellemeler için)
 def load_dashboard_data():
@@ -102,8 +128,9 @@ def load_dashboard_data():
         # Pre/Post tests
         tests = session.query(PrePostTest).all()
 
-        # Generated codes
-        codes = session.query(GeneratedCode).all()
+        # Generated codes — session kapanmadan düz nesneye çevir (cache pickle)
+        codes_raw = session.query(GeneratedCode).all()
+        codes = [_code_to_row(c) for c in codes_raw]
 
         # NASA-TLX responses
         nasa_responses = session.query(NASATLXResponse).all()
@@ -596,62 +623,82 @@ st.markdown("## 🔬 İçerik Analizi - 6 Aşamalı Matematiksel Model")
 
 # İçerik analizi aktif - Tüm prompt ve kodlar analiz edilir
 if len(data["codes"]) > 0:
-    st.info(f"📊 Toplam {len(data['codes'])} kod analiz edilebilir durumda.")
+    total_codes = len(data["codes"])
+    valid_codes = [c for c in data["codes"] if is_valid_code(c)]
+    placeholder_count = total_codes - len(valid_codes)
 
-    # Content Analyzer'ı başlat
-    analyzer = ContentAnalyzer()
-
-    analyze_all = st.checkbox(
-        "Tüm 1800 kodu analiz et (yavaş, ~30–60 sn)",
-        value=False,
-        help="İşaretlenmezse persona başına 1 örnek analiz edilir (hızlı mod).",
+    st.info(
+        f"📊 Toplam **{total_codes}** kod kaydı — "
+        f"**{len(valid_codes)}** gerçek prompt/kod içeriyor, "
+        f"**{placeholder_count}** placeholder/boş."
     )
+    if placeholder_count > 0:
+        st.warning(
+            "Placeholder kayıtlar var. Yerelde `python3 scripts/load_full_content.py` çalıştırın "
+            "veya Streamlit Cloud'da güncel `research_data.db` deploy edildiğinden emin olun."
+        )
 
     all_analyses = []
-    analyzed_personas = set()
-    spinner_msg = (
-        "Tüm kodlar analiz ediliyor..."
-        if analyze_all
-        else "Kod örnekleri analiz ediliyor (persona başına 1 örnek)..."
-    )
 
-    with st.spinner(spinner_msg):
-        for code_obj in data["codes"]:
-            if not analyze_all and code_obj.ai_persona in analyzed_personas:
-                continue
+    if ContentAnalyzer is None:
+        st.error(
+            "ContentAnalyzer yüklenemedi (scikit-learn gerekli). "
+            "`pip install scikit-learn` sonrası uygulamayı yeniden başlatın."
+        )
+    elif len(valid_codes) == 0:
+        st.warning(
+            "⚠️ Analiz yapılabilecek geçerli kod bulunamadı. "
+            "Kodların hem prompt hem de kod metni içermesi gerekir (placeholder değil)."
+        )
+    else:
+        analyzer = ContentAnalyzer()
 
-            if not code_obj.code_text or not code_obj.prompt_used:
-                continue
-            if code_obj.prompt_used.strip() == "(sentetik)":
-                continue
-            if "Sentetik kayıt" in (code_obj.code_text or ""):
-                continue
+        analyze_all = st.checkbox(
+            "Tüm 1800 kodu analiz et (yavaş, ~30–60 sn)",
+            value=False,
+            help="İşaretlenmezse persona başına 1 örnek analiz edilir (hızlı mod).",
+        )
 
-            try:
-                analysis = analyzer.full_analysis(
-                    prompt=code_obj.prompt_used,
-                    code=code_obj.code_text,
-                )
+        analyzed_personas = set()
+        spinner_msg = (
+            "Tüm kodlar analiz ediliyor..."
+            if analyze_all
+            else "Kod örnekleri analiz ediliyor (persona başına 1 örnek)..."
+        )
 
-                all_analyses.append({
-                    "code_id": code_obj.id,
-                    "task_session_id": code_obj.task_session_id,
-                    "ai_persona": code_obj.ai_persona,
-                    "generation_time": code_obj.generation_time_seconds,
-                    "created_at": code_obj.created_at,
-                    "analysis": analysis,
-                })
+        with st.spinner(spinner_msg):
+            for code_obj in valid_codes:
+                if not analyze_all and code_obj.ai_persona in analyzed_personas:
+                    continue
 
-                analyzed_personas.add(code_obj.ai_persona)
+                try:
+                    analysis = analyzer.full_analysis(
+                        prompt=code_obj.prompt_used,
+                        code=code_obj.code_text,
+                    )
 
-                if not analyze_all and len(analyzed_personas) >= 10:
-                    break
+                    all_analyses.append({
+                        "code_id": code_obj.id,
+                        "task_session_id": code_obj.task_session_id,
+                        "ai_persona": code_obj.ai_persona,
+                        "generation_time": code_obj.generation_time_seconds,
+                        "created_at": code_obj.created_at,
+                        "analysis": analysis,
+                    })
 
-            except Exception as e:
-                st.warning(f"Kod ID {code_obj.id} analiz edilemedi: {str(e)}")
+                    analyzed_personas.add(code_obj.ai_persona)
+
+                    if not analyze_all and len(analyzed_personas) >= 10:
+                        break
+
+                except Exception as e:
+                    st.warning(f"Kod ID {code_obj.id} analiz edilemedi: {str(e)}")
 
     if len(all_analyses) == 0:
-        st.warning("⚠️ Analiz yapılabilecek geçerli kod bulunamadı. Kodların hem prompt hem de kod metni içermesi gerekir.")
+        if ContentAnalyzer is not None and len(valid_codes) > 0:
+            st.warning(
+                "⚠️ Geçerli kod var ancak analiz tamamlanamadı. Yukarıdaki hata mesajlarına bakın."
+            )
     else:
         st.success(f"✅ {len(all_analyses)} kod başarıyla analiz edildi!")
 
