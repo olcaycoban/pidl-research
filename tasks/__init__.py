@@ -1,5 +1,5 @@
 """
-Tasks package for PIDL Research System
+Tasks package for PITL Research System
 6 blockchain eğitim görevi
 """
 from .task1_diploma import Task1Diploma

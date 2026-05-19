@@ -1,7 +1,7 @@
 # Form 2 — Katılımcı Bilgi Formu
-## PIDL Araştırma Platformu
+## PITL (Persona In The Loop) Araştırma Platformu
 
-**Araştırma Başlığı:** Blokzincir ve Akıllı Sözleşmeler Temelli E-İçerik Yönetim Modelinde Yapay Zeka Destekli Adaptif Öğrenme
+**Araştırma Başlığı:** İnsan-Yapay Zeka İşbirliği Modellerinde Yetkinlik Transferi ve Performans Optimizasyonu: Blokzincir Tabanlı Eğitim Teknolojilerinde PITL Çok Katmanlı Yetkinlik Modellemesi
 
 ---
 

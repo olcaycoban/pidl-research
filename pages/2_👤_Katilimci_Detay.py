@@ -1,5 +1,5 @@
 """
-PIDL Katılımcı Detay Sayfası
+PITL Katılımcı Detay Sayfası
 Her katılımcının 6 görevi, kodları, değerlendirmeleri
 """
 

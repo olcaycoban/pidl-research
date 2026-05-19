@@ -1,5 +1,5 @@
 """
-PIDL Araştırma Uygulaması - ESKİ SİSTEM ENTEGRE EDİLMİŞ
+PITL Araştırma Uygulaması - ESKİ SİSTEM ENTEGRE EDİLMİŞ
 10 Persona, Dreyfus Model, Tam Yetkinlik Değerlendirmesi
 """
 
@@ -1399,12 +1399,13 @@ def phase_tasks():
         if st.button("✅ " + t("task.nasa_done"), type="primary"):
             DataLogger.save_nasa_tlx(st.session_state.current_task_session_id, nasa_responses)
 
-            # NASA-TLX skorunu 0-100 ölçeğine normalize edip kaydet (A1)
-            # Slider aralığı 1-10 × 6 boyut = max 60 → normalize: /60 × 100
-            raw_total = nasa_responses.get("total_cognitive_load", 30)
-            normalized_tlx = round((raw_total / 60) * 100, 1)
+            # NASA-TLX zaten 0-100 ölçeğinde geliyor (tez 3.3.2):
+            #   Total = (Mental + Physical + Temporal + Performance_reverse + Effort + Frustration) / 6
+            # Performans dimension slider'da ters kodlu (0=Mükemmel, 100=Başarısız), bu yüzden
+            # toplam puan doğrudan ortalamadır.
+            tlx_total = float(nasa_responses.get("total_cognitive_load", 50.0))
             current_task = st.session_state.current_task_number
-            st.session_state.task_tlx_scores[current_task] = normalized_tlx
+            st.session_state.task_tlx_scores[current_task] = tlx_total
 
             # Adaptif blokta: bir sonraki görev için modu hesapla ve güncelle (A1)
             if st.session_state.get("current_block", "adaptive") == "adaptive":

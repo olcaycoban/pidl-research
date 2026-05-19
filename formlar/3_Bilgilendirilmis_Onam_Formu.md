@@ -1,11 +1,11 @@
 # Form 3 — Bilgilendirilmiş Onam Formu
-## PIDL Araştırma Platformu
+## PITL (Persona In The Loop) Araştırma Platformu
 
 ---
 
 ### Araştırma Başlığı
-**Blokzincir ve Akıllı Sözleşmeler Temelli E-İçerik Yönetim Modelinde Yapay Zeka Destekli
-Adaptif Öğrenme: Bilişsel Yük ve Öğrenme Kazanımı Üzerine Deneysel Bir Çalışma**
+**İnsan-Yapay Zeka İşbirliği Modellerinde Yetkinlik Transferi ve Performans Optimizasyonu:
+Blokzincir Tabanlı Eğitim Teknolojilerinde PITL Çok Katmanlı Yetkinlik Modellemesi**
 
 **Araştırmacı:** [Ad Soyad], [Üniversite], [Bölüm]
 
@@ -16,20 +16,21 @@ Adaptif Öğrenme: Bilişsel Yük ve Öğrenme Kazanımı Üzerine Deneysel Bir 
 ## 1. Araştırmanın Amacı
 
 Bu araştırma, yapay zeka destekli persona tabanlı adaptif bir öğrenme platformunun
-(PIDL) Solidity/Blokzincir kodlama eğitimindeki etkinliğini ölçmeyi amaçlamaktadır.
-Çalışmada **Benzer Mod** (kullanıcıyla aynı yetkinlikte YZ) ve **Tamamlayıcı Mod**
-(eksikleri kapatıcı YZ) karşılaştırılmaktadır.
+(PITL — Persona In The Loop) Solidity/Blokzincir akıllı sözleşme eğitimindeki etkinliğini
+ölçmeyi amaçlamaktadır. Çalışmada **Benzer Mod** (kullanıcıyla aynı yetkinlikte YZ
+personası) ve **Tamamlayıcı Mod** (eksikleri kapatıcı YZ personası) karşılaştırılmaktadır.
 
 ---
 
 ## 2. Katılım Süreci
 
-Araştırmaya katılmanız **yaklaşık 90-120 dakika** sürecektir:
+Araştırmaya katılmanız **yaklaşık 2 ila 2.5 saat** sürecektir (görüşme hariç):
 
 1. Yetkinlik Değerlendirme Anketi (CAQ) — ~15 dk
-2. **Blok 1 — 6 Adaptif Görev** (YZ modu NASA-TLX'e göre değişir) — ~40 dk
-3. **Blok 2 — 6 Sabit Görev** (Kontrol koşulu) — ~40 dk
-4. Final Değerlendirme Anketi — ~10 dk
+2. **Blok 1 — 6 Adaptif Görev** (YZ modu NASA-TLX'e göre dinamik değişir) — ~60-75 dk
+3. **Blok 2 — 6 Sabit Görev** (Kontrol koşulu) — ~60-75 dk
+4. Final Değerlendirme Anketi (USQ) — ~15 dk
+5. (Opsiyonel) Yarı yapılandırılmış görüşme — ~30-45 dk
 
 Her görev sonunda NASA-TLX Bilişsel Yük Ölçeği ve kısa bir değerlendirme formu
 doldurulacaktır.

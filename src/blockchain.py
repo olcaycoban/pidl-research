@@ -68,7 +68,7 @@ _CONTRACT_ABI = [
 
 class BlockchainClient:
     """
-    PIDL Blockchain istemcisi — Sepolia testnet.
+    PITL Blockchain istemcisi — Sepolia testnet.
     Blockchain devre dışıysa (key/URL eksik) tüm işlemler sessizce None döner.
     """
 

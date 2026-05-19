@@ -22,45 +22,53 @@ class CodeEvaluator:
         """Evaluator başlat"""
         self.metrics = {}
     
-    # Adaptif Gamma (γ) tablosu — Dreyfus seviyesine göre (B2)
-    # Kalite = γ × Teknik_skor + (1-γ) × Pedagojik_skor
-    # Acemi: teknik %30, pedagojik %70 (çalışan ama açıklanmış kod önemli)
-    # Uzman: teknik %70, pedagojik %30 (production kalitesi öncelikli)
-    GAMMA_BY_LEVEL = {
-        "novice":            0.30,
-        "advanced_beginner": 0.40,
-        "competent":         0.50,
-        "proficient":        0.60,
-        "expert":            0.70,
-    }
+    # Adaptif Gamma (γ) — Tez bölüm 3.3.3'e göre:
+    #   Kod_Kalitesi = γ × Teknik_Kalite + (1 − γ) × Pedagojik_Kalite
+    #   γ = 0.7  → üretim odaklı (learning_goal düşük)
+    #   γ = 0.3  → öğrenme odaklı (learning_goal yüksek)
+    #   γ = 0.5  → varsayılan (dengeli)
+    # learning_goal CAQ vektörünün bir bileşenidir (0.0–1.0); 1.0'a yakın değer
+    # kullanıcının öğrenmeye, 0.0'a yakın değer üretime odaklandığını gösterir.
 
     @staticmethod
-    def get_gamma(dreyfus_level: str) -> float:
-        """Dreyfus seviyesinden γ parametresini döndür."""
-        key = dreyfus_level.lower().replace(" ", "_").replace("-", "_")
-        return CodeEvaluator.GAMMA_BY_LEVEL.get(key, 0.50)
+    def get_gamma(learning_goal: float = 0.5) -> float:
+        """
+        CAQ'dan gelen learning_goal değerine göre γ parametresini döndür.
+
+        Args:
+            learning_goal: 0.0 (saf üretim) – 1.0 (saf öğrenme)
+        """
+        try:
+            lg = float(learning_goal)
+        except (TypeError, ValueError):
+            lg = 0.5
+        if lg >= 0.6:
+            return 0.30
+        if lg <= 0.4:
+            return 0.70
+        return 0.50
 
     def evaluate_code(self, code: str, persona_id: str, persona_name: str,
-                      dreyfus_level: str = "competent") -> Dict:
+                      learning_goal: float = 0.5) -> Dict:
         """
-        Tek bir kodu değerlendir — Adaptif Gamma (B2) dahil.
+        Tek bir kodu değerlendir — Adaptif Gamma (tez 3.3.3) dahil.
 
         Args:
             code: Değerlendirilecek kod
             persona_id: Persona ID
             persona_name: Persona adı
-            dreyfus_level: Kullanıcının Dreyfus seviyesi (gamma hesabı için)
+            learning_goal: CAQ'dan gelen öğrenme hedefi (0.0–1.0); γ hesabı için
 
         Returns:
             Değerlendirme sonuçları
         """
-        gamma = self.get_gamma(dreyfus_level)
+        gamma = self.get_gamma(learning_goal)
 
         results = {
             "persona_id": persona_id,
             "persona_name": persona_name,
             "code": code,
-            "dreyfus_level": dreyfus_level,
+            "learning_goal": learning_goal,
             "gamma": gamma,
             "security_score": 0,
             "quality_score": 0,
@@ -110,16 +118,17 @@ class CodeEvaluator:
             results["coverage_score"] = cov_results["score"]
             results["metrics"]["coverage"] = cov_results
 
-            # Teknik skor: güvenlik + pylint + karmaşıklık + maintainability + coverage
+            # Teknik kalite (tez 3.3.3):
+            #   Teknik = 0.20×Pylint + 0.25×Güvenlik + 0.20×(1−Karmaşıklık_norm) + 0.20×Bakım + 0.15×Coverage
             technical_score = (
-                results["security_score"] * 0.25 +
-                results["quality_score"]  * 0.25 +
-                results["complexity_score"] * 0.20 +
-                (results["maintainability_index"] / 100) * 100 * 0.20 +
-                results["coverage_score"] * 0.10
+                results["quality_score"]         * 0.20 +
+                results["security_score"]        * 0.25 +
+                results["complexity_score"]      * 0.20 +
+                results["maintainability_index"] * 0.20 +
+                results["coverage_score"]        * 0.15
             )
 
-            # Adaptif Gamma (B2): Kalite = γ × Teknik + (1-γ) × Pedagojik
+            # Adaptif Gamma: Kalite = γ × Teknik + (1 − γ) × Pedagojik
             results["technical_composite"] = round(technical_score, 2)
             results["total_score"] = round(
                 gamma * technical_score + (1 - gamma) * results["pedagogical_score"], 2
@@ -840,69 +849,138 @@ class CodeEvaluator:
     
     def _analyze_pedagogical_quality(self, code: str) -> Dict:
         """
-        NLP tabanlı pedagojik kalite analizi (B4).
+        Pedagojik kalite analizi (tez 3.3.3):
 
-        Ölçütler:
-        - Yorum satırı / toplam satır oranı (hedef %15-30)
-        - Anlamlı değişken isimleri (tek harf değişkenler ceza)
-        - Docstring varlığı ve kalitesi
-        - Adım adım açıklama marker'ları
+            Pedagojik_Kalite = 0.25 × Yorum_Kalitesi
+                             + 0.20 × Örnek_Zenginliği
+                             + 0.20 × Öğrenme_Kolaylığı
+                             + 0.20 × CLT_Uygunluğu
+                             + 0.15 × Açıklanabilirlik
 
-        Returns:
-            {"score": 0-100, "comment_ratio": ..., "meaningful_vars": ..., "has_docstrings": ...}
+        Each component is automatically estimated (0–100):
+
+        - Yorum_Kalitesi: yorum satır oranı + ortalama yorum uzunluğu
+        - Örnek_Zenginliği: docstring sayısı + kod içi `Örnek/Example` markerları
+        - Öğrenme_Kolaylığı: ortalama fonksiyon uzunluğu (kısa fonksiyon ⇒ kolay)
+        - CLT_Uygunluğu: tek-sorumluluk göstergeleri (iç içe seviye, fonksiyon başına satır)
+        - Açıklanabilirlik: değişken adı kalitesi (snake_case, > 2 karakter)
         """
         try:
+            import re as _re
+
             lines = code.split('\n')
-            non_empty_lines = [l for l in lines if l.strip()]
-            total_non_empty = max(len(non_empty_lines), 1)
+            non_empty = [l for l in lines if l.strip()]
+            total_non_empty = max(len(non_empty), 1)
 
-            # 1. Yorum satırı oranı (0-100, %15-30 arası optimal)
-            comment_lines = [l for l in lines if l.strip().startswith('#')]
+            # ─────────────────────────────────────────────────────
+            # 1) Yorum Kalitesi (0–100)
+            # ─────────────────────────────────────────────────────
+            comment_lines = [l.strip() for l in lines if l.strip().startswith('#') or l.strip().startswith('//')]
             comment_ratio = len(comment_lines) / total_non_empty * 100
+            avg_comment_len = (sum(len(c) for c in comment_lines) / len(comment_lines)) if comment_lines else 0
+
+            # %15-30 yorum oranı optimal
             if 15 <= comment_ratio <= 30:
-                comment_score = 100.0
+                ratio_part = 100.0
             elif comment_ratio < 15:
-                comment_score = (comment_ratio / 15) * 100
+                ratio_part = (comment_ratio / 15.0) * 100.0
             else:
-                comment_score = max(60.0, 100.0 - (comment_ratio - 30) * 2)
+                ratio_part = max(60.0, 100.0 - (comment_ratio - 30.0) * 2)
 
-            # 2. Anlamlı değişken isimleri (tek harf ceza, snake_case bonus)
-            import re
-            var_names = re.findall(r'\b([a-z_][a-z0-9_]*)\s*=', code)
-            math_ok = {'i', 'j', 'k', 'n', 'm', 'x', 'y', 'z'}
-            single_letter = [v for v in var_names if len(v) == 1 and v not in math_ok]
-            meaningful = [v for v in var_names if len(v) > 4]
+            # Yorum uzunluğu: >40 karakter ortalama → açıklayıcı
+            length_part = min(100.0, (avg_comment_len / 40.0) * 100.0)
+            yorum_kalitesi = round(0.6 * ratio_part + 0.4 * length_part, 2)
+
+            # ─────────────────────────────────────────────────────
+            # 2) Örnek Zenginliği (0–100)
+            # ─────────────────────────────────────────────────────
+            docstring_count = code.count('"""') // 2 + code.count("'''") // 2
+            example_markers = sum(
+                1 for kw in ('örnek', 'example', 'usage', 'demo', 'kullanım')
+                if kw in code.lower()
+            )
+            ornek_zenginligi = round(min(100.0, docstring_count * 25.0 + example_markers * 15.0), 2)
+
+            # ─────────────────────────────────────────────────────
+            # 3) Öğrenme Kolaylığı (0–100)
+            # ─────────────────────────────────────────────────────
+            try:
+                tree = ast.parse(code)
+                funcs = [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
+                if funcs:
+                    avg_func_len = sum(
+                        (max((getattr(n, 'end_lineno', n.lineno) or n.lineno) - n.lineno + 1, 1))
+                        for n in funcs
+                    ) / len(funcs)
+                else:
+                    avg_func_len = len(non_empty)  # tek bir blok kod
+            except Exception:
+                avg_func_len = len(non_empty)
+
+            # Kısa fonksiyon (≤ 15 satır) öğrenme dostu
+            if avg_func_len <= 15:
+                ogrenme_kolayligi = 100.0
+            elif avg_func_len <= 30:
+                ogrenme_kolayligi = 80.0 - (avg_func_len - 15) * 2.0
+            else:
+                ogrenme_kolayligi = max(20.0, 70.0 - (avg_func_len - 30) * 1.5)
+            ogrenme_kolayligi = round(ogrenme_kolayligi, 2)
+
+            # ─────────────────────────────────────────────────────
+            # 4) CLT (Cognitive Load Theory) Uygunluğu (0–100)
+            #    Düşük nesting + makul fonksiyon başına satır
+            # ─────────────────────────────────────────────────────
+            try:
+                tree = ast.parse(code)
+                max_depth = self._calculate_max_nesting_depth(tree)
+            except Exception:
+                max_depth = 2
+
+            if max_depth <= 2:
+                depth_part = 100.0
+            elif max_depth <= 4:
+                depth_part = 70.0
+            else:
+                depth_part = max(20.0, 100.0 - max_depth * 12)
+
+            # Tek sorumluluk (fonksiyon başına ≤ 20 satır → bonus)
+            sr_part = 100.0 if avg_func_len <= 20 else max(40.0, 100.0 - (avg_func_len - 20) * 2)
+            clt_uygunlugu = round(0.6 * depth_part + 0.4 * sr_part, 2)
+
+            # ─────────────────────────────────────────────────────
+            # 5) Açıklanabilirlik (0–100)
+            #    Değişken adı kalitesi: snake_case, ≥ 3 karakter, anlamlı isimler
+            # ─────────────────────────────────────────────────────
+            var_names = _re.findall(r'\b([a-zA-Z_][a-zA-Z0-9_]*)\s*=', code)
+            math_ok = {'i', 'j', 'k', 'n', 'm', 'x', 'y', 'z', 't'}
+            short_bad = [v for v in var_names if len(v) <= 2 and v not in math_ok]
+            snake = [v for v in var_names if '_' in v]
+            meaningful = [v for v in var_names if len(v) >= 4]
             total_vars = max(len(set(var_names)), 1)
-            var_score = max(0.0, 100.0 - (len(single_letter) / total_vars * 60)) \
-                        + min(40.0, len(meaningful) / total_vars * 40)
-            var_score = min(100.0, var_score)
 
-            # 3. Docstring varlığı
-            has_docstrings = '"""' in code or "'''" in code
-            docstring_score = 100.0 if has_docstrings else 30.0
+            short_penalty = (len(short_bad) / total_vars) * 60.0
+            snake_bonus = (len(snake) / total_vars) * 40.0
+            meaningful_bonus = (len(meaningful) / total_vars) * 40.0
+            aciklanabilirlik = round(max(0.0, min(100.0, 60.0 - short_penalty + snake_bonus + meaningful_bonus * 0.5)), 2)
 
-            # 4. Adım adım marker
-            markers = ['adim', 'step', 'aşama', '# 1.', '# 2.', '# 3.']
-            has_markers = any(m in code.lower() for m in markers)
-            marker_score = 100.0 if has_markers else 60.0
-
-            # Ağırlıklı ortalama
+            # ─────────────────────────────────────────────────────
+            # Birleşik pedagojik skor (tez ağırlıkları)
+            # ─────────────────────────────────────────────────────
             score = (
-                comment_score  * 0.35 +
-                var_score      * 0.30 +
-                docstring_score * 0.25 +
-                marker_score   * 0.10
+                yorum_kalitesi    * 0.25 +
+                ornek_zenginligi  * 0.20 +
+                ogrenme_kolayligi * 0.20 +
+                clt_uygunlugu     * 0.20 +
+                aciklanabilirlik  * 0.15
             )
 
             return {
                 "score": round(min(100.0, max(0.0, score)), 2),
-                "comment_ratio": round(comment_ratio, 2),
-                "comment_score": round(comment_score, 2),
-                "var_score": round(var_score, 2),
-                "docstring_score": round(docstring_score, 2),
-                "marker_score": round(marker_score, 2),
-                "has_docstrings": has_docstrings,
-                "has_markers": has_markers,
+                "yorum_kalitesi":    yorum_kalitesi,
+                "ornek_zenginligi":  ornek_zenginligi,
+                "ogrenme_kolayligi": ogrenme_kolayligi,
+                "clt_uygunlugu":     clt_uygunlugu,
+                "aciklanabilirlik":  aciklanabilirlik,
             }
         except Exception as e:
             return {"score": 50.0, "error": str(e)}
@@ -999,13 +1077,13 @@ class CodeEvaluator:
         except Exception as e:
             return {"score": 50.0, "method": "error", "error": str(e)}
 
-    def evaluate_all(self, results: List[Dict], dreyfus_level: str = "competent") -> List[Dict]:
+    def evaluate_all(self, results: List[Dict], learning_goal: float = 0.5) -> List[Dict]:
         """
-        Tüm persona sonuçlarını değerlendir — dreyfus_level ile adaptif gamma dahil (B2).
+        Tüm persona sonuçlarını değerlendir — learning_goal ile adaptif gamma dahil (tez 3.3.3).
 
         Args:
             results: Code generator sonuçları
-            dreyfus_level: Kullanıcının Dreyfus seviyesi
+            learning_goal: CAQ vektöründen öğrenme hedefi (0.0–1.0)
 
         Returns:
             Değerlendirilmiş sonuçlar
@@ -1018,7 +1096,7 @@ class CodeEvaluator:
                     result["code"],
                     result["persona_id"],
                     result["persona_name"],
-                    dreyfus_level=dreyfus_level
+                    learning_goal=learning_goal
                 )
                 # Orijinal bilgileri ekle
                 evaluation.update({
@@ -1123,7 +1201,7 @@ print(fibonacci(10))
 """
     
     evaluator = CodeEvaluator()
-    result = evaluator.evaluate_code(test_code, "test_1", "Test Persona")
+    result = evaluator.evaluate_code(test_code, "test_1", "Test Persona", learning_goal=0.5)
     
     print("📊 Değerlendirme Sonuçları:")
     print(f"  • Toplam Skor: {result['total_score']:.2f}/100")

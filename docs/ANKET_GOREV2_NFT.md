@@ -1,5 +1,5 @@
 # Görev 2 — Öğrenci Başarı NFT Sistemi
-**Zorluk:** Düşük-Orta | **AI Tipi:** Complementary (Tamamlayıcı)
+**Zorluk:** Düşük-Orta | **Blok:** 1 (Adaptif) / 2 (Sabit) | **Mod:** NASA-TLX'e göre dinamik (Blok 1) — UUID paritesine göre sabit (Blok 2)
 
 ---
 

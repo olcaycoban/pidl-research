@@ -1,5 +1,5 @@
 """
-Database package for PIDL Research System
+Database package for PITL Research System
 """
 from .models import (
     Participant,

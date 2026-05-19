@@ -1,5 +1,5 @@
 """
-SQLAlchemy Models for PIDL Research System
+SQLAlchemy Models for PITL Research System
 Tüm araştırma verilerini saklamak için database modelleri
 """
 

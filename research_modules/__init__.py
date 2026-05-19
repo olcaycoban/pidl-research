@@ -1,5 +1,5 @@
 """
-Research Modules for PIDL Research System
+Research Modules for PITL Research System
 Araştırma formları ve anketler
 """
 from .consent_form import ConsentForm

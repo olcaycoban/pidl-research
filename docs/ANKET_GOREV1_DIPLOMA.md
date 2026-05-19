@@ -1,5 +1,5 @@
 # Görev 1 — Diploma Doğrulama Sistemi
-**Zorluk:** Düşük | **AI Tipi:** Similar (Benzer)
+**Zorluk:** Düşük | **Blok:** 1 (Adaptif) / 2 (Sabit) | **Mod:** NASA-TLX'e göre dinamik (Blok 1) — UUID paritesine göre sabit (Blok 2)
 
 ---
 

@@ -1,5 +1,5 @@
 # Görev 4 — Öğrenci Kredisi Havuzu
-**Zorluk:** Orta-Yüksek | **AI Tipi:** Complementary (Tamamlayıcı)
+**Zorluk:** Orta-Yüksek | **Blok:** 1 (Adaptif) / 2 (Sabit) | **Mod:** NASA-TLX'e göre dinamik (Blok 1) — UUID paritesine göre sabit (Blok 2)
 
 ---
 

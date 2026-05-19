@@ -1,5 +1,5 @@
 """
-PIDL Araştırma Yönetim Paneli
+PITL Araştırma Yönetim Paneli
 Admin dashboard - Veri analizi ve raporlama
 """
 
@@ -34,7 +34,7 @@ if "lang" not in st.session_state:
 
 # Sayfa yapılandırması
 st.set_page_config(
-    page_title="PIDL Yönetim Paneli",
+    page_title="PITL Yönetim Paneli",
     page_icon="📊",
     layout="wide"
 )
@@ -944,4 +944,4 @@ else:
 # Footer
 st.markdown("---")
 st.markdown("**Son Güncelleme:** " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-st.markdown("**PIDL Araştırma Sistemi** | Persona in the Loop - Admin Panel")
+st.markdown("**PITL Araştırma Sistemi** | Persona In The Loop - Admin Panel")
